@@ -1,15 +1,17 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react'
+import React from 'react'
+import './App.css'
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <button className='btn'> Hello DaisyUI</button>
-      </header>
-    </div>
-  );
+    <>
+    <h1 className="text-3xl font-bold underline">
+      Hello world!
+    </h1>
+    <button className="btn">Hello DaisyUI</button>
+    </>
+  )
 }
 
-export default App;
+export default App
