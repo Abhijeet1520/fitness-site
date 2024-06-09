@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .App {
   text-align: center;
 }
@@ -24,6 +28,14 @@
   color: white;
 }
 
+.btn{
+  background-color: #61dafb;
+  color: #282c34;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
 .App-link {
   color: #61dafb;
 }
@@ -36,3 +48,4 @@
     transform: rotate(360deg);
   }
 }
+
