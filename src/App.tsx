@@ -1,17 +1,21 @@
-import { useState } from 'react'
-import React from 'react'
-import './App.css'
+import React from 'react';
+import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './Home';
+import Login from './auth/login';
+import Register from './auth/register';
 
-function App() {
+const App: React.FC = () => {
+  return(
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home/>} />
+        <Route path="/home" element={<Home/>} />
+        <Route path="/login" element={<Login/>} />
+        <Route path="/register" element={<Register/>} />
+      </Routes>
+    </Router>
+  );
+};
 
-  return (
-    <>
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-    <button className="btn">Hello DaisyUI</button>
-    </>
-  )
-}
-
-export default App
+export default App;
