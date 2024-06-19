@@ -1,7 +1,7 @@
 import React from "react";
-import { useAuth } from "../contexts/authContext";
+import { useAuth } from "../../contexts/authContext";
 import { Link, useNavigate } from "react-router-dom";
-import { doSignOut } from "../firebase/auth";
+import { doSignOut } from "../../firebase/auth";
 
 const Header: React.FC = () => {
     const { userLoggedIn } = useAuth();

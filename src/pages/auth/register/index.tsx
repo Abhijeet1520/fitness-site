@@ -1,7 +1,7 @@
 import React, { useState, FormEvent, ChangeEvent } from 'react';
 import { Navigate, Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../components/contexts/authContext';
-import { doCreateUserWithEmailAndPassword } from '../../../components/firebase/auth';
+import { useAuth } from '../../../contexts/authContext';
+import { doCreateUserWithEmailAndPassword } from '../../../firebase/auth';
 
 const Register: React.FC = () => {
     const navigate = useNavigate();

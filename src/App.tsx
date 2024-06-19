@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/auth/login/index';
 import Register from './pages/auth/register/index';
-import { AuthProvider } from './components/contexts/authContext';
+import { AuthProvider } from './contexts/authContext';
 
 const App: React.FC = () => {
   return(
