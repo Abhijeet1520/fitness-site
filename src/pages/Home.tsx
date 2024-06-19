@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAuth } from '../contexts/authContext';
-import Header from '../components/header/header';
+import Header from '../components/navbar/navbar';
 
 const Home: React.FC = () => {
     const { currentUser, userLoggedIn } = useAuth();
