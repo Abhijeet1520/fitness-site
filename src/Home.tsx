@@ -1,11 +1,8 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from './contexts/authContext';
-import { doSignOut } from './firebase/auth';
 import Header from './header';
 
 const Home: React.FC = () => {
-    const navigate = useNavigate();
     const { currentUser, userLoggedIn } = useAuth();
 
     return (
