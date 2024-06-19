@@ -1,9 +1,11 @@
 import React, { useState, FormEvent, ChangeEvent } from 'react';
-import { Navigate, Link } from 'react-router-dom';
+import { Navigate, Link, useNavigate } from 'react-router-dom';
 import { doSignInWithEmailAndPassword, doSignInWithGoogle } from '../../firebase/auth';
 import { useAuth } from '../../contexts/authContext';
 
 const Login: React.FC = () => {
+    // const { userLoggedIn } = useAuth();
+    const navigate = useNavigate();
     const { userLoggedIn } = useAuth();
 
     const [email, setEmail] = useState<string>('');
@@ -18,6 +20,7 @@ const Login: React.FC = () => {
             try {
                 await doSignInWithEmailAndPassword(email, password);
                 // doSendEmailVerification()
+                navigate('/home');
             } catch (error) {
                 setIsSigningIn(false);
                 setErrorMessage('Error signing in. Please try again.');
