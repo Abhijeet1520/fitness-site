@@ -48,10 +48,10 @@ const Header: React.FC = () => {
             <div className="navbar-end hidden lg:flex">
 
                 <ul className="menu menu-horizontal px-1">
-                    <li><a>About</a></li>
-                    <li><a>Programs</a></li>
-                    <li><a>Contact</a></li>
-                    <li><a>More</a></li>
+                    <li><a className="nav-el">About</a></li>
+                    <li><a className="nav-el">Programs</a></li>
+                    <li><a className="nav-el">Contact</a></li>
+                    <li><a className="nav-el">More</a></li>
                 </ul>
                 </div>
                 <span className="login-btn">

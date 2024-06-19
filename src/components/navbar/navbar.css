@@ -27,3 +27,11 @@ li{
 #menuu{
     background: #000;
 }
+
+.nav-el{
+    color: black;
+}
+
+.nav-el:hover{
+    color: green;
+}
