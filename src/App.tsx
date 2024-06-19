@@ -1,17 +1,25 @@
-import { useState } from 'react'
-import React from 'react'
-import './App.css'
+import React from 'react';
+import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './Home';
+import Login from './auth/login/index';
+import Register from './auth/register/index';
+import { AuthProvider } from './contexts/authContext';
 
-function App() {
+const App: React.FC = () => {
+  return(
 
-  return (
-    <>
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-    <button className="btn">Hello DaisyUI</button>
-    </>
-  )
-}
+    <Router>
+      <AuthProvider>
+      <Routes>
+        <Route path="/" element={<Home/>} />
+        <Route path="/home" element={<Home/>} />
+        <Route path="/login" element={<Login/>} />
+        <Route path="/register" element={<Register/>} />
+      </Routes>
+      </AuthProvider>
+    </Router>
+  );
+};
 
-export default App
+export default App;
