@@ -20,8 +20,10 @@ li{
     font-size: large;
 }
 
-.login-btn{
+.loginbtn{
+    cursor: pointer;
     margin-left: 3%;
+    margin-right: 5%;
 }
 
 #menuu{
