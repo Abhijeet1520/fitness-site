@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Login from './pages/auth/login/index';
 import Register from './pages/auth/register/index';
 import { AuthProvider } from './contexts/authContext';
+import Profile from './pages/profile';
 
 const App: React.FC = () => {
   return(
@@ -16,6 +17,7 @@ const App: React.FC = () => {
         <Route path="/home" element={<Home/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/register" element={<Register/>} />
+        <Route path="/profile" element={<Profile/>} />
       </Routes>
       </AuthProvider>
     </Router>
