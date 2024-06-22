@@ -15,10 +15,9 @@ const LoginLogout: React.FC = () => {
     return (
         <div>
             <Header />
-            <div className="space"></div>
-            <div className="join">
-                <input className="join-item btn btn-squared" type="radio" onClick={() => setSignin(true)} name="options" aria-label="Sign In" checked={signin} />
-                <input className="join-item btn btn-squared" type="radio" onClick={() => setSignin(false)} name="options" aria-label="Sign Up" checked={!signin} />
+            <div className="join my-10">
+                <input className="join-item btn text-white" type="radio" onClick={() => setSignin(true)} name="options" aria-label="Sign In" checked={signin} />
+                <input className="join-item btn text-white" type="radio" onClick={() => setSignin(false)} name="options" aria-label="Sign Up" checked={!signin} />
             </div>
 
             {signin ? (
