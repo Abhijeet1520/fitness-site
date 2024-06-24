@@ -5,7 +5,7 @@ import {doSignOut} from "../../firebase/auth";
 import { useNavigate } from "react-router-dom";
 import Login from "../auth/login";
 import Register from "../auth/register";
-import LoginLogout from "../../components/buttons/login_logout";
+import LoginLogout from "../auth/login_logout/login_logout";
 import Header from "../../components/navbar/navbar";
 
 const Profile: React.FC = () => {
