@@ -6,12 +6,13 @@ import Login from './pages/auth/login/index';
 import Register from './pages/auth/register/index';
 import { AuthProvider } from './contexts/authContext';
 import Profile from './pages/profile';
+import Navbar from './components/navbar/navbar';
 
 const App: React.FC = () => {
   return(
-
     <Router>
       <AuthProvider>
+      <Navbar/>
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/home" element={<Home/>} />
