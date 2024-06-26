@@ -11,7 +11,7 @@ const LoginLogout: React.FC = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="w-full px-[20%]">
+        <div className="w-screen px-[10%]">
             <div className="join mt-10">
                 <input className="join-item btn text-white" type="radio" onClick={() => setSignin(true)} name="options" aria-label="Sign In" checked={signin} />
                 <input className="join-item btn text-white" type="radio" onClick={() => setSignin(false)} name="options" aria-label="Sign Up" checked={!signin} />

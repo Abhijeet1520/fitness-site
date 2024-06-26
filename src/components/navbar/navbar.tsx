@@ -54,8 +54,11 @@ const Header: React.FC = () => {
                     <li><a className="nav-el">More</a></li>
                 </ul>
                 </div>
-                <div className="loginbtn">
+                {/* <div className="loginbtn">
                     <FaUserCircle size={30} onClick={() => {navigate("/profile")}}/>
+                </div> */}
+                <div className="text-white rounded-lg bg-black p-2 mx-2">
+                    <span className="hover:underline hover:cursor">Sign In</span> / <span className="hover:underline hover:cursor">Sign Up</span>
                 </div>
             </div>
         </nav>

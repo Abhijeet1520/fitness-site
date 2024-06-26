@@ -2,7 +2,7 @@ import React, { useState, FormEvent, ChangeEvent } from 'react';
 import { Navigate, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../contexts/authContext';
 import { doCreateUserWithEmailAndPassword } from '../../../firebase/auth';
-import { Button, Input } from 'react-daisyui';
+import { Input } from 'react-daisyui';
 
 const Register: React.FC = () => {
     const navigate = useNavigate();
@@ -36,12 +36,13 @@ const Register: React.FC = () => {
     };
 
     return (
-        <div>
+        <div className='flex flex-col w-screen'>
+        <div className='border-b-2 '><h1 className='text-left text-black font-bold m-5'>Sign Up</h1></div>
+        <div className="flex flex-col items-center justify-center min-h-screen">
             {userLoggedIn && (<Navigate to={'/home'} replace={true}/>)}
             
-            <div className='border-b-2 '><h1 className='text-left text-black font-bold m-5'>Sign Up</h1></div>
             
-            <form className='flex flex-col gap-5 mt-5 items-center w-[20%] mx-auto text-black'>
+            <form className='flex flex-col gap-5 items-center w-full max-w-md mx-auto text-black'>
 
                 <div className='flex justify-between w-full'>
                     <label className="text-lg font-bold">Name</label>
@@ -88,6 +89,11 @@ const Register: React.FC = () => {
                 </button>
 
             </form>
+
+            <p className="text-sm m-5">
+                Already have an account? <Link to={'/login'} className="underline text-black">Sign in</Link>
+            </p>
+        </div>
         </div>
     );
 };
