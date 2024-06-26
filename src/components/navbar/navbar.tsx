@@ -58,7 +58,7 @@ const Header: React.FC = () => {
                     <FaUserCircle size={30} onClick={() => {navigate("/profile")}}/>
                 </div> */}
                 <div className="text-white rounded-lg bg-black p-2 mx-2">
-                    <span className="hover:underline hover:cursor">Sign In</span> / <span className="hover:underline hover:cursor">Sign Up</span>
+                    <Link to={'/login'} className="hover:underline hover:cursor-pointer text-white hover:text-white">Sign In</Link> / <Link to={'/register'} className="hover:underline hover:cursor-pointer text-white hover:text-white">Sign Up</Link>
                 </div>
             </div>
         </nav>
