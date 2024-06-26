@@ -18,7 +18,7 @@ const About: React.FC = () => {
     </div>
         <div 
         className="card lg:card-side bg-base-500 shadow-xl"
-        style={{border:"2px solid gray"}}
+        style={{border:"1px solid green"}}
         >
             <figure>
                 <img
