@@ -1,7 +1,6 @@
 
 .card{
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
@@ -20,7 +19,6 @@
  
  .quote {
     margin-top: 3vh;
-    /* position: relative; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -36,7 +34,8 @@
     width: 200vw;
     height: 100%;
     object-fit: cover;
-    z-index: -1;
+    z-index: 2;
+    border: 1px solid green;
   }
   .overlay {
     position: absolute;
@@ -45,13 +44,13 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity here */
-    z-index: 0;
+    z-index: 3;
   }
   
   .quote-text-container {
-    position: relative;
-    z-index: 1;
-    width: 100%;
+    position: absolute;
+    z-index: 4;
+    width: 70%;
     height: 100%;
     display: flex;
     justify-content: center;

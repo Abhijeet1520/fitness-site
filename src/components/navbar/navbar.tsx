@@ -21,17 +21,17 @@ const Header: React.FC = () => {
                         </div>
                         <ul tabIndex={0} id="menuu" className="menu menu-md dropdown-content mt-3 z-[1] p-2 shadow bg-base-500 rounded-box w-32">
                             <li>
-                            <a style={{color: "white", fontFamily: "helvetica"}}>
+                            <a href="#about" style={{color: "white", fontFamily: "helvetica"}}>
                                 About
                             </a>
                             </li>
                             <li>
-                                <a style={{color: "white", fontFamily: "helvetica"}}>
+                                <a href="#programs" style={{color: "white", fontFamily: "helvetica"}}>
                                     Programs
                                 </a>
                             </li>
                             <li>
-                                <a style={{color: "white", fontFamily: "helvetica"}}>
+                                <a href="#contact" style={{color: "white", fontFamily: "helvetica"}}>
                                     Contact
                                 </a>
                             </li>
@@ -48,9 +48,9 @@ const Header: React.FC = () => {
             <div className="navbar-center hidden lg:flex">
 
                 <ul className="menu menu-horizontal px-1">
-                    <li><a className="nav-el">About</a></li>
-                    <li><a className="nav-el">Programs</a></li>
-                    <li><a className="nav-el">Contact</a></li>
+                    <li><a href="#about" className="nav-el">About</a></li>
+                    <li><a href="#programs" className="nav-el">Programs</a></li>
+                    <li><a href="#contact" className="nav-el">Contact</a></li>
                     <li><a className="nav-el">More</a></li>
                 </ul>
                 </div>

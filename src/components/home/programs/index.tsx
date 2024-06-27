@@ -1,9 +1,9 @@
 import React from "react";
 import Program from "../../../interfaces/program";
 import ProgramCard from "./programCard";
-import alt3 from "../../../assets/alt3.jpeg";
+import "./programs.css";
 
-const Programs: React.FC = () => {
+const Programs: React.FC< {id: string}> = ({id}) => {
 
   // Sample Data
   const programs: Program[] = [
@@ -34,8 +34,8 @@ const Programs: React.FC = () => {
 
   return (
     <>
-    <div className="all">
-        <h1>Programs</h1>
+    <div id={id} className="all">
+        <h1 className="prog-head">Programs</h1>
         <div>
           <div className="responsive-three-column-grid">
             {programs.map((program, index) => (
