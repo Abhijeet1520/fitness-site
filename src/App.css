@@ -1,16 +1,5 @@
 #root {
-  max-width: 1280px;
   text-align: center;
-  margin-top: 3rem;
+  padding-top: 3rem;
+  height: 100vh;
 }
-
-/* .btn {
-  padding: 0.5em 1em;
-  margin: 0.5em;
-  border-radius: 0.25em;
-  background-color: #646cff;
-  color: white;
-  text-decoration: none;
-  transition: background-color 300ms;
-} */
-

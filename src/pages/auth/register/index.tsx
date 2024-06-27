@@ -36,9 +36,9 @@ const Register: React.FC = () => {
     };
 
     return (
-        <div className='flex flex-col w-screen'>
-        <div className='border-b-2 '><h1 className='text-left text-black font-bold m-5'>Sign Up</h1></div>
-        <div className="flex flex-col items-center justify-center min-h-screen">
+        <div className='flex flex-col h-full'>
+        <div className='border-b-2'><h1 className='text-left text-black text-4xl font-bold m-5'>Sign Up</h1></div>
+        <div className="flex flex-col items-center justify-center h-full">
             {userLoggedIn && (<Navigate to={'/home'} replace={true}/>)}
             
             
@@ -76,14 +76,14 @@ const Register: React.FC = () => {
                     <label className="text-lg font-bold">Confirm Password</label>
                     <Input
                         type="password"
-                        value={password}
+                        value={confirmPassword}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => { setConfirmPassword(e.target.value) }}
                         className='bg-[#FAFAF5] border border-[#E6E6E6] ml-5 rounded-full'
                     />
                 </div>
 
                 <button type="submit" disabled={isRegistering}
-                    className={`m-auto place-self-center p-2 px-4 text-[#E5E5E5] font-semibold rounded-full ${isRegistering ? 'bg-[#525252]' : 'bg-[#6D6D6D] hover:bg-[#525252] hover:shadow-xl active:bg-[#3b3b3b]'}`}
+                    className={`m-auto place-self-center p-2 px-4 text-white font-semibold rounded-full ${isRegistering ? 'bg-[#525252]' : 'bg-[#6D6D6D] hover:bg-[#525252] hover:shadow-xl active:bg-[#3b3b3b]'}`}
                 >
                     {isRegistering ? 'Signing Up...' : 'Sign Up'}
                 </button>
