@@ -47,8 +47,8 @@ const Login: React.FC = () => {
 
     return (
 
-        <div className='flex flex-col h-full'>
-            <div className='border-b-2'><h1 className='text-left text-black text-4xl font-bold m-5'>Sign In</h1></div>
+        <div className='flex flex-col h-full px-[10%]'>
+            <div className='border-b-2 px-[2%]'><h1 className='text-left text-black text-4xl font-bold m-5'>Sign In</h1></div>
             <div className="flex flex-col items-center justify-center h-full">
                 {userLoggedIn && (<Navigate to={'/home'} replace={true}/>)}
                 
@@ -56,21 +56,21 @@ const Login: React.FC = () => {
                 <form className='flex flex-col gap-5 items-center w-full max-w-md mx-auto text-black'>
 
                     <div className='flex justify-between w-full'>
-                        <label className="text-lg font-bold">Email</label>
+                        <label className="text-left text-lg font-bold">Email</label>
                         <Input
                             type="email"
                             value={email}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => { setEmail(e.target.value) }}
-                            className='bg-[#FAFAF5] border border-[#E6E6E6] ml-5 rounded-full' 
+                            className='bg-[#FAFAF5] border border-[#E6E6E6] ml-5 rounded-full w-[60%]' 
                         />
                     </div>
                     <div className='flex justify-between w-full'>
-                        <label className="text-lg font-bold">Password</label>
+                        <label className="text-left text-lg font-bold">Password</label>
                         <Input
                             type="password"
                             value={password}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => { setPassword(e.target.value) }}
-                            className='bg-[#FAFAF5] border border-[#E6E6E6] ml-5 rounded-full'
+                            className='bg-[#FAFAF5] border border-[#E6E6E6] ml-5 rounded-full w-[60%]'
                         />
                     </div>
 
