@@ -2,10 +2,12 @@ import React, { useState, FormEvent, ChangeEvent } from 'react';
 import { Navigate, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../contexts/authContext';
 import { doCreateUserWithEmailAndPassword } from '../../../firebase/auth';
+import { Input } from 'react-daisyui';
 
 const Register: React.FC = () => {
     const navigate = useNavigate();
 
+    const [name, setName] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [confirmPassword, setConfirmPassword] = useState<string>('');
@@ -34,67 +36,64 @@ const Register: React.FC = () => {
     };
 
     return (
-        <div>
+        <div className='flex flex-col h-full'>
+        <div className='border-b-2'><h1 className='text-left text-black text-4xl font-bold m-5'>Sign Up</h1></div>
+        <div className="flex flex-col items-center justify-center h-full">
             {userLoggedIn && (<Navigate to={'/home'} replace={true}/>)}
+            
+            
+            <form className='flex flex-col gap-5 items-center w-full max-w-md mx-auto text-black'>
 
-            <div className="w-96 text-gray-600 space-y-5 p-4 shadow-xl border rounded-xl">
+                <div className='flex justify-between w-full'>
+                    <label className="text-lg font-bold">Name</label>
+                    <Input
+                        type="name"
+                        value={name}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => { setName(e.target.value) }}
+                        className='bg-[#FAFAF5] border border-[#E6E6E6] ml-5 rounded-full'
+                    />
+                </div>
 
-                <h3 className="text-gray-800 text-xl font-semibold sm:text-2xl">Create Account</h3>
-                        
-                
-                    <form onSubmit={onSubmit} className="space-y-5">
+                <div className='flex justify-between w-full'>
+                    <label className="text-lg font-bold">Email</label>
+                    <Input
+                        type="email"
+                        value={email}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => { setEmail(e.target.value) }}
+                        className='bg-[#FAFAF5] border border-[#E6E6E6] ml-5 rounded-full' 
+                    />
+                </div>
+                <div className='flex justify-between w-full'>
+                    <label className="text-lg font-bold">Password</label>
+                    <Input
+                        type="password"
+                        value={password}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => { setPassword(e.target.value) }}
+                        className='bg-[#FAFAF5] border border-[#E6E6E6] ml-5 rounded-full'
+                    />
+                </div>
+                <div className='flex justify-between w-full'>
+                    <label className="text-lg font-bold">Confirm Password</label>
+                    <Input
+                        type="password"
+                        value={confirmPassword}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => { setConfirmPassword(e.target.value) }}
+                        className='bg-[#FAFAF5] border border-[#E6E6E6] ml-5 rounded-full'
+                    />
+                </div>
 
-                        <label className="text-sm text-gray-600 font-bold">
-                            Email
-                        </label>
-                        <input
-                            type="email"
-                            autoComplete='email'
-                            required
-                            value={email} onChange={(e: ChangeEvent<HTMLInputElement>) => { setEmail(e.target.value) }}
-                            className="w-full p-2 text-gray-500 bg-transparent border rounded-lg"
-                        />
+                <button type="submit" disabled={isRegistering}
+                    className={`m-auto place-self-center p-2 px-4 text-white font-semibold rounded-full ${isRegistering ? 'bg-[#525252]' : 'bg-[#6D6D6D] hover:bg-[#525252] hover:shadow-xl active:bg-[#3b3b3b]'}`}
+                >
+                    {isRegistering ? 'Signing Up...' : 'Sign Up'}
+                </button>
 
-                        <label className="text-sm text-gray-600 font-bold">
-                            Password
-                        </label>
-                        <input
-                            disabled={isRegistering}
-                            type="password"
-                            autoComplete='new-password'
-                            required
-                            value={password} onChange={(e: ChangeEvent<HTMLInputElement>) => { setPassword(e.target.value) }}
-                            className="w-full p-2 text-gray-500 bg-transparent border rounded-lg"
-                        />
+            </form>
 
-                        <label className="text-sm text-gray-600 font-bold">
-                            Confirm Password
-                        </label>
-                        <input
-                            disabled={isRegistering}
-                            type="password"
-                            autoComplete='off'
-                            required
-                            value={confirmPassword} onChange={(e: ChangeEvent<HTMLInputElement>) => { setConfirmPassword(e.target.value) }}
-                            className="w-full p-2 text-gray-500 bg-transparent border rounded-lg"
-                        />
-
-                        {errorMessage && (
-                            <span className='text-red-500 text-sm font-semibold'>{errorMessage}</span>
-                        )}
-
-                        <button type="submit" disabled={isRegistering}
-                            className={`w-full p-2 text-white font-medium rounded-lg ${isRegistering ? 'bg-blue-700' : 'bg-blue-600 hover:bg-blue-700 hover:shadow-xl'}`}
-                        >
-                            {isRegistering ? 'Signing Up...' : 'Sign Up'}
-                        </button>
-                    </form>
-
-                    <p className="text-sm">
-                        Already have an account? {'   '}
-                        <Link to={'/login'} className="hover:underline font-bold">Sign in</Link>
-                    </p>
-            </div>
+            <p className="text-sm m-5">
+                Already have an account? <Link to={'/login'} className="underline text-black">Sign in</Link>
+            </p>
+        </div>
         </div>
     );
 };
