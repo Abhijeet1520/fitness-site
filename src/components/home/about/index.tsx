@@ -3,8 +3,8 @@ import "./about.css";
 import alt1 from "../../../assets/alt1.jpeg";
 import alt2 from '../../../assets/alt2.jpeg';
 
-const About: React.FC = () => {
-  return (
+const About: React.FC<{ id?: string }> = ({ id }) => {
+    return (
     <div>
         <div className="quote">
         <img src={alt2} alt='bg' className='bgimg'></img>
@@ -15,7 +15,8 @@ const About: React.FC = () => {
                 <h3>- Altemira</h3>
             </div>
         </div>
-    </div>
+        </div>
+    <section id={id}>
         <div 
         className="card lg:card-side bg-base-500 shadow-xl"
         style={{border:"1px solid green"}}
@@ -33,7 +34,9 @@ const About: React.FC = () => {
                 the prestigious IN World Champion title. With over 250,000 followers on Instagram, she has cultivated a dedicated community of fitness enthusiasts who look to her for inspiration, guidance, and motivation on their health and wellness journeys. Altemira's expertise, combined with her passion for fitness, has propelled her to the forefront of the industry, where she continues toinspire and empower others to achieve their fitness goals.</p>
             </div>
         </div>
+    </section>
     </div>
+    
 );
 };
 

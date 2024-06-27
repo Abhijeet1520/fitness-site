@@ -1,5 +1,5 @@
 .all {
-    position: absolute;
+    top: 0;
     left: 0;
     width: 100vw;
     object-fit: cover;
@@ -7,7 +7,7 @@
     color: #ffffff;
   }
 
-h1{
+.prog-head{
     font-family: 'Times New Roman', Times, serif;
     text-decoration: underline;
     text-align: left;
@@ -29,14 +29,6 @@ h1{
     color: #000000; /* White text */
     border: green 1px solid;
   }
-  
-.custom-btn {
-    background-color: #ffffff;
-    color: green;
-    border: 1px solid green;
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 1.8vh;
-}
 
 s{
     color: red;
@@ -74,7 +66,7 @@ h2{
 }
 
 /* mobile breakpoint */
-@media (max-width: 480px) {
+@media (max-width: 580px) {
     .responsive-three-column-grid {
         grid-template-columns: 1fr;
     }
