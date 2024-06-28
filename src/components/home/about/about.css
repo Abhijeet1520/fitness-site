@@ -1,6 +1,7 @@
 
 .card{
   margin: 20px;
+  /* margin-top: -40px; */
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
@@ -28,7 +29,7 @@
   }
   
   .bgimg {
-    position: absolute;
+    /* position: relative; */
     top: 0;
     left: 0;
     width: 200vw;
@@ -86,6 +87,18 @@
     .quote-text h3 {
       font-size: 5vw;
     }
+
+    /* .card{
+      margin: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+      transition: 0.3s;
+      background-color: #f8f9fa;
+      padding: 20px;
+      text-align: left;
+      font-size: 2.7vh;
+      color: #343a40;
+    } */
   }
   
   @media (max-width: 580px) {
@@ -95,6 +108,19 @@
   
     .quote-text h3 {
       font-size: 7vw;
+    }
+
+    .card{
+      margin-left: 20px;
+      width: 90vw;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+      transition: 0.3s;
+      background-color: #f8f9fa;
+      padding: 20px;
+      text-align: left;
+      font-size: 2.7vh;
+      color: #343a40;
     }
   }
   
