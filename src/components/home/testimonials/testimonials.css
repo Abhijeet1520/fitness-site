@@ -15,6 +15,12 @@
     padding: 2vh;
 }
 
+.carousel{
+    width: 100vw;
+    object-fit: cover;
+    color: #000000;
+}
+
 @media screen and (max-width: 768px) {
     .all-test {
         width: 100vw;
