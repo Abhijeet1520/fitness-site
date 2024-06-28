@@ -42,7 +42,7 @@ const Header: React.FC = () => {
                             </li>
                         </ul>
                 </div> 
-                <a href="/home" className="pagename">Altemira Fitness</a>
+                <a href="/" className="pagename">Altemira Fitness</a>
             </div>
             <div className="navbar-end">
             <div className="navbar-center hidden lg:flex">
