@@ -74,7 +74,7 @@ const Login: React.FC = () => {
                         />
                     </div>
 
-                    <button type="submit" disabled={isSigningIn}
+                    <button type="submit" disabled={isSigningIn} onClick={() => onSubmit}
                         className={`m-auto place-self-center p-2 px-4 text-white font-semibold rounded-full ${isSigningIn ? 'bg-[#525252]' : 'bg-[#6D6D6D] hover:bg-[#525252] hover:shadow-xl active:bg-[#3b3b3b]'}`}
                     >
                         {isSigningIn ? 'Signing In...' : 'Sign In'}
