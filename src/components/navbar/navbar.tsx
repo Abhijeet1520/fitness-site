@@ -54,12 +54,12 @@ const Header: React.FC = () => {
                     <li><a className="nav-el">More</a></li>
                 </ul>
                 </div>
-                <div className="loginbtn">
+                {userLoggedIn && <div className="loginbtn">
                     <FaUserCircle size={30} onClick={() => {navigate("/profile")}}/>
-                </div>
-                {/* <div className="text-white rounded-lg bg-black p-2 mx-2">
+                </div>}
+                {!userLoggedIn && <div className="text-white rounded-lg bg-black p-2 mx-2">
                     <Link to={'/login'} className="hover:underline hover:cursor-pointer text-white hover:text-white">Sign In</Link> / <Link to={'/register'} className="hover:underline hover:cursor-pointer text-white hover:text-white">Sign Up</Link>
-                </div> */}
+                </div>}
             </div>
         </nav>
         </>
