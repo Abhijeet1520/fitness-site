@@ -26,7 +26,7 @@ const Header: React.FC = () => {
                             </a>
                             </li>
                             <li>
-                                <a href="#programs" style={{color: "white", fontFamily: "helvetica"}}>
+                                <a href="/programs" style={{color: "white", fontFamily: "helvetica"}}>
                                     Programs
                                 </a>
                             </li>
@@ -49,7 +49,7 @@ const Header: React.FC = () => {
 
                 <ul className="menu menu-horizontal px-1">
                     <li><a href="#about" className="nav-el">About</a></li>
-                    <li><a href="#programs" className="nav-el">Programs</a></li>
+                    <li><a href="/programs" className="nav-el">Programs</a></li>
                     <li><a href="#contact" className="nav-el">Contact</a></li>
                     <li><a className="nav-el">More</a></li>
                 </ul>
