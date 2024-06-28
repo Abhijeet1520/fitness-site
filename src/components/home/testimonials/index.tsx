@@ -29,7 +29,7 @@ const Testimonials: React.FC = () => {
         <h1 className="prog-head">Testimonials</h1>
     <div>
         {screen.width < 768 ? (
-    <div className="carousel carousel-center bg-neutral rounded-box max-w-sm space-x-4 p-4">
+    <div className="carousel carousel-center rounded-box max-w-sm space-x-4 p-4">
         {/* <div className="carousel-item">
             <img
             src="https://img.daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.jpg"
