@@ -9,6 +9,7 @@ import Program from './pages/programs/program';
 import { AuthProvider } from './contexts/authContext';
 import Profile from './pages/profile';
 import Navbar from './components/navbar/navbar';
+import Footer from './components/footer';
 
 const App: React.FC = () => {
   return(
@@ -25,6 +26,7 @@ const App: React.FC = () => {
             <Route path=':name' element={<Program/>} />
           </Route>
         </Routes>
+      <Footer/>
       </AuthProvider>
     </Router>
   );
