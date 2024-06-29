@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useAuth } from "../../contexts/authContext";
 import { Link, useNavigate } from "react-router-dom";
 import "./navbar.css";
@@ -8,6 +8,24 @@ import { CiMenuBurger } from "react-icons/ci";
 const Header: React.FC = () => {
     const { userLoggedIn } = useAuth();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        console.log(window.location.pathname.toString());
+        // go to home page and then scroll to the section contact or about
+        if (window.location.pathname.toString() === "/") {
+            if (window.location.hash === "#contact") {
+                const contact = document.getElementById("contact");
+                if (contact) {
+                    contact.scrollIntoView();
+                }
+            } else if (window.location.hash === "#about") {
+                const about = document.getElementById("about");
+                if (about) {
+                    about.scrollIntoView();
+                }
+            }
+        }
+    }, []);
 
     return (
         <>
@@ -21,7 +39,7 @@ const Header: React.FC = () => {
                         </div>
                         <ul tabIndex={0} id="menuu" className="menu menu-md dropdown-content mt-3 z-[1] p-2 shadow bg-base-500 rounded-box w-32">
                             <li>
-                            <a href="#about" style={{color: "white", fontFamily: "helvetica"}}>
+                            <a href={window.location.pathname.toString() === "/" ? "#about" : "/#about" } style={{color: "white", fontFamily: "helvetica"}}>
                                 About
                             </a>
                             </li>
@@ -31,7 +49,7 @@ const Header: React.FC = () => {
                                 </a>
                             </li>
                             <li>
-                                <a href="#contact" style={{color: "white", fontFamily: "helvetica"}}>
+                                <a href={window.location.pathname.toString() === "/" ? "#contact" : "/#contact" } style={{color: "white", fontFamily: "helvetica"}}>
                                     Contact
                                 </a>
                             </li>
@@ -48,9 +66,9 @@ const Header: React.FC = () => {
             <div className="navbar-center hidden lg:flex">
 
                 <ul className="menu menu-horizontal px-1">
-                    <li><a href="#about" className="nav-el">About</a></li>
+                    <li><a href={window.location.pathname.toString() === "/" ? "#about" : "/#about" } className="nav-el">About</a></li>
                     <li><a href="/programs" className="nav-el">Programs</a></li>
-                    <li><a href="#contact" className="nav-el">Contact</a></li>
+                    <li><a href={window.location.pathname.toString() === "/" ? "#contact" : "/#contact" } className="nav-el">Contact</a></li>
                     <li><a className="nav-el">More</a></li>
                 </ul>
                 </div>

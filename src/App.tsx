@@ -26,7 +26,7 @@ const App: React.FC = () => {
             <Route path=':name' element={<Program/>} />
           </Route>
         </Routes>
-      <Footer/>
+      <Footer />
       </AuthProvider>
     </Router>
   );

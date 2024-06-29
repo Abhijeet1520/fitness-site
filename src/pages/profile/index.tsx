@@ -16,7 +16,7 @@ const Profile: React.FC = () => {
             <>
         <div>
             <h1>Profile</h1>
-            <button onClick={() => {doSignOut().then(() => {navigate('/home');});}} className="btn">Logout</button>
+            <button onClick={() => {doSignOut().then(() => {navigate('/');});}} className="btn">Logout</button>
         </div>
         </>
         ) : (
