@@ -26,7 +26,7 @@ const Header: React.FC = () => {
                             </a>
                             </li>
                             <li>
-                                <a href="#programs" style={{color: "white", fontFamily: "helvetica"}}>
+                                <a href="/programs" style={{color: "white", fontFamily: "helvetica"}}>
                                     Programs
                                 </a>
                             </li>
@@ -42,24 +42,24 @@ const Header: React.FC = () => {
                             </li>
                         </ul>
                 </div> 
-                <a href="/home" className="pagename">Altemira Fitness</a>
+                <a href="/" className="pagename">Altemira Fitness</a>
             </div>
             <div className="navbar-end">
             <div className="navbar-center hidden lg:flex">
 
                 <ul className="menu menu-horizontal px-1">
                     <li><a href="#about" className="nav-el">About</a></li>
-                    <li><a href="#programs" className="nav-el">Programs</a></li>
+                    <li><a href="/programs" className="nav-el">Programs</a></li>
                     <li><a href="#contact" className="nav-el">Contact</a></li>
                     <li><a className="nav-el">More</a></li>
                 </ul>
                 </div>
-                <div className="loginbtn">
+                {userLoggedIn && <div className="loginbtn">
                     <FaUserCircle size={30} onClick={() => {navigate("/profile")}}/>
-                </div>
-                {/* <div className="text-white rounded-lg bg-black p-2 mx-2">
+                </div>}
+                {!userLoggedIn && <div className="text-white rounded-lg bg-black p-2 mx-2">
                     <Link to={'/login'} className="hover:underline hover:cursor-pointer text-white hover:text-white">Sign In</Link> / <Link to={'/register'} className="hover:underline hover:cursor-pointer text-white hover:text-white">Sign Up</Link>
-                </div> */}
+                </div>}
             </div>
         </nav>
         </>
