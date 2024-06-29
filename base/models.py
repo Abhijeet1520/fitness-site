@@ -50,7 +50,20 @@ class OrderItem(models.Model):
     def __str__(self):
         return f"{self.course.title} - {self.quantity}"
 
+class Cart(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f"{self.user.username}'s cart"
+
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.course.title} - {self.quantity}"
 
 class ShippingAddress(models.Model):
     order = models.OneToOneField(Order,on_delete=models.CASCADE,null=True,blank=True)
