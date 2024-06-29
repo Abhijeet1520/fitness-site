@@ -26,36 +26,29 @@ class Review(models.Model):
 
     def __str__(self):
         return f"{self.course.title} - {self.rating}"
-
-
+    
+# Understand:
+# So basically order can have multiople order items that is if someone wants to buy multiple courses at once
+# also I have separated order from payment, Payment is its own model that has total price of all the orderItems
+# in the order related to the payment.
 class Order(models.Model):
-    user = models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
-    paymentMethod = models.CharField(max_length=200,null=True,blank=True)
-    taxPrice = models.DecimalField(max_digits=12,decimal_places=2,null=True,blank=True)
-    shippingPrice = models.DecimalField(max_digits=12,decimal_places=2,null=True,blank=True)
-    totalPrice = models.DecimalField(max_digits=12,decimal_places=2,null=True,blank=True)
-    isPaid = models.BooleanField(default=False)
-    paidAt = models.DateTimeField(auto_now_add=False,null=True, blank=True)
-    isDeliver = models.BooleanField(default=False)
-    deliveredAt = models.DateTimeField(auto_now_add=False,null=True, blank=True)
-    createdAt = models.DateTimeField(auto_now_add=True,null=True, blank=True)
-    _id =  models.AutoField(primary_key=True,editable=False)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    shipping_address = models.OneToOneField('ShippingAddress', on_delete=models.SET_NULL, null=True, blank=True)
+    payment = models.OneToOneField('Payment', on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
-        return str(self.createdAt)
-
-
+        return str(self.created_at)
+    
 class OrderItem(models.Model):
-    product = models.ForeignKey(Product,on_delete=models.SET_NULL,null=True)
-    order  = models.ForeignKey(Order,on_delete=models.SET_NULL,null=True)
-    name = models.CharField(max_length=200,null=True,blank=True)
-    qty = models.IntegerField(null=True,blank=True,default=0)
-    price = models.DecimalField(max_digits=12,decimal_places=2,null=True,blank=True)
+    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
+    course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True)
+    price = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
     image = models.CharField(max_length=200,null=True,blank=True)
-    _id =  models.AutoField(primary_key=True,editable=False)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return str(self.name)
+        return f"{self.course.title} - {self.quantity}"
 
 
 
