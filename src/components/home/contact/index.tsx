@@ -12,7 +12,7 @@ const Contact: React.FC<{id?:string}> = ({id}) => {
         <br />
         <a href="http://www.facebook.com/altemiraschliebe/"><SocialIcon className="m-2" network="facebook"/> Altemira Schliebe</a>
         <br />
-        <footer className="text-center" style={{fontSize:"1.5vh"}}>&copy; 2024 | Altemira Schliebe | All Rights Reserved.</footer>
+        {/* <footer className="text-center" style={{fontSize:"1.5vh"}}>&copy; 2024 | Altemira Schliebe | All Rights Reserved.</footer> */}
     </div>
 );
 };

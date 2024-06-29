@@ -7,6 +7,7 @@ import Register from './pages/auth/register/index';
 import { AuthProvider } from './contexts/authContext';
 import Profile from './pages/profile';
 import Navbar from './components/navbar/navbar';
+import Footer from './components/footer';
 
 const App: React.FC = () => {
   return(
@@ -20,6 +21,7 @@ const App: React.FC = () => {
         <Route path="/register" element={<Register/>} />
         <Route path="/profile" element={<Profile/>} />
       </Routes>
+      <Footer/>
       </AuthProvider>
     </Router>
   );
