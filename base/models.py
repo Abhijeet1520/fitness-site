@@ -76,6 +76,26 @@ class ShippingAddress(models.Model):
     country = models.CharField(max_length=200, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
+    def __str__(self):  
         return f"{self.address}, {self.city}"
+    
+
+class Week(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    week_number = models.IntegerField(null=True, blank=True, default=1)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Week {self.week_number} - {self.course.title}"
+
+
+class Exercise(models.Model):
+    week = models.ForeignKey(Week, on_delete=models.CASCADE)
+    title = models.CharField(max_length=200, null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
+    video_url = models.URLField(max_length=200, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
 
