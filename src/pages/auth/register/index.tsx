@@ -27,7 +27,7 @@ const Register: React.FC = () => {
                     return;
                 }
                 await doCreateUserWithEmailAndPassword(email, password);
-                navigate('/home');
+                navigate('/login');
             } catch (error) {
                 setIsRegistering(false);
                 setErrorMessage('Error signing up. Please try again.');
