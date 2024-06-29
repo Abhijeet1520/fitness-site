@@ -88,16 +88,27 @@ class Week(models.Model):
     def __str__(self):
         return f"Week {self.week_number} - {self.course.title}"
 
+    
+class Day(models.Model):
+    description = models.TextField(null=True, blank=True)
+    week = models.ForeignKey(Week, on_delete=models.CASCADE)
 
 class Exercise(models.Model):
     week = models.ForeignKey(Week, on_delete=models.CASCADE)
+    day = models.ForeignKey(Day, on_delete=models.CASCADE)
     title = models.CharField(max_length=200, null=True, blank=True)
+    type = models.CharField(max_length=200, null=True, blank=True) # Warmup | Exercise | Stretching
+    sets = models.IntegerField(null=True,blank=True,default=0)
+    reps = models.IntegerField(null=True,blank=True,default=0)
+    duration = models.DurationField(null=True, blank=True)
     description = models.TextField(null=True, blank=True)
+    # TODO: Here the admin can create a video as well so we'll need to see how we'll manage that
     video_url = models.URLField(max_length=200, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
+
     
 
 # So each payment is related to a single order model.
