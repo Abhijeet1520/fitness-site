@@ -10,6 +10,7 @@ import { AuthProvider } from './contexts/authContext';
 import Profile from './pages/profile';
 import Navbar from './components/navbar/navbar';
 import Footer from './components/footer';
+import Exercise from './pages/programs/exercise';
 
 const App: React.FC = () => {
   return(
@@ -24,6 +25,7 @@ const App: React.FC = () => {
           <Route path="/programs">
             <Route index element={<Programs/>} />
             <Route path=':name' element={<Program/>} />
+            <Route path='exercise' element={<Exercise />} />
           </Route>
         </Routes>
       <Footer />
