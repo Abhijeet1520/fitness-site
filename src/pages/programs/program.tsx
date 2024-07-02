@@ -1,10 +1,12 @@
 import React, { useState, FormEvent, ChangeEvent, useEffect } from 'react';
-import { Navigate, Link, useNavigate, useParams } from 'react-router-dom';
+import { Navigate, Link, useNavigate, useParams, Routes, Route, Outlet, useLocation } from 'react-router-dom';
 import { doSignInWithEmailAndPassword, doSignInWithGoogle } from '../../firebase/auth';
 import { useAuth } from '../../contexts/authContext';
 import { Input } from 'react-daisyui';
 import { FcGoogle } from "react-icons/fc";
 import { HiOutlineDotsVertical } from "react-icons/hi";
+import ProgramWeekNav from '../../components/programWeeksNav/index';
+import ProgramWeek from './programWeek';
 interface Program {
     name: string;
     includedImage: string;
@@ -18,6 +20,7 @@ interface Program {
 const Program: React.FC = () => {
     // const { userLoggedIn } = useAuth();
     const navigate = useNavigate();
+    const location = useLocation();
     const { userLoggedIn } = useAuth();
 
     const programName = useParams().name;
@@ -56,8 +59,6 @@ const Program: React.FC = () => {
 
     useEffect(() => {
         const currProgram = programs.find(program => program.name.toLowerCase() === programName);
-        console.log(currProgram);
-        console.log(programName);
         if (!currProgram) {
             return navigate('/programs');
         }
@@ -69,9 +70,13 @@ const Program: React.FC = () => {
     return (
 <div className='p-0 m-0'>
         <div className='flex flex-col h-full px-[10%] font-serif'>
-            
             <div className='border-b-2 px-[2%]'><h1 className='text-left text-black text-5xl font-bold m-5 pt-10'>{program.name} Program</h1></div>
+            
+            <ProgramWeekNav />
+            <Outlet/>
 
+            {location.pathname === `/programs/${programName!}` && 
+            <>
             <div className="flex flex-col p-5 m-5 bg-[#FAFAF5] border border-[#E6E6E6] rounded-2xl">
                 <div className='w-full'>
                     <h2 className='text-left text-black text-xl sm:text-3xl font-bold m-5'>What's included?</h2>
@@ -122,7 +127,7 @@ const Program: React.FC = () => {
             >
                 Buy Now
             </button>
-            {/* <div className='top-1000'>hi</div> */}
+            </>}
         </div>
         </div>
     );
