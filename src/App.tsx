@@ -6,6 +6,7 @@ import Login from './pages/auth/login/index';
 import Register from './pages/auth/register/index';
 import Programs from './pages/programs/index';
 import Program from './pages/programs/program';
+import ProgramWeek from './pages/programs/programWeek';
 import { AuthProvider } from './contexts/authContext';
 import Profile from './pages/profile';
 import Navbar from './components/navbar/navbar';
@@ -22,7 +23,9 @@ const App: React.FC = () => {
           <Route path="/profile" element={<Profile/>} />
           <Route path="/programs">
             <Route index element={<Programs/>} />
-            <Route path=':name' element={<Program/>} />
+            <Route path=':name' element={<Program/>} >
+              <Route path=":week" element={<ProgramWeek/>} />
+            </Route>
           </Route>
         </Routes>
       </AuthProvider>
