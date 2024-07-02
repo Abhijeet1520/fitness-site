@@ -18,20 +18,24 @@ const App: React.FC = () => {
     <Router>
       <AuthProvider>
         <Navbar/>
-        <Routes>
-          <Route index element={<Home/>} />
-          <Route path="/login" element={<Login/>} />
-          <Route path="/register" element={<Register/>} />
-          <Route path="/profile" element={<Profile/>} />
-          <Route path="/programs">
-            <Route index element={<Programs/>} />
-            <Route path=':name' element={<Program/>} >
-              <Route path=":week" element={<ProgramWeek/>} />
-            </Route>
-            <Route path='exercise' element={<Exercise />} />
-          </Route>
-        </Routes>
-      <Footer />
+        <div id='main' className='flex flex-col'>
+          <div className='flex-1'>
+            <Routes>
+              <Route index element={<Home/>} />
+              <Route path="/login" element={<Login/>} />
+              <Route path="/register" element={<Register/>} />
+              <Route path="/profile" element={<Profile/>} />
+              <Route path="/programs">
+                <Route index element={<Programs/>} />
+                <Route path=':name' element={<Program/>} >
+                  <Route path=":week" element={<ProgramWeek/>} />
+                </Route>
+                <Route path='exercise' element={<Exercise />} />
+              </Route>
+            </Routes>
+          </div>
+          <Footer />
+        </div>
       </AuthProvider>
     </Router>
   );
