@@ -23,7 +23,7 @@ const Login: React.FC = () => {
             try {
                 await doSignInWithEmailAndPassword(email, password);
                 // doSendEmailVerification()
-                navigate('/home');
+                navigate('/');
             } catch (error) {
                 setIsSigningIn(false);
                 setErrorMessage('Error signing in. Please try again.');

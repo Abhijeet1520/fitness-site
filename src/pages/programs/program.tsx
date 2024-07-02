@@ -68,9 +68,8 @@ const Program: React.FC = () => {
     if (!program) return null;
 
     return (
-
-        <div className='flex flex-col h-full px-[10%] mb-4 font-serif'>
-
+<div className='p-0 m-0'>
+        <div className='flex flex-col h-full px-[10%] font-serif'>
             <div className='border-b-2 px-[2%]'><h1 className='text-left text-black text-5xl font-bold m-5 pt-10'>{program.name} Program</h1></div>
             
             <ProgramWeekNav />
@@ -129,7 +128,7 @@ const Program: React.FC = () => {
                 Buy Now
             </button>
             </>}
-            
+        </div>
         </div>
     );
 };
