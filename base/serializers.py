@@ -83,6 +83,7 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ['id', 'user', 'shippingAddress', 'created_at', 'payment', 'orderItems']
+        extra_kwargs = {'user': {'read_only': True}}
 
 
 class CartItemSerializer(serializers.ModelSerializer):
@@ -124,3 +125,5 @@ class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Payment
         fields = '__all__'
+        extra_kwargs = {'user': {'read_only': True}}
+
