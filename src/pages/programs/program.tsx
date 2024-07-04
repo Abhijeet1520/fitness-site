@@ -82,8 +82,10 @@ const Program: React.FC = () => {
                     <h2 className='text-left text-black text-xl sm:text-3xl font-bold m-5'>What's included?</h2>
                 </div>
                 <div className='flex flex-wrap justify-between m-5'>
-                    <p className='text-left text-black text-lg font-normal w-[50%]'>{program.included}</p>
-                    <img src={program.includedImage} alt='included' className='rounded-lg w-fit'/>
+                    <p className='text-left text-black text-lg font-normal xl:w-[50%] w-full'>{program.included}</p>
+                    <div className='xl:w-fit w-full md:flex md:justify-center'>
+                        <img src={program.includedImage} alt='included' className='rounded-lg'/>
+                    </div>
                 </div>
             </div>
 
@@ -99,8 +101,10 @@ const Program: React.FC = () => {
                     <h2 className='text-left text-black text-xl sm:text-3xl font-bold m-5'>Is This The Program For Me?</h2>
                 </div>
                 <div className='flex flex-wrap justify-between m-5'>
-                    <img src={program.forMeImage} alt='included' className='rounded-lg w-fit'/>
-                    <p className='text-left text-black text-lg font-normal w-[50%]'>{program.forMe}</p>
+                    <div className='xl:w-fit w-full md:flex md:justify-center'>
+                        <img src={program.forMeImage} alt='included' className='rounded-lg'/>
+                    </div>
+                    <p className='text-left text-black text-lg font-normal xl:w-[50%] w-full'>{program.forMe}</p>
                 </div>
             </div>
 
@@ -116,8 +120,10 @@ const Program: React.FC = () => {
                     <h2 className='text-left text-black text-xl sm:text-3xl font-bold m-5'>What Results To Expect</h2>
                 </div>
                 <div className='flex flex-wrap justify-between m-5'>
-                    <p className='text-left text-black text-lg font-normal w-[50%]'>{program.resultsExpect}</p>
-                    <img src={program.resultsExpectImage} alt='included' className='rounded-lg w-fit'/>
+                    <p className='text-left text-black text-lg font-normal xl:w-[50%] w-full'>{program.resultsExpect}</p>
+                    <div className='xl:w-fit w-full md:flex md:justify-center'>
+                        <img src={program.resultsExpectImage} alt='included' className='rounded-lg'/>
+                    </div>
                 </div>
             </div>
 
