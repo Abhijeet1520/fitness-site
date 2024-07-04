@@ -18,8 +18,8 @@ class Course(models.Model):
 
     
 class Review(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True)
+    user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
+    course = models.OneToOneField(Course, on_delete=models.SET_NULL, null=True)
     rating = models.IntegerField(null=True, blank=True, default=0)
     comment = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -32,7 +32,7 @@ class Review(models.Model):
 # also I have separated order from payment, Payment is its own model that has total price of all the orderItems
 # in the order related to the payment.
 class Order(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     shipping_address = models.OneToOneField('ShippingAddress', on_delete=models.SET_NULL, null=True, blank=True)
     payment = models.OneToOneField('Payment', on_delete=models.SET_NULL, null=True, blank=True)
@@ -41,8 +41,8 @@ class Order(models.Model):
         return str(self.created_at)
     
 class OrderItem(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
-    course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True)
+    order = models.OneToOneField(Order, on_delete=models.SET_NULL, null=True)
+    course = models.OneToOneField(Course, on_delete=models.SET_NULL, null=True)
     price = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
     image = models.CharField(max_length=200,null=True,blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -58,8 +58,8 @@ class Cart(models.Model):
         return f"{self.user.username}'s cart"
 
 class CartItem(models.Model):
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    cart = models.OneToOneField(Cart, on_delete=models.CASCADE)
+    course = models.OneToOneField(Course, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -68,7 +68,7 @@ class CartItem(models.Model):
 
 
 class ShippingAddress(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
     address = models.CharField(max_length=200,null=True,blank=True)
     city = models.CharField(max_length=200, null=True, blank=True)
     state = models.CharField(max_length=200, null=True, blank=True)
@@ -113,7 +113,7 @@ class Exercise(models.Model):
 
 # So each payment is related to a single order model.
 class Payment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
     order = models.OneToOneField(Order, on_delete=models.CASCADE)
     payment_method = models.CharField(max_length=200, null=True, blank=True)
     tax_price = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)

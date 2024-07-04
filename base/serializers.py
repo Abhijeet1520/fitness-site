@@ -51,22 +51,28 @@ class ReviewSerializer(serializers.ModelSerializer):
 
 class CourseSerializer(serializers.ModelSerializer):
     reviews = ReviewSerializer(many=True, read_only=True, source='review_set')
-
+    
     class Meta:
         model = Course
-        fields = ['id', 'user', 'name', 'image', 'description', 'rating', 'numReviews', 'price', 'reviews', 'created_at']
-
+        fields = ['id', 'name', 'image', 'description', 'rating', 'numReviews', 'price', 'reviews', 'created_at']
+        
 
 class OrderItemSerializer(serializers.ModelSerializer):
+    course = serializers.SerializerMethodField()
     class Meta:
         model = OrderItem
-        fields = '__all__'
+        fields = ['price', 'course', 'image', 'created_at']
+
+    def get_course(self, obj):
+        return obj.name
 
 
 class ShippingAddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = ShippingAddress
         fields = '__all__'
+        extra_kwargs = {'user': {'read_only': True}}
+
 
 
 class OrderSerializer(serializers.ModelSerializer):
@@ -83,6 +89,8 @@ class CartItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = CartItem
         fields = '__all__'
+        extra_kwargs = {'course': {'read_only': True}}
+
 
 
 class CartSerializer(serializers.ModelSerializer):
@@ -91,6 +99,7 @@ class CartSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cart
         fields = ['id', 'user', 'created_at', 'cartItems']
+        extra_kwargs = {'user': {'read_only': True}}
 
 
 class WeekSerializer(serializers.ModelSerializer):
