@@ -28,9 +28,10 @@ const App: React.FC = () => {
               <Route path="/programs">
                 <Route index element={<Programs/>} />
                 <Route path=':name' element={<Program/>} >
-                  <Route path=":week" element={<ProgramWeek/>} />
+                  <Route path=":week" element={<ProgramWeek/>} >
+                    <Route path=':day' element={<Exercise />} />
+                  </Route>
                 </Route>
-                <Route path='exercise' element={<Exercise />} />
               </Route>
             </Routes>
           </div>

@@ -1,5 +1,5 @@
 import React, { useState, FormEvent, ChangeEvent, useEffect } from 'react';
-import { Navigate, Link, useNavigate, useParams } from 'react-router-dom';
+import { Navigate, Link, useNavigate, useParams, Outlet, useLocation } from 'react-router-dom';
 import { doSignInWithEmailAndPassword, doSignInWithGoogle } from '../../firebase/auth';
 import { useAuth } from '../../contexts/authContext';
 import { Input } from 'react-daisyui';
@@ -9,6 +9,7 @@ import ProgramDayCard from '../../components/programDaysCard/index';
 import ProgramWeekNav from '../../components/programWeeksNav/index';
 
 interface Program {
+    dayNum: number;
     name: string;
     includedImage: string;
     forMeImage: string;
@@ -22,6 +23,7 @@ const ProgramWeek: React.FC = () => {
     // const { userLoggedIn } = useAuth();
     const navigate = useNavigate();
     const { userLoggedIn } = useAuth();
+    const location = useLocation();
 
     const programName = useParams().name;
     const [program, setProgram] = useState<Program | null>(null);
@@ -174,12 +176,17 @@ const ProgramWeek: React.FC = () => {
     return (
         <div className='flex flex-col h-full px-[10%] mb-4 font-serif'>
             
-            {weeks[0].days.map(day => (
+            {location.pathname.startsWith(`/programs/${programName!}`) && location.pathname.slice(-5).startsWith('week') &&
+            <>
+            {weeks[0].days.map((day, index) => (
                 <> 
                     <h2 className='text-left text-black text-l sm:text-xl font-bold m-5 mb-0'>Day 1</h2>
-                    <ProgramDayCard title={day.title} description={day.description} exercises={day.exercises} sets={day.sets} warmUp={day.warmUp} workout={day.workout} stretching={day.stretching} />
+                    <ProgramDayCard dayNum={index+1} title={day.title} description={day.description} exercises={day.exercises} sets={day.sets} warmUp={day.warmUp} workout={day.workout} stretching={day.stretching} />
                 </>
             ))}
+            </>
+            }
+            <Outlet/>
         </div>
     );
 };
