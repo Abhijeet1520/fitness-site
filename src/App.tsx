@@ -10,6 +10,8 @@ import { AuthProvider } from './contexts/authContext';
 import Profile from './pages/profile';
 import Navbar from './components/navbar/navbar';
 import Footer from './components/footer';
+import ResetPassword from './pages/auth/login/resetPassword';
+import Unverified from './pages/auth/login/unverified';
 
 const App: React.FC = () => {
   return(
@@ -25,6 +27,8 @@ const App: React.FC = () => {
             <Route index element={<Programs/>} />
             <Route path=':name' element={<Program/>} />
           </Route>
+          <Route path="/resetpassword" element={<ResetPassword/>} />
+          <Route path="/unverified" element={<Unverified/>} />
         </Routes>
       <Footer />
       </AuthProvider>

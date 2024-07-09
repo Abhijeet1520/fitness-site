@@ -4,7 +4,7 @@ import { useAuth } from '../../../contexts/authContext';
 import { doCreateUserWithEmailAndPassword } from '../../../firebase/auth';
 import { Input } from 'react-daisyui';
 import { auth, db } from '../../../firebase/firebase';
-import { updateProfile } from 'firebase/auth';
+import { UserCredential, sendEmailVerification, updateProfile } from 'firebase/auth';
 
 // import firebase from 'firebase/compat/app';
 
@@ -30,15 +30,12 @@ const Register: React.FC = () => {
                     setIsRegistering(false);
                     return;
                 }
-                await doCreateUserWithEmailAndPassword(email, password)
-                .then(function(result) {
-                    updateProfile(result.user,{
-                      displayName: name
-                    })
-                  }).catch(function(error) {
-                    console.log(error);
-                  });
-                navigate('/');
+                const userCred: UserCredential = await doCreateUserWithEmailAndPassword(email, password);
+                updateProfile(userCred.user, {
+                    displayName: name
+                });
+                await sendEmailVerification(userCred.user);
+                navigate('/login');
             } catch (error) {
                 setIsRegistering(false);
                 setErrorMessage('Error signing up. Please try again.');

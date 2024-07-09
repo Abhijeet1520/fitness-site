@@ -5,17 +5,14 @@ import { useNavigate } from "react-router-dom";
 import Login from "../auth/login";
 import { IoLogOutOutline } from "react-icons/io5";
 import { MdOutlineDeleteOutline } from "react-icons/md";
-import { getAuth, updateProfile } from "firebase/auth";
+import { getAuth, sendPasswordResetEmail, updateProfile } from "firebase/auth";
 
 const Profile: React.FC = () => {
     const navigate = useNavigate();
-    const {  userLoggedIn, currentUser, setCurrentUser } = useAuth();
+    const {  userLoggedIn, currentUser, setCurrentUser, verified } = useAuth();
     const [loading, setLoading] = useState(true); // To handle loading state
     const [edit, setEdit] = useState(false); // To handle loading state
-
-    // useEffect(() => {
-    //     console.log(currentUser?.displayName);
-    // }, [currentUser]);
+    // const [verified, setVerified] = useState(true); // To handle loading state
 
     useEffect(() => {
         const fetchUserProfile = async () => {
@@ -24,6 +21,9 @@ const Profile: React.FC = () => {
             if (user) {
                 // Fetch and update the user profile if needed
                 await updateProfile(user, {});
+                // if(user.emailVerified === false) {
+                //     setVerified(false);
+                // }
                 setCurrentUser(user); // Update the user in context
             }
             setLoading(false);
@@ -35,12 +35,23 @@ const Profile: React.FC = () => {
         console.log('change email');
     }
 
-    const resetPassword = () => {
-        console.log('change password');
+    const resetPassword = async (email: string ) => {
+        await sendPasswordResetEmail(getAuth(), email);
     }
 
     if (loading) {
-        return <p>Loading...</p>;
+        return <p className="mt-10">Loading...</p>;
+    }
+
+    if(!verified) {
+        return (
+            <>
+        <p className="mt-10">Please verify your email</p>
+        <button onClick={() => {doSignOut().then(() => {navigate('/');});}} className="btn text-white text-sm w-50 my-5">
+                Logout <IoLogOutOutline />
+            </button>
+        </>
+        );
     }
     return (
         <>
