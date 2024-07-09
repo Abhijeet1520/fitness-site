@@ -6,8 +6,8 @@ admin.site.register(Review)
 admin.site.register(OrderItem)
 admin.site.register(ShippingAddress)
 
-@admin.register(Order)
-class OrderAdmin(admin.ModelAdmin):
-    list_display = [
-        "user","createdAt","totalPrice"
-    ]
+# @admin.register(Order)
+# class OrderAdmin(admin.ModelAdmin):
+#     list_display = [
+#         "user","createdAt","totalPrice"
+#     ]

@@ -5,36 +5,6 @@ from django.contrib.auth.models import User
 from .models import *
 
 
-class UserSerializer(serializers.ModelSerializer):
-    name = serializers.SerializerMethodField(read_only=True)
-    isAdmin = serializers.SerializerMethodField(read_only=True)
-    
-    class Meta:
-        model = User
-        fields = ['id', 'username', 'email', 'name', 'isAdmin']
-
-
-    def get_isAdmin(self, obj):
-        return obj.is_staff
-
-    def get_name(self, obj):
-        name = obj.first_name
-        if name == "":
-            name = obj.email
-        return name
-
-
-# class UserSerializerWithToken(UserSerializer):
-#     token = serializers.SerializerMethodField(read_only=True)
-    
-#     class Meta:
-#         model = User
-#         fields = ['id', '_id', 'username', 'email', 'name', 'isAdmin', 'token']
-
-#     def get_token(self, obj):
-#         token = RefreshToken.for_user(obj)
-#         return str(token.access_token)
-
 
 class ReviewSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField(read_only=True)
@@ -47,7 +17,7 @@ class ReviewSerializer(serializers.ModelSerializer):
         if name == "":
             name = obj.email
         return name
-
+        
 
 class CourseSerializer(serializers.ModelSerializer):
     reviews = ReviewSerializer(many=True, read_only=True, source='review_set')
@@ -55,7 +25,46 @@ class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = ['id', 'name', 'image', 'description', 'rating', 'numReviews', 'price', 'reviews', 'created_at']
+
+
+class UserSerializer(serializers.ModelSerializer):
+    courses = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email', 'is_staff', 'courses', 'password']
+        extra_kwargs={"password": {"write_only": True}, "is_staff": {"read_only": True}}
+    
+    def get_courses(self, obj):
+        # Get courses where the user is the owner
+        courses = Course.objects.filter(user=obj)
+        return CourseSerializer(courses, many=True).data
+
+    def create(self, validated_data):
+        # Extract the email and username from the validated data
+        email = validated_data.pop('email')
+        username = validated_data.pop('username')
         
+        # Create the user with the email and username
+        user = User.objects.create_user(
+            username=username,
+            email=email,
+            **validated_data
+        )
+        
+        return user
+
+
+# class UserSerializerWithToken(UserSerializer):
+#     token = serializers.SerializerMethodField(read_only=True)
+    
+#     class Meta:
+#         model = User
+#         fields = ['id', '_id', 'username', 'email', 'name', 'isAdmin', 'token']
+
+#     def get_token(self, obj):
+#         token = RefreshToken.for_user(obj)
+#         return str(token.access_token)
 
 class OrderItemSerializer(serializers.ModelSerializer):
     course = serializers.SerializerMethodField()
@@ -82,7 +91,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ['id', 'user', 'shippingAddress', 'created_at', 'payment', 'orderItems']
+        fields = ['id', 'user', 'shippingAddress', 'created_at', 'orderItems']
         extra_kwargs = {'user': {'read_only': True}}
 
 

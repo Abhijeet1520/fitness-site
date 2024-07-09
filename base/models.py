@@ -35,8 +35,6 @@ class Order(models.Model):
     user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     shipping_address = models.OneToOneField('ShippingAddress', on_delete=models.SET_NULL, null=True, blank=True)
-    payment = models.OneToOneField('Payment', on_delete=models.SET_NULL, null=True, blank=True)
-
     def __str__(self):
         return str(self.created_at)
     
