@@ -12,5 +12,8 @@ urlpatterns = [
     # path('update/<str:pk>/',views.updateUser,name="updateUser"),
     # path('delete/<str:pk>/',views.deleteUser,name="deleteUser"),
     path('current_user_detail/', views.UserDetailView.as_view(), name='user_detail'),
+    path('update/', views.UserUpdateView.as_view(), name="user_update"),
     path('register/', views.UserCreateView.as_view(), name='user_register'),
+    path('delete/', views.UserDeleteView.as_view(), name='user-delete'),
+    path('delete/<int:pk>/', views.UserDeleteView.as_view(), name='user-delete-admin'),
 ]
