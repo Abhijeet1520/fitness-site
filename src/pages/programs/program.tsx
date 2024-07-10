@@ -24,6 +24,7 @@ const Program: React.FC = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { userLoggedIn } = useAuth();
+    const userOwnsProgram = false;
 
     const programName = useParams().name;
     const [program, setProgram] = useState<Program | null>(null);
@@ -98,11 +99,11 @@ const Program: React.FC = () => {
             </div>
 
             {/*onClick={() => doSomething()}*/}
-            <button type="submit" 
+            { !userOwnsProgram && <button type="submit" 
                 className={`m-auto place-self-center p-2 px-4 text-white font-semibold rounded-full bg-[#525252] active:bg-[#6D6D6D] hover:bg-[#525252] hover:shadow-xl active:bg-[#3b3b3b]'}`}
             >
                 Buy Now
-            </button>
+            </button> }
 
             <div className="flex flex-col p-5 m-5 bg-[#FAFAF5] border border-[#E6E6E6] rounded-2xl">
                 <div className='w-full'>
@@ -117,11 +118,11 @@ const Program: React.FC = () => {
             </div>
 
             {/*onClick={() => doSomething()}*/}
-            <button type="submit" 
+            { !userOwnsProgram &&<button type="submit" 
                 className={`m-auto place-self-center p-2 px-4 text-white font-semibold rounded-full bg-[#525252] active:bg-[#6D6D6D] hover:bg-[#525252] hover:shadow-xl active:bg-[#3b3b3b]'}`}
             >
                 Buy Now
-            </button>
+            </button>}
 
             <div className="flex flex-col p-5 m-5 bg-[#FAFAF5] border border-[#E6E6E6] rounded-2xl">
                 <div className='w-full'>
@@ -136,11 +137,11 @@ const Program: React.FC = () => {
             </div>
 
             {/*onClick={() => doSomething()}*/}
-            <button type="submit" 
+            { !userOwnsProgram &&<button type="submit" 
                 className={`m-auto place-self-center p-2 px-4 mb-4 text-white font-semibold rounded-full bg-[#525252] active:bg-[#6D6D6D] hover:bg-[#525252] hover:shadow-xl active:bg-[#3b3b3b]'}`}
             >
                 Buy Now
-            </button>
+            </button>}
 
             <div className="flex flex-col p-5 m-5 bg-[#FAFAF5] border border-[#E6E6E6] rounded-2xl">
                 <div className='w-full'>
@@ -155,11 +156,11 @@ const Program: React.FC = () => {
             </div>
 
             {/*onClick={() => doSomething()}*/}
-            <button type="submit" 
+            { !userOwnsProgram &&<button type="submit" 
                 className={`m-auto place-self-center p-2 px-4 mb-4 text-white font-semibold rounded-full bg-[#525252] active:bg-[#6D6D6D] hover:bg-[#525252] hover:shadow-xl active:bg-[#3b3b3b]'}`}
             >
                 Buy Now
-            </button>
+            </button>}
 
             </>}
         </div>

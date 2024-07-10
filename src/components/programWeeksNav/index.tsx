@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
+import './custom-slick.css';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const programWeekNav = () => {
@@ -10,7 +11,8 @@ const programWeekNav = () => {
   const [numWeeks, setNumWeeks] = useState<number>(6);
   const navigate = useNavigate();
   const programName = useParams().name;
-
+  const userOwnsProgram = true;
+  
   const settings = {
     dots: true,
     infinite: false,
@@ -37,10 +39,28 @@ const programWeekNav = () => {
 
   return (    
     <div className='w-full mb-2'>
-        <Slider {...settings}>
-          <span className='text-left text-black text-2xl font-bold m-5 hover:cursor-pointer' onClick={() => navigate(`/programs/${programName}`)}>About</span>
-          {Array.from({ length: numWeeks }, (_, i) => (
-          <span className='text-left text-black text-2xl font-bold m-5 hover:cursor-pointer' onClick={() => navigate(`./week${i+1}` )}>Week {i+1}</span>
+        <Slider {...settings} className=''>
+          <span 
+            className='text-black text-2xl font-bold m-5 hover:cursor-pointer' 
+            onClick={() => navigate(`/programs/${programName}`)}
+            >
+              About
+            </span>
+
+          { !userOwnsProgram && <span 
+            className='text-black text-2xl font-bold m-5 hover:cursor-pointer' 
+            onClick={() => navigate(`/programs/${programName}`)}
+            >
+              Purchase
+            </span>}
+
+          { userOwnsProgram && Array.from({ length: numWeeks }, (_, i) => (
+            <span 
+              className='text-black text-2xl font-bold m-5 hover:cursor-pointer'
+              onClick={() => navigate(`./week${i+1}` )}
+              >
+                Week {i+1}
+            </span>
           ))}
         </Slider>
     </div>
