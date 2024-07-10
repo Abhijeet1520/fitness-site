@@ -12,8 +12,16 @@ import Profile from './pages/profile';
 import Navbar from './components/navbar/navbar';
 import Footer from './components/footer';
 import Exercise from './pages/programs/exercise';
+import { Elements } from '@stripe/react-stripe-js';
+import StripeProvider from './stripe/payment';
+import { loadStripe } from '@stripe/stripe-js';
+import Completion from './stripe/completion';
+import CheckoutForm from './stripe/checkoutForm';
 
 const App: React.FC = () => {
+
+  // const stripePromise = loadStripe('pk_test_51PaeGKRoRlCW2NqtOsUXNGrarxJQaTVLhRkmKp9KE6xjgp94L7RIUasvxDQLQ88iQ0o1tLDLuj0ES9k1rkm6cRlP00FFeg80yU');
+
   return(
     <Router>
       <AuthProvider>
@@ -32,6 +40,15 @@ const App: React.FC = () => {
                 </Route>
                 <Route path='exercise' element={<Exercise />} />
               </Route>
+              <Route
+                path="/checkout"
+                element={
+                  <StripeProvider>
+                    <CheckoutForm />
+                  </StripeProvider>
+                }
+              />
+              <Route path="/completion" element={<Completion />} />
             </Routes>
           </div>
           <Footer />
