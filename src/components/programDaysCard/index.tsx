@@ -1,7 +1,9 @@
 import React from 'react'
 import { FaArrowRightLong } from "react-icons/fa6";
+import { useNavigate } from 'react-router-dom';
 
 type Prop = {
+    dayNum: number;
     title: string;
     description: string;
     exercises: number;
@@ -11,9 +13,10 @@ type Prop = {
     stretching: number;
 }
 
-const programDayCard = ({title, description, exercises, sets, warmUp, workout, stretching}: Prop) => {
-  return (
-    <div className="flex flex-wrap p-5 m-5 bg-[#FAFAF5] border border-[#E6E6E6] rounded-2xl items-center">
+const programDayCard = ({dayNum, title, description, exercises, sets, warmUp, workout, stretching}: Prop) => {
+  const navigate = useNavigate();
+  return (  
+    <div className="flex flex-wrap p-5 m-5 bg-[#FAFAF5] border-2 border-[#E6E6E6] rounded-2xl items-center focus:shadow-lg hover:cursor-pointer hover:shadow-2xl" onClick={() => navigate(`./day${dayNum}` )}>
 
       <img src='https://picsum.photos/100' alt='included' className='rounded-lg w-full sm:w-[15%] h-fit'/>
       
