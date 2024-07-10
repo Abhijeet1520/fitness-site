@@ -21,25 +21,29 @@ class ReviewSerializer(serializers.ModelSerializer):
 
 class CourseSerializer(serializers.ModelSerializer):
     reviews = ReviewSerializer(many=True, read_only=True, source='review_set')
-    
     class Meta:
         model = Course
-        fields = ['id', 'name', 'user', 'image', 'description', 'rating', 'numReviews', 'price', 'reviews', 'created_at']
+        fields = ['id', 'name', 'image', 'description', 'rating', 'numReviews', 'price', 'reviews', 'created_at']
 
 
 class UserSerializer(serializers.ModelSerializer):
-    courses = serializers.SerializerMethodField()
+    courses_subscribed = serializers.SerializerMethodField(read_only=True)
     
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'is_staff', 'courses', 'password']
+        fields = ['id', 'username', 'email', 'is_staff', 'courses_subscribed', 'password']
         extra_kwargs={"password": {"write_only": True}, "is_staff": {"read_only": True}}
     
-    def get_courses(self, obj):
+    def get_courses_subscribed(self, obj):
         # Get courses where the user is the owner
-        courses = Course.objects.filter(user=obj)
+        subscriptions = Subscription.objects.filter(user=obj)
+        # Extract courses from subscriptions
+        courses = [subscription.course for subscription in subscriptions]
+
+        # Serialize the courses
         return CourseSerializer(courses, many=True).data
 
+        
     def create(self, validated_data):
         # Extract the email and username from the validated data
         email = validated_data.pop('email')
@@ -53,6 +57,14 @@ class UserSerializer(serializers.ModelSerializer):
         )
         
         return user
+
+class SubscriptionSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)  # Use UserSerializer for detailed user information
+    course = CourseSerializer(read_only=True)  # Use CourseSerializer for detailed course information
+
+    class Meta:
+        model = Subscription
+        fields = ['id', 'user', 'course', 'subscribed_at']
 
 
 # class UserSerializerWithToken(UserSerializer):

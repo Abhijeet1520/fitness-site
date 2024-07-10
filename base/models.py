@@ -5,7 +5,6 @@ from django.db.models.fields import BLANK_CHOICE_DASH
 
 # TODO: Since we are using S3 I need to change the way we store image here.
 class Course(models.Model):
-    user = models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
     name = models.CharField(max_length=200,null=True,blank=True)
     image = models.ImageField(null=True,blank = True, default = "/images/placeholder.png", upload_to="images/")
     description = models.TextField(null=True,blank=True)
@@ -18,8 +17,8 @@ class Course(models.Model):
 
     
 class Review(models.Model):
-    user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
-    course = models.OneToOneField(Course, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True, related_name="reviews")
     rating = models.IntegerField(null=True, blank=True, default=0)
     comment = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -32,15 +31,15 @@ class Review(models.Model):
 # also I have separated order from payment, Payment is its own model that has total price of all the orderItems
 # in the order related to the payment.
 class Order(models.Model):
-    user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     shipping_address = models.OneToOneField('ShippingAddress', on_delete=models.SET_NULL, null=True, blank=True)
     def __str__(self):
         return str(self.created_at)
     
 class OrderItem(models.Model):
-    order = models.OneToOneField(Order, on_delete=models.SET_NULL, null=True)
-    course = models.OneToOneField(Course, on_delete=models.SET_NULL, null=True)
+    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
+    course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True)
     price = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
     image = models.CharField(max_length=200,null=True,blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -56,8 +55,8 @@ class Cart(models.Model):
         return f"{self.user.username}'s cart"
 
 class CartItem(models.Model):
-    cart = models.OneToOneField(Cart, on_delete=models.CASCADE)
-    course = models.OneToOneField(Course, on_delete=models.CASCADE)
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -111,7 +110,7 @@ class Exercise(models.Model):
 
 # So each payment is related to a single order model.
 class Payment(models.Model):
-    user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     order = models.OneToOneField(Order, on_delete=models.CASCADE)
     payment_method = models.CharField(max_length=200, null=True, blank=True)
     tax_price = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
@@ -123,4 +122,18 @@ class Payment(models.Model):
 
     def __str__(self):
         return f"Payment for Order {self.order.id}"
+    #Whenever payment is saved it creates subscription for all the order items
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if self.is_paid:
+            for item in self.Order.orderitem_set.all():
+                Subscription.objects.create(user=self.user, course=item.course)
 
+#When a payment is successfuly created
+class Subscription(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    subscribed_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username} subscribed to {self.course.name}"
