@@ -99,7 +99,7 @@ const Program: React.FC = () => {
             </div>
 
             {/*onClick={() => doSomething()}*/}
-            { !userOwnsProgram && <button type="submit" 
+            { ( !userLoggedIn || !userOwnsProgram ) && <button type="submit" 
                 className={`m-auto place-self-center p-2 px-4 text-white font-semibold rounded-full bg-[#525252] active:bg-[#6D6D6D] hover:bg-[#525252] hover:shadow-xl active:bg-[#3b3b3b]'}`}
             >
                 Buy Now
@@ -118,7 +118,7 @@ const Program: React.FC = () => {
             </div>
 
             {/*onClick={() => doSomething()}*/}
-            { !userOwnsProgram &&<button type="submit" 
+            { ( !userLoggedIn || !userOwnsProgram ) &&<button type="submit" 
                 className={`m-auto place-self-center p-2 px-4 text-white font-semibold rounded-full bg-[#525252] active:bg-[#6D6D6D] hover:bg-[#525252] hover:shadow-xl active:bg-[#3b3b3b]'}`}
             >
                 Buy Now
@@ -137,7 +137,7 @@ const Program: React.FC = () => {
             </div>
 
             {/*onClick={() => doSomething()}*/}
-            { !userOwnsProgram &&<button type="submit" 
+            { ( !userLoggedIn || !userOwnsProgram ) &&<button type="submit" 
                 className={`m-auto place-self-center p-2 px-4 mb-4 text-white font-semibold rounded-full bg-[#525252] active:bg-[#6D6D6D] hover:bg-[#525252] hover:shadow-xl active:bg-[#3b3b3b]'}`}
             >
                 Buy Now
@@ -156,7 +156,7 @@ const Program: React.FC = () => {
             </div>
 
             {/*onClick={() => doSomething()}*/}
-            { !userOwnsProgram &&<button type="submit" 
+            { ( !userLoggedIn || !userOwnsProgram ) &&<button type="submit" 
                 className={`m-auto place-self-center p-2 px-4 mb-4 text-white font-semibold rounded-full bg-[#525252] active:bg-[#6D6D6D] hover:bg-[#525252] hover:shadow-xl active:bg-[#3b3b3b]'}`}
             >
                 Buy Now
