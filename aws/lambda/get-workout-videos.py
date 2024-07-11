@@ -29,7 +29,7 @@ def lambda_handler(event, context):
             # Generate a pre-signed URL for the image
             url = s3.generate_presigned_url(
                 'get_object',
-                Params={'Bucket': 'altemira-fitness-temp-bucket', 'Key': key},
+                Params={'Bucket': 'altemira-fitness-main-01', 'Key': key},
                 ExpiresIn=3600  # URL expires in 1 hour (you can adjust this)
             )
             images.append(url)
