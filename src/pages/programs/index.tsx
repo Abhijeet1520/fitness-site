@@ -47,7 +47,7 @@ const Programs: React.FC = () => {
                 </ul>
             </div>
 
-            <div className="flex flex-wrap h-16 gap-5">
+            <div className="flex flex-wrap  gap-5">
                 {programs.map(program => (
                     <div 
                         className="flex flex-col border-2 focus:shadow-lg hover:cursor-pointer hover:shadow-2xl rounded-xl w-56" 
