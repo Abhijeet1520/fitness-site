@@ -1,0 +1,10 @@
+/* custom-slick.css */
+
+.slick-list {
+    text-align: left; /* Aligns the items to the left */
+  }
+
+  .slick-track {
+    margin: 0;
+  }
+  
