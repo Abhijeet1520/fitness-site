@@ -1,0 +1,39 @@
+.navbar{
+    margin: auto;
+    position: absolute;
+}
+
+.pagename{
+    font-size: 2.5vh;
+    color: green;
+    padding-left: 5%;
+    font-family: 'Times New Roman', Times, serif;
+    /* font-weight: bold; */
+}
+
+.pagename:hover{
+    color: green;
+}
+
+li{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: large;
+}
+
+.loginbtn{
+    cursor: pointer;
+    margin-left: 3%;
+    margin-right: 5%;
+}
+
+#menuu{
+    background: #000;
+}
+
+.nav-el{
+    color: black;
+}
+
+.nav-el:hover{
+    color: green;
+}

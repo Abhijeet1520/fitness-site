@@ -1,30 +1,41 @@
-# React + TypeScript + Vite
+<h1 align=center>E-Commerce Website with Django + React & Redux</h1>
+<h2 align=center>Otaku House - Anime Merchandise and Cosplay Shop</h2>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## ✨ [Live Link - Otaku House](https://otakuhouse.herokuapp.com/)
 
-Currently, two official plugins are available:
+### How to Run 🏃‍♀️
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```shell
+1 Clone This Repo by `git clone https://github.com/kritebh/ecommerce-django-react.git`
+2 python -m venv env
+3 .\env\Scripts\activate
+4 pip install -r requirements.txt 
+5 python manage.py runserver
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### 📷 Project Screenshots
+
+![ss](./ss/ss1.png)
+![ss](./ss/ss2.png)
+![ss](./ss/ss3.png)
+![ss](./ss/ss4.png)
+![ss](./ss/ss5.png)
+![ss](./ss/ss6.png)
+
+### 🚀 Project Features
+
+A completely customized eCommerce / shopping cart application using Django, REACT and REDUX with the following functionality:
+
+- Full featured shopping cart
+- Product reviews and Ratings
+- Top products carousel
+- Product pagination
+- Product search feature
+- User profile with orders
+- Admin product management
+- Admin user management
+- Admin Order details page
+- Mark orders as a delivered option
+- Checkout process (shipping, payment method, etc)
+- PayPal / credit card integration
