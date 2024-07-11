@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/authContext";
 import {doSignOut, doDeleteUser} from "../../firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Login from "../auth/login";
 import { IoLogOutOutline } from "react-icons/io5";
 import { MdOutlineDeleteOutline } from "react-icons/md";
@@ -30,10 +30,6 @@ const Profile: React.FC = () => {
         };
         fetchUserProfile();
     }, [setCurrentUser]);
-
-    const changeEmail = () => {
-        console.log('change email');
-    }
 
     const resetPassword = async (email: string ) => {
         await sendPasswordResetEmail(getAuth(), email);
@@ -69,6 +65,9 @@ const Profile: React.FC = () => {
             <h2 className="text-black text-lg my-3 text-left"><strong>Email: </strong>{currentUser?.email}</h2>
             <h2 className="text-black text-lg my-3 text-left"><strong>Username: </strong>{currentUser?.displayName}</h2>
            </div> 
+           <p className="text-sm m-5">
+                    Reset password  <Link to={'/resetpassword'} className="underline text-black">Reset Password &rarr;</Link>
+                </p>
            <button onClick={() => {doSignOut().then(() => {navigate('/');});}} className="btn text-white text-sm w-50 my-5">
                 Logout <IoLogOutOutline />
             </button>
