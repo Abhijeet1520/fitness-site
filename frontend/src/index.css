@@ -1,64 +1,44 @@
-/* App.js */
-main {
-  min-height: 80vh;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body {
+  background-color: white;
+  height: 100vh;
 }
 
-/* Product.js */
-h3 {
-  padding: 1rem 0;
+:root {
+  color-scheme: light dark;
+  color: rgba(52, 52, 52, 0.87);
+  background-color: #ffffff;
 }
 
-/* Rating.js */
-.rating span {
-  margin: 0.1rem;
-}
+html {
+  scroll-behavior: smooth;
+} 
 
-/* CartScreen.js */
 h1 {
-  font-size: 1.8rem;
-  padding: 1rem 0;
+  font-size: 3.2em;
+  line-height: 1.1;
 }
 
-h2 {
-  font-size: 1.4rem;
-  padding: 0.5rem 0;
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+cursor: pointer;
+  transition: border-color 0.25s;
 }
 
-/* HomeScreen.js (Carousel) */
-.carousel-item-next,
-.carousel-item-prev,
-.carousel-item.active {
-  display: flex;
-}
-
-.carousel-caption {
-  position: absolute;
-  top: 0;
-  color: white;
-}
-
-.carousel-caption h4 {
-  color: #fff;
-}
-
-.carousel img {
-  display: block;
-  height: 300px;
-  padding: 30px;
-  margin: 40px;
-  margin-top: 50px;
-  border-radius: 50%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.carousel a {
-  margin: 0 auto;
-}
-
-@media (max-width: 900px) {
-  .carousel-caption h2 {
-    font-size: 2.5vw;
-    color: white;
-  }
+.custom-btn{
+  background-color: #ffffff;
+  color: green;
+  border: 1px solid green;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 1.8vh;
 }
