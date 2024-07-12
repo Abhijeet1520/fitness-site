@@ -5,25 +5,10 @@ from django.contrib.auth.models import User
 from .models import *
 
 
-
-class ReviewSerializer(serializers.ModelSerializer):
-    user = serializers.SerializerMethodField(read_only=True)
-    class Meta:
-        model = Review
-        fields = '__all__'
-
-    def get_user(self, obj):
-        name = obj.first_name
-        if name == "":
-            name = obj.email
-        return name
-        
-
 class CourseSerializer(serializers.ModelSerializer):
-    reviews = ReviewSerializer(many=True, read_only=True, source='review_set')
     class Meta:
         model = Course
-        fields = ['id', 'name', 'image', 'description', 'rating', 'numReviews', 'price', 'reviews', 'created_at']
+        fields = ['id', 'name', 'image', 'description', 'price','created_at']
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -67,17 +52,6 @@ class SubscriptionSerializer(serializers.ModelSerializer):
         fields = ['id', 'user', 'course', 'subscribed_at']
 
 
-# class UserSerializerWithToken(UserSerializer):
-#     token = serializers.SerializerMethodField(read_only=True)
-    
-#     class Meta:
-#         model = User
-#         fields = ['id', '_id', 'username', 'email', 'name', 'isAdmin', 'token']
-
-#     def get_token(self, obj):
-#         token = RefreshToken.for_user(obj)
-#         return str(token.access_token)
-
 class OrderItemSerializer(serializers.ModelSerializer):
     course = serializers.SerializerMethodField()
     class Meta:
@@ -88,39 +62,13 @@ class OrderItemSerializer(serializers.ModelSerializer):
         return obj.name
 
 
-class ShippingAddressSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ShippingAddress
-        fields = '__all__'
-        extra_kwargs = {'user': {'read_only': True}}
-
-
-
 class OrderSerializer(serializers.ModelSerializer):
     orderItems = OrderItemSerializer(many=True, read_only=True, source='orderitem_set')
-    shippingAddress = ShippingAddressSerializer(many=False, read_only=True, source='shipping_address')
     user = UserSerializer(many=False, read_only=True)
 
     class Meta:
         model = Order
-        fields = ['id', 'user', 'shippingAddress', 'created_at', 'orderItems']
-        extra_kwargs = {'user': {'read_only': True}}
-
-
-class CartItemSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CartItem
-        fields = '__all__'
-        extra_kwargs = {'course': {'read_only': True}}
-
-
-
-class CartSerializer(serializers.ModelSerializer):
-    cartItems = CartItemSerializer(many=True, read_only=True, source='cartitem_set')
-    
-    class Meta:
-        model = Cart
-        fields = ['id', 'user', 'created_at', 'cartItems']
+        fields = ['id', 'user', 'created_at', 'orderItems']
         extra_kwargs = {'user': {'read_only': True}}
 
 

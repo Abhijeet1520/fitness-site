@@ -5,6 +5,7 @@ from django.conf import settings
 from base.models import Payment, Subscription, Order
 from base.serializers import PaymentSerializer
 
+#This is my secrete stripe key
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 class PaymentCreateView(generics.CreateAPIView):
