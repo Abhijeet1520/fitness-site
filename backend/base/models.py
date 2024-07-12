@@ -3,10 +3,9 @@ from django.contrib.auth.models import User
 from django.db.models.fields import BLANK_CHOICE_DASH
 # Create your models here.
 
-# TODO: Since we are using S3 I need to change the way we store image here.
 class Course(models.Model):
     name = models.CharField(max_length=200,null=True,blank=True)
-    image = models.ImageField(null=True,blank = True, default = "/images/placeholder.png", upload_to="images/")
+    images = models.TextField(null=True, blank=True)  # Storing URLs as comma-separated string
     description = models.TextField(null=True,blank=True)
     price = models.DecimalField(max_digits=12,decimal_places=2,null=True,blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -36,7 +35,6 @@ class Exercise(models.Model):
     reps = models.IntegerField(null=True,blank=True,default=0)
     duration = models.DurationField(null=True, blank=True)
     description = models.TextField(null=True, blank=True)
-    # TODO: Here the admin can create a video as well so we'll need to see how we'll manage that
     video_url = models.URLField(max_length=200, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 

@@ -8,7 +8,7 @@ from .models import *
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        fields = ['id', 'name', 'image', 'description', 'price','created_at']
+        fields = ['id', 'name', 'images', 'description', 'price','created_at']
 
 
 class UserSerializer(serializers.ModelSerializer):
