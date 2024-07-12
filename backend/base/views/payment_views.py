@@ -17,7 +17,7 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 # we need to exempt it from csrf as this comes from stripe
 @method_decorator(csrf_exempt, name='dispatch')
-class CreatePaymentIntentView(generics.APIView):
+class CreatePaymentIntentView(generics.GenericAPIView):
     def post(self, request, *args, **kwargs):
         try:
             data = request.data
@@ -56,7 +56,7 @@ class CreatePaymentIntentView(generics.APIView):
 # Strip Payment Success Webhook
 # endpoint secret key
 # Make sure to return 200K quickly before updating database(STRIPE timeout requirement)
-class StripeWebhookView(generics.APIView):
+class StripeWebhookView(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
     
     def post(self, request, *args, **kwargs):

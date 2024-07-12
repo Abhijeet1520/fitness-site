@@ -45,20 +45,14 @@ class Exercise(models.Model):
 class Payment(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True)
-    payment_intent_id = models.CharField(max_length=255)  # Store Stripe Payment Intent ID
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
-    currency = models.CharField(max_length=10)
-    status = models.CharField(max_length=20)
+    payment_intent_id = models.CharField(max_length=255, null=True)  # Store Stripe Payment Intent ID
+    amount = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    currency = models.CharField(max_length=10, null=True)
+    status = models.CharField(max_length=20, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
         return f"Payment for Course {self.course.name}"
-    # #Whenever payment is saved it creates subscription for all the order items
-    # def save(self, *args, **kwargs):
-    #     super().save(*args, **kwargs)
-    #     if self.is_paid:
-    #         for item in self.Order.orderitem_set.all():
-    #             Subscription.objects.create(user=self.user, course=item.course)
 
 #When a payment is successfuly created
 class Subscription(models.Model):
