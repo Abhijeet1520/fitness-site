@@ -18,7 +18,7 @@ const About: React.FC<{ id?: string }> = ({ id }) => {
         </div>
     <section id={id}>
         <div 
-        className="card card-center lg:card-side bg-base-500 shadow-xl"
+        className="card card-center lg:card-side bg-base-500 shadow-xl m-10"
         style={{border:"1px solid green"}}
         >
             <figure>
