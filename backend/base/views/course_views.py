@@ -22,7 +22,7 @@ class CourseDeleteView(generics.DestroyAPIView):
 class CourseListView(generics.ListAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
 
 # Get Courses Subscribed by Current User (Authenticated)
 class UserSubscribedCoursesView(generics.ListAPIView):
