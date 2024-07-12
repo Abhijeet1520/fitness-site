@@ -1,0 +1,78 @@
+.all {
+    top: 0;
+    left: 0;
+    width: 100vw;
+    object-fit: cover;
+    background-color: gray;
+    color: #ffffff;
+  }
+
+.prog-head{
+    font-family: 'Times New Roman', Times, serif;
+    text-decoration: underline;
+    text-align: left;
+    padding: 2vh;
+}
+.program-title{
+    font: 700 3vh 'Roboto', monospace;
+    align-items: center;
+    text-align: center;
+}
+
+.bg-base-100 {
+    background-color: #2b2b2b; /* Light gray */
+    color: #ffffff; /* Black text */
+  }
+  
+  .bg-base-400 {
+    background-color: #ffffff; /* Dark gray */
+    color: #000000; /* White text */
+    border: green 1px solid;
+  }
+
+s{
+    color: red;
+    font-size: 2vh;
+    font: helvetica bold;
+}
+
+.cost{
+    font: bold;
+}
+hr{
+    border: 1px solid green;
+    width: 100%;
+}
+.custom-btn:hover {
+    background-color: green;
+    color: white;
+}
+
+h2{
+    text-align: center;
+}
+.responsive-three-column-grid {
+    display: grid;
+    /* gap: 1rem; */
+    grid-template-columns: repeat(3, 1fr);
+    /* padding: 1rem; */
+}
+
+/* tablet breakpoint */
+@media (max-width: 1024px) {
+    .responsive-three-column-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* mobile breakpoint */
+@media (max-width: 580px) {
+    .responsive-three-column-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* columns */
+.responsive-three-column-grid > * {
+    padding: 1rem;
+}
