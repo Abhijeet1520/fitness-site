@@ -26,7 +26,7 @@ const App: React.FC = () => {
     <Router>
       <AuthProvider>
         <Navbar/>
-        <div id='main' className='flex flex-col'>
+        <div id='main' className='flex flex-col mt-10'>
           <div className='flex-1'>
             <Routes>
               <Route index element={<Home/>} />
