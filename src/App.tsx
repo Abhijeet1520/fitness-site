@@ -11,6 +11,8 @@ import { AuthProvider } from './contexts/authContext';
 import Profile from './pages/profile';
 import Navbar from './components/navbar/navbar';
 import Footer from './components/footer';
+import ResetPassword from './pages/auth/login/resetPassword';
+import Unverified from './pages/auth/login/unverified';
 import Exercise from './pages/programs/exercise';
 import { Elements } from '@stripe/react-stripe-js';
 import StripeProvider from './stripe/payment';
@@ -41,6 +43,8 @@ const App: React.FC = () => {
                   </Route>
                 </Route>
               </Route>
+              <Route path="/resetpassword" element={<ResetPassword/>} />
+              <Route path="/unverified" element={<Unverified/>} />
               <Route
                 path="/checkout"
                 element={

@@ -3,6 +3,10 @@ import { Navigate, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../contexts/authContext';
 import { doCreateUserWithEmailAndPassword } from '../../../firebase/auth';
 import { Input } from 'react-daisyui';
+import { auth, db } from '../../../firebase/firebase';
+import { UserCredential, sendEmailVerification, updateProfile } from 'firebase/auth';
+
+// import firebase from 'firebase/compat/app';
 
 const Register: React.FC = () => {
     const navigate = useNavigate();
@@ -14,7 +18,7 @@ const Register: React.FC = () => {
     const [isRegistering, setIsRegistering] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string>('');
 
-    const { userLoggedIn } = useAuth();
+    const { userLoggedIn, currentUser } = useAuth();
 
     const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -26,7 +30,11 @@ const Register: React.FC = () => {
                     setIsRegistering(false);
                     return;
                 }
-                await doCreateUserWithEmailAndPassword(email, password);
+                const userCred: UserCredential = await doCreateUserWithEmailAndPassword(email, password);
+                updateProfile(userCred.user, {
+                    displayName: name
+                });
+                await sendEmailVerification(userCred.user);
                 navigate('/login');
             } catch (error) {
                 setIsRegistering(false);
@@ -39,7 +47,7 @@ const Register: React.FC = () => {
         <div className='flex flex-col h-full px-[10%] font-serif'>
         <div className='border-b-2 px-[2%]'><h1 className='text-left text-black text-5xl font-bold m-5 pt-10'>Sign Up</h1></div>
         <div className="flex flex-col items-center justify-center h-full">
-            {userLoggedIn && (<Navigate to={'/home'} replace={true}/>)}
+            {userLoggedIn && (<Navigate to={'/'} replace={true}/>)}
             
             
             <form onSubmit={onSubmit} className='flex flex-col gap-5 items-center w-full max-w-md mx-auto text-black'>

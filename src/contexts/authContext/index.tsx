@@ -7,6 +7,7 @@ interface AuthContextType {
   isEmailUser: boolean;
   isGoogleUser: boolean;
   currentUser: User | null;
+  verified: boolean;
   setCurrentUser: React.Dispatch<React.SetStateAction<User | null>>;
 }
 
@@ -15,6 +16,7 @@ const AuthContext = React.createContext<AuthContextType>({
   isEmailUser: false,
   isGoogleUser: false,
   currentUser: null,
+  verified: false,
   setCurrentUser: () => {}
 });
 
@@ -28,6 +30,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isEmailUser, setIsEmailUser] = useState(false);
   const [isGoogleUser, setIsGoogleUser] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [verified, setVerified] = useState(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, initializeUser);
@@ -43,6 +46,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       );
       setIsEmailUser(isEmail);
 
+      user.emailVerified ? setVerified(true) : setVerified(false);
       setUserLoggedIn(true);
     } else {
       setCurrentUser(null);
@@ -57,7 +61,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     isEmailUser,
     isGoogleUser,
     currentUser,
-    setCurrentUser
+    setCurrentUser,
+    verified
   };
 
   return (
