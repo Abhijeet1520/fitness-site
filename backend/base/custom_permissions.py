@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import permissions
+from base.models import Course, Week, Day, Exercise
 
 class IsUserSubscribedToThisCourse_Course(permissions.BasePermission):
     message = "You must be subscribed to this course to access this."

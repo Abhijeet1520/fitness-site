@@ -2,6 +2,7 @@ from rest_framework import generics, permissions
 from rest_framework.response import Response
 from base.models import Week
 from base.serializers import WeekSerializer
+from base import custom_permissions
 
 
 class WeekCreateAPIView(generics.CreateAPIView):
@@ -12,7 +13,7 @@ class WeekCreateAPIView(generics.CreateAPIView):
 
 class WeekListAPIView(generics.ListAPIView):
     serializer_class = WeekSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, custom_permissions.IsUserSubscribedToThisCourse_Course]
 
     def get_queryset(self):
         course_id = self.kwargs['course_id']
@@ -23,7 +24,7 @@ class WeekListAPIView(generics.ListAPIView):
 class WeekRetrieveAPIView(generics.RetrieveAPIView):
     queryset = Week.objects.all()
     serializer_class = WeekSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, custom_permissions.IsUserSubscribedToThisCourse_Week]
     lookup_url_kwarg = 'week_id'
 
 
