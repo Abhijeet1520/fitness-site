@@ -17,7 +17,8 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'username', 'email', 'is_staff', 'courses_subscribed', 'password']
-        extra_kwargs={"password": {"write_only": True}, "is_staff": {"read_only": True}}
+        extra_kwargs={"password": {"write_only": True}, "is_staff": {"read_only": True},
+                      'courses_subscribed': {'read_only': True}}
     
     def get_courses_subscribed(self, obj):
         # Get courses where the user is the owner
@@ -25,51 +26,23 @@ class UserSerializer(serializers.ModelSerializer):
         # Extract courses from subscriptions
         courses = [subscription.course for subscription in subscriptions]
 
-        # Serialize the courses
         return CourseSerializer(courses, many=True).data
-
-        
-    def create(self, validated_data):
-        # Extract the email and username from the validated data
-        email = validated_data.pop('email')
-        username = validated_data.pop('username')
-        
-        # Create the user with the email and username
-        user = User.objects.create_user(
-            username=username,
-            email=email,
-            **validated_data
-        )
-        
-        return user
+    
 
 class SubscriptionSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)  # Use UserSerializer for detailed user information
-    course = CourseSerializer(read_only=True)  # Use CourseSerializer for detailed course information
+    course = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Subscription
         fields = ['id', 'user', 'course', 'subscribed_at']
 
-
-class OrderItemSerializer(serializers.ModelSerializer):
-    course = serializers.SerializerMethodField()
-    class Meta:
-        model = OrderItem
-        fields = ['price', 'course', 'image', 'created_at']
-
     def get_course(self, obj):
-        return obj.name
-
-
-class OrderSerializer(serializers.ModelSerializer):
-    orderItems = OrderItemSerializer(many=True, read_only=True, source='orderitem_set')
-    user = UserSerializer(many=False, read_only=True)
-
-    class Meta:
-        model = Order
-        fields = ['id', 'user', 'created_at', 'orderItems']
-        extra_kwargs = {'user': {'read_only': True}}
+        return {
+            'id':  obj.course.id,
+            'name': obj.course.name,
+            'price': obj.course.price
+        }
 
 
 class WeekSerializer(serializers.ModelSerializer):
@@ -91,8 +64,15 @@ class ExerciseSerializer(serializers.ModelSerializer):
 
 
 class PaymentSerializer(serializers.ModelSerializer):
+    course = serializers.SerializerMethodField(read_only=True)
     class Meta:
         model = Payment
-        fields = '__all__'
+        fields = ['id', 'user', 'course', 'payment_intent_id', 'amount', 'currency', 'status', 'created_at']
         extra_kwargs = {'user': {'read_only': True}}
 
+    def get_course(self, obj):
+        return {
+            'id':  obj.course.id,
+            'name': obj.course.name,
+            'price': obj.course.price
+        }
