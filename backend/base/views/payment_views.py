@@ -57,6 +57,8 @@ class CreatePaymentIntentView(generics.APIView):
 # endpoint secret key
 # Make sure to return 200K quickly before updating database(STRIPE timeout requirement)
 class StripeWebhookView(generics.APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    
     def post(self, request, *args, **kwargs):
         payload = request.body
         # endpoint secret key
