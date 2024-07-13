@@ -54,7 +54,7 @@ class Payment(models.Model):
     def __str__(self):
         return f"Payment for Course {self.course.name}"
 
-#When a payment is successfuly created
+# When a payment is successfuly created
 class Subscription(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
