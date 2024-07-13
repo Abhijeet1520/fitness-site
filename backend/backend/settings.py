@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     #3rd party apps 
     'rest_framework',
     'corsheaders',
+    'django_celery_results'
 ]
 
 # Simple JWT 
@@ -180,3 +181,12 @@ CORS_ALLOW_ALL_CREDENTIALS=True
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Celery Configurations
+CELERY_BROKER_URL = os.getenv('REDIS_URL')
+CELERY_RESULT_BACKEND = 'django-db'
+
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Australia/Melbourne'

@@ -10,6 +10,7 @@ from base.models import Payment, Subscription, Course
 from base.serializers import PaymentSerializer
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+from base.tasks import update_payment_and_create_subscription, temp_task
 
 
 # This is my secrete stripe key
@@ -86,15 +87,15 @@ class StripeWebhookView(generics.GenericAPIView):
 
         # Handle the event
         if event.type == 'payment_intent.succeeded':
-            payment_intent = event.data.object['id']
-            print('Payment for {} succeeded'.format(payment_intent['amount']))
-            #TODO: Use Celery & Redis here to handle this asynchronously
-            payment = Payment.objects.get(payment_intent_id=payment_intent.id)
-            payment.status = payment_intent.status
-            payment.save()
+            payment_intent_id = event.data.object['id']
+            print('Payment for {} succeeded'.format(payment_intent_id))
+            update_payment_and_create_subscription.delay(payment_intent_id)
 
-            # Create Subscription
-            Subscription.objects.create(
-                user=payment.user, course=payment.course)
 
         return Response(status=status.HTTP_200_OK)
+    
+
+class celeryTestView(generics.GenericAPIView):
+    def get(self, request, *args, **kwargs):
+        temp_task.delay(1, 2)
+        return JsonResponse({'message': 'success'})

@@ -8,3 +8,4 @@ BACKEND:
 DOCKER TODOS:
 6. Remember to create celery workers in DOCKER.[Deploy it as a daemon]
 7. Remember to setup redis.
+8. Make sure to update all the environment variables.
