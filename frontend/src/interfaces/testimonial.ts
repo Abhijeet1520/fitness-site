@@ -1,7 +1,5 @@
-interface Testimonial{
-    person: String,
-    description: String,
-    image: HTMLImageElement
+export default interface Testimonial {
+    person: string;
+    description: string;
+    image: string;
 }
-
-export default Testimonial;
