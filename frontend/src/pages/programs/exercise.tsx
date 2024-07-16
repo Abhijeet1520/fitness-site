@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ExerciseCard from "../../components/exercises/exerciseCard";
 import axios from 'axios';
 import Exercise from "../../interfaces/exercise";
+import ProgramWeekDaysNav from '../../components/programWeekDaysNav/index';
 
 const ExercisePage = () => {
   const [exercises, setExercises] = useState<Exercise[]>([
@@ -67,12 +68,16 @@ const ExercisePage = () => {
   }, []);
 
   return (
-    <div className="my-10">
-      {exercises.map((exercise, index) => (
-        <ExerciseCard key={index} exercise={exercise} />
-      ))}
+    <>
+      <ProgramWeekDaysNav/>
+    <div className="my-10 mx-[10%]">
+        {exercises.map((exercise,index) => (
+          <ExerciseCard key={index} exercise={exercise} />
+        ))}
+        
     </div>
-  );
+  </>
+);
 };
 
 export default ExercisePage;

@@ -1,8 +1,6 @@
-import exercise from "./exercise";
+import Exercise from './exercise';
 
-const workout = {
-    day: Number,
-    exercises: [exercise],
-};
-
-export default workout;
+export default interface Workout {
+    day: number;
+    exercises: Exercise[];
+}

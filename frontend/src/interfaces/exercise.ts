@@ -1,4 +1,4 @@
-const Exercise = {
+interface Exercise = {
     id: String,
     name: String,
     description: String,

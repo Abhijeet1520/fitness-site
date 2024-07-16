@@ -49,7 +49,9 @@ const App: React.FC = () => {
                 path="/checkout"
                 element={
                   <StripeProvider>
-                    <CheckoutForm />
+                    <div className="flex justify-center">
+                      <CheckoutForm />
+                    </div>
                   </StripeProvider>
                 }
               />
