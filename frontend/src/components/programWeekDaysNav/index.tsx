@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import Slider from 'react-slick';
 import { useAuth } from '../../contexts/authContext';
-import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import '../programWeeksNav/custom-slick.css';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -14,7 +14,7 @@ const ProgramWeekDaysNav = () => {
   const navigate = useNavigate();
   const programName = useParams().name;
   const userOwnsProgram = true;
-  
+
   const settings = {
     dots: true,
     infinite: false,
@@ -44,7 +44,7 @@ const ProgramWeekDaysNav = () => {
         <Slider {...settings} className=''>
 
           {Array.from({ length: numDays }, (_, i) => (
-            <span 
+            <span
               className='text-black text-2xl font-bold m-5 hover:cursor-pointer'
               onClick={() => navigate(`./day${i+1}` )}
               >
