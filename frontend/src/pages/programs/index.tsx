@@ -4,7 +4,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchCourses } from '../../services/apiService';
 import { HiOutlineDotsVertical } from "react-icons/hi";
-import Program from '@/interfaces/program';
+import Program from '../../interfaces/program';
+import alt3 from '../../assets/alt3.jpeg';
 
 const Programs: React.FC = () => {
     const navigate = useNavigate();
@@ -56,9 +57,9 @@ const Programs: React.FC = () => {
                         className="flex flex-col border-2 focus:shadow-lg hover:cursor-pointer hover:shadow-2xl rounded-xl w-56"
                         onClick={() => navigate(program.url)}
                     >
-                        <img src={program.image} alt={program.title} className="w-full h-40 object-cover mb-4 rounded-t-xl" />
+                        <img src={alt3} alt={program.name} className="w-full h-40 object-cover mb-4 rounded-t-xl" />
                         <div className='text-left mb-2 px-4'>
-                            <h3 className="text-xl font-bold">{program.title}</h3>
+                            <h3 className="text-xl font-bold">{program.name}</h3>
                             <p className='text-gray-600'>{program.description}</p>
                         </div>
                     </div>

@@ -1,11 +1,12 @@
-interface Exercise = {
-    id: String,
-    name: String,
-    description: String,
-    type: String,
+interface Exercise {
+    id: string,
+    name: string,
+    description: string,
+    type: string,
     duration: Number,
-    videoName: String,
-    videoUrl: String
+    videoName: string,
+    videoUrl: string,
+    url: string
 };
 
 export default Exercise;
