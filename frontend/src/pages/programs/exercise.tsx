@@ -1,6 +1,7 @@
 import React from "react";
 import Exercise from "../../interfaces/exercise";
 import ExerciseCard from "../../components/exercises/exerciseCard";
+import ProgramWeekDaysNav from '../../components/programWeekDaysNav/index';
 
 
 const ExercisePage = () => {
@@ -37,12 +38,15 @@ const ExercisePage = () => {
   ];
 
   return (
-  <div className="my-10">
-      {exercises.map((exercise,index) => (
-        <ExerciseCard key={index} exercise={exercise} />
-      ))}
-      
-  </div>
+    <>
+      <ProgramWeekDaysNav/>
+    <div className="my-10 mx-[10%]">
+        {exercises.map((exercise,index) => (
+          <ExerciseCard key={index} exercise={exercise} />
+        ))}
+        
+    </div>
+  </>
 );
 };
 export default ExercisePage;

@@ -174,20 +174,23 @@ const ProgramWeek: React.FC = () => {
     // if (!program) return null;
 
     return (
-        <div className='flex flex-col h-full px-[10%] mb-4 font-serif'>
-            
-            {location.pathname.startsWith(`/programs/${programName!}`) && location.pathname.slice(-5).startsWith('week') &&
-            <>
-            {weeks[0].days.map((day, index) => (
-                <> 
-                    <h2 className='text-left text-black text-l sm:text-xl font-bold m-5 mb-0'>Day 1</h2>
-                    <ProgramDayCard dayNum={index+1} title={day.title} description={day.description} exercises={day.exercises} sets={day.sets} warmUp={day.warmUp} workout={day.workout} stretching={day.stretching} />
+        <>
+            <div className='flex flex-col h-full px-[10%] mb-4 font-serif'>
+                
+
+                {location.pathname.startsWith(`/programs/${programName!}`) && location.pathname.slice(-5).startsWith('week') &&
+                <>
+                {weeks[0].days.map((day, index) => (
+                    <> 
+                        <h2 className='text-left text-black text-l sm:text-xl font-bold m-5 mb-0'>Day 1</h2>
+                        <ProgramDayCard dayNum={index+1} title={day.title} description={day.description} exercises={day.exercises} sets={day.sets} warmUp={day.warmUp} workout={day.workout} stretching={day.stretching} />
+                    </>
+                ))}
                 </>
-            ))}
-            </>
-            }
+                }
+            </div>
             <Outlet/>
-        </div>
+        </>
     );
 };
 
