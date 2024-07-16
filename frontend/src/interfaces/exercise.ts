@@ -4,6 +4,8 @@ const Exercise = {
     description: String,
     type: String,
     duration: Number,
+    videoName: String,
+    videoUrl: String
 };
 
 export default Exercise;
