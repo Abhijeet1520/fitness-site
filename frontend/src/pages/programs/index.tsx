@@ -36,7 +36,7 @@ const Programs: React.FC = () => {
     return (
 
         <div className='flex flex-col h-full px-[10%] font-serif'>
-            
+
             <div className='border-b-2 px-[2%]'><h1 className='text-left text-black text-5xl font-bold m-5 pt-10'>Programs</h1></div>
 
             <div className="dropdown dropdown-bottom dropdown-end ml-auto">
@@ -49,8 +49,8 @@ const Programs: React.FC = () => {
 
             <div className="flex flex-wrap h-16 gap-5">
                 {programs.map(program => (
-                    <div 
-                        className="flex flex-col border-2 focus:shadow-lg hover:cursor-pointer hover:shadow-2xl rounded-xl w-56" 
+                    <div
+                        className="flex flex-col border-2 focus:shadow-lg hover:cursor-pointer hover:shadow-2xl rounded-xl w-56"
                         onClick={ () => navigate(program.url) }
                     >
                         <img src={program.image} alt={program.name} className="w-full h-40 object-cover mb-4 rounded-t-xl" />
@@ -61,7 +61,7 @@ const Programs: React.FC = () => {
                     </div>
                 ))}
             </div>
-            
+
         </div>
     );
 };

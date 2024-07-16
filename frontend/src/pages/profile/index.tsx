@@ -64,7 +64,7 @@ const Profile: React.FC = () => {
             <div className=" self-center">
             <h2 className="text-black text-lg my-3 text-left"><strong>Email: </strong>{currentUser?.email}</h2>
             <h2 className="text-black text-lg my-3 text-left"><strong>Username: </strong>{currentUser?.displayName}</h2>
-           </div> 
+           </div>
            <p className="text-sm m-5">
                     Reset password  <Link to={'/resetpassword'} className="underline text-black">Reset Password &rarr;</Link>
                 </p>

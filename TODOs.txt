@@ -1,0 +1,11 @@
+BACKEND:
+1. Create webhook endpoint on stripe and add the endpoint_key to .env
+2. Migrate to postgress [update images datatype]
+3. Setup Firebase auth
+4. setup frontend api section [make sure to setup join and split for images urls]
+5. Create async part in webhook [celery & redis]
+
+DOCKER TODOS:
+6. Remember to create celery workers in DOCKER.[Deploy it as a daemon]
+7. Remember to setup redis.
+8. Make sure to update all the environment variables.
