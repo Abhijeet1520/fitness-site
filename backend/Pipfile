@@ -21,6 +21,7 @@ stripe = "*"
 celery = "*"
 redis = "*"
 django-celery-results = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 
