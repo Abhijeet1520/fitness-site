@@ -17,6 +17,8 @@ import StripeProvider from './stripe/payment';
 import { loadStripe } from '@stripe/stripe-js';
 import Completion from './stripe/completion';
 import CheckoutForm from './stripe/checkoutForm';
+import ResetPassword from './pages/auth/login/resetPassword';
+import Unverified from './pages/auth/login/unverified';
 
 const App: React.FC = () => {
 
@@ -50,6 +52,8 @@ const App: React.FC = () => {
                 }
               />
               <Route path="/completion" element={<Completion />} />
+              <Route path="/resetpassword" element={<ResetPassword/>} />
+              <Route path="/unverified" element={<Unverified/>} />
             </Routes>
           </div>
           <Footer />
