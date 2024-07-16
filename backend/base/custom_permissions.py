@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import permissions
-from base.models import Course, Week, Day, Exercise
+from base.models import Course, Week, Day, Exercise, Subscription
 
 class IsUserSubscribedToThisCourse_Course(permissions.BasePermission):
     message = "You must be subscribed to this course to access this."
@@ -17,7 +17,8 @@ class IsUserSubscribedToThisCourse_Course(permissions.BasePermission):
         course = get_object_or_404(Course, id=course_id)
         
         # Check if the user is subscribed to the course
-        user_subscribed_courses = request.user.subscriptions.values_list('course_id', flat=True)
+        user_subscribed_courses =  Subscription.objects.filter(user=request.user).values_list('course_id', flat=True)
+        # request.user.subscriptions.values_list('course_id', flat=True)
         if course.id in user_subscribed_courses:
             return True
         
@@ -43,7 +44,7 @@ class IsUserSubscribedToThisCourse_Week(permissions.BasePermission):
             return False
         
         # Check if the user is subscribed to the course
-        user_subscribed_courses = request.user.subscriptions.values_list('course_id', flat=True)
+        user_subscribed_courses = Subscription.objects.filter(user=request.user).values_list('course_id', flat=True)
         if course.id in user_subscribed_courses:
             return True
         
@@ -69,7 +70,7 @@ class IsUserSubscribedToThisCourse_Day(permissions.BasePermission):
         course = week.course
         
         # Check if the user is subscribed to the course
-        user_subscribed_courses = request.user.subscriptions.values_list('course_id', flat=True)
+        user_subscribed_courses = Subscription.objects.filter(user=request.user).values_list('course_id', flat=True)
         if course.id in user_subscribed_courses:
             return True
         
@@ -95,7 +96,7 @@ class IsUserSubscribedToThisCourse_Exercise(permissions.BasePermission):
         course = week.course
         
         # Check if the user is subscribed to the course
-        user_subscribed_courses = request.user.subscriptions.values_list('course_id', flat=True)
+        user_subscribed_courses = Subscription.objects.filter(user=request.user).values_list('course_id', flat=True)
         if course.id in user_subscribed_courses:
             return True
         
