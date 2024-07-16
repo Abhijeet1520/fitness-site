@@ -1,12 +1,10 @@
-interface Exercise {
+export default interface Exercise {
     id: string,
     name: string,
     description: string,
     type: string,
-    duration: Number,
+    duration: number,
     videoName: string,
     videoUrl: string,
     url: string
-};
-
-export default Exercise;
+}
