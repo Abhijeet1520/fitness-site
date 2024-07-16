@@ -13,7 +13,7 @@ const ProgramWeekDaysNav = () => {
   const { userLoggedIn } = useAuth();
   const navigate = useNavigate();
   const programName = useParams().name;
-  const userOwnsProgram = true;
+  const programWeek = useParams().week;
 
   const settings = {
     dots: true,
@@ -46,7 +46,7 @@ const ProgramWeekDaysNav = () => {
           {Array.from({ length: numDays }, (_, i) => (
             <span
               className='text-black text-2xl font-bold m-5 hover:cursor-pointer'
-              onClick={() => navigate(`./day${i+1}` )}
+              onClick={() => navigate(`/programs/${programName}/${programWeek}/day${i+1} `)}
               >
                 Day {i+1}
             </span>
