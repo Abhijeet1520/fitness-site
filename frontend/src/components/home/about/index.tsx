@@ -2,12 +2,13 @@ import React from "react";
 import "./about.css";
 import alt1 from "../../../assets/alt1.jpeg";
 import alt2 from '../../../assets/alt2.jpeg';
+import alt6 from '../../../assets/alt6.jpeg';
 
 const About: React.FC<{ id?: string }> = ({ id }) => {
     return (
     <div>
         <div className="quote">
-        <img src={alt2} alt='bg' className='bgimg'></img>
+        <img src={alt6} alt='bg' className='bgimg'></img>
         <div className="overlay"></div>
         <div className="quote-text-container">
             <div className="quote-text">

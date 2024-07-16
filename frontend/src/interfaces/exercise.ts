@@ -1,7 +1,11 @@
-export default interface Exercise {
-    id: string;
-    name: string;
-    description: string;
-    type: string;
-    duration: number;
-}
+interface Exercise = {
+    id: String,
+    name: String,
+    description: String,
+    type: String,
+    duration: Number,
+    videoName: String,
+    videoUrl: String
+};
+
+export default Exercise;

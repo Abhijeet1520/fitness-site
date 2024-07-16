@@ -13,7 +13,7 @@ const programWeekNav = () => {
   const { userLoggedIn } = useAuth();
   const navigate = useNavigate();
   const programName = useParams().name;
-  const userOwnsProgram = false;
+  const userOwnsProgram = true;
   
   const settings = {
     dots: true,

@@ -30,3 +30,5 @@ dist-ssr
 *.DS_Store
 **/__pycache__
 **/.DS_Store
+myenv
+venv
