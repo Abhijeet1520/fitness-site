@@ -9,17 +9,12 @@ const Testimonials: React.FC = () => {
         {
             person: "Jane Doe",
             description: "I have been using the Booty Program for 4 weeks now and I can already see the difference!",
-            image: new Image()
+            image: "/assets/first_person.jpeg"
         },
         {
-            person: "John Doe",
+            person: "Jane Doe",
             description: "I have been using the Upper Body Program for 4 weeks now and I can already see the difference!",
-            image: new Image()
-        },
-        {
-            person: "Jane Smith",
-            description: "I have been using the Leg Program for 4 weeks now and I can already see the difference!",
-            image: new Image()
+            image: "/assets/second_person.jpeg"
         }
     ];
 

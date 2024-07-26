@@ -10,7 +10,7 @@ import {
   AuthResponse,
 } from './interfaces';
 
-const API_BASE_URL = import.meta.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api';
+export const API_BASE_URL = import.meta.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -35,7 +35,7 @@ api.interceptors.request.use(
 
 // Courses
 export const fetchCourses = async (): Promise<Course[]> => {
-  const response = await api.get('/courses/list/');
+  const response = await api.get('/course/list');
   return response.data;
 };
 
