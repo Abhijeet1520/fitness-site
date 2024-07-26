@@ -10,19 +10,20 @@ import {
   AuthResponse,
 } from './interfaces';
 
-const API_BASE_URL = import.meta.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api';
+import { ACCESS_TOKEN } from "./constants.ts"
+
+export const API_BASE_URL = import.meta.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${localStorage.getItem('token')}`,
   },
 });
 
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem(ACCESS_TOKEN);
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
     }
@@ -33,9 +34,11 @@ api.interceptors.request.use(
   }
 );
 
+export default api
+
 // Courses
 export const fetchCourses = async (): Promise<Course[]> => {
-  const response = await api.get('/courses/list/');
+  const response = await api.get('/course/list');
   return response.data;
 };
 
