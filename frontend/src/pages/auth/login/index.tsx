@@ -1,13 +1,11 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { Input } from 'react-daisyui';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { useAuth } from '../../../contexts/authContext';
-import { doSignInWithEmailAndPassword, doSignInWithGoogle } from '../../../firebase/auth';
+import { doSignInWithEmailAndPassword } from '../../../firebase/auth';
 
 
 const Login: React.FC = () => {
-    // const { userLoggedIn } = useAuth();
-    const navigate = useNavigate();
     const { userLoggedIn, currentUser, verified } = useAuth();
 
     const [email, setEmail] = useState<string>('');
@@ -28,30 +26,10 @@ const Login: React.FC = () => {
                         setErrorMessage('');
                     }, 2000);
                 }
-                // if(verified) {
-                //     navigate('/');
-                // // } else {
-                // //     navigate('/unverified');
-                // //     doSignOut();
-                // }
-                // doSendEmailVerification()
             } catch (error) {
                 setIsSigningIn(false);
                 setErrorMessage('Email or password is incorrect. Please try signing up or reset your password.');
                 console.error(error);
-            }
-        }
-    };
-
-    const onGoogleSignIn = async (e: FormEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-        if (!isSigningIn) {
-            setIsSigningIn(true);
-            try {
-                await doSignInWithGoogle();
-            } catch (err) {
-                setIsSigningIn(false);
-                setErrorMessage('Error signing in with Google. Please try again.');
             }
         }
     };

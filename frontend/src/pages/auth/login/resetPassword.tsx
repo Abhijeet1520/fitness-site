@@ -21,7 +21,7 @@ const ResetPassword: React.FC = () => {
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
-            // ..
+            console.error(`Unable to send link right now. Please try again later. Error: ${errorCode} - ${errorMessage}`);
         });
     }
 

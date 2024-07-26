@@ -34,6 +34,7 @@ const Unverified: React.FC = () => {
             const errorCode = error.code;
             const errorMessage = error.message;
             setError('Unable to send link right now. Please try again later.');
+            console.error(`Unable to send link right now. Please try again later. Error: ${errorCode} - ${errorMessage}`);
             setTimeout(() => {
                 setError('');
             },5000);
