@@ -91,9 +91,10 @@ export default function CheckoutForm() {
   const paymentElementOptions: StripePaymentElementOptions = {
     layout: "tabs"
   }
-
+  // w-[30vw] w-min-[500px] self-center shadow-custom rounded-7 p-[40px]
   return (
-    <form id="payment-form" onSubmit={handleSubmit} className="mx-20 mt-20">
+    <div className="flex flex-col items-center justify-center h-full">
+    <form id="payment-form" onSubmit={handleSubmit} className=" mx-20 mt-20 w-max-[500px] self-center shadow-custom rounded-7 p-[4vh]">
       <input
         id="email"
         type="text"
@@ -103,7 +104,7 @@ export default function CheckoutForm() {
       />
 
       <PaymentElement id="payment-element" options={paymentElementOptions} />
-      <button disabled={isLoading || !stripe || !elements} id="submit">
+      <button className="pay-btn" disabled={isLoading || !stripe || !elements} id="submit">
         <span id="button-text" className="text-white">
           {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
         </span>
@@ -111,5 +112,6 @@ export default function CheckoutForm() {
       {/* Show any error or success messages */}
       {message && <div id="payment-message">{message}</div>}
     </form>
+    </div>
   );
 }

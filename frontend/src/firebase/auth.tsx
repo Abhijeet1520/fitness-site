@@ -7,6 +7,8 @@ import {
   updatePassword,
   signInWithPopup,
   GoogleAuthProvider,
+  updateProfile,
+  deleteUser
 } from "firebase/auth";
 
 export const doCreateUserWithEmailAndPassword = async (
@@ -21,6 +23,14 @@ export const doSignInWithEmailAndPassword = (
   password: string
 ) => {
   return signInWithEmailAndPassword(auth, email, password);
+};
+
+export const doDeleteUser = () => {
+  const user = auth.currentUser;
+  if (user) {
+    return deleteUser(user);
+  }
+  throw new Error("User is not authenticated.");
 };
 
 export const doSignInWithGoogle = async () => {
@@ -61,3 +71,5 @@ export const doSendEmailVerification = () => {
     }
     throw new Error("User is not authenticated.");
 };
+
+export { updateProfile };

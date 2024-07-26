@@ -2,19 +2,19 @@ import React from 'react'
 import { useState } from 'react';
 import Slider from 'react-slick';
 import { useAuth } from '../../contexts/authContext';
-import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import './custom-slick.css';
+import '../programWeeksNav/custom-slick.css';
 import { useNavigate, useParams } from 'react-router-dom';
 
-const programWeekNav = () => {
+const ProgramWeekDaysNav = () => {
 
-  const [numWeeks, setNumWeeks] = useState<number>(6);
+  const [numDays, setNumDays] = useState<number>(7);
   const { userLoggedIn } = useAuth();
   const navigate = useNavigate();
   const programName = useParams().name;
-  const userOwnsProgram = true;
-  
+  const programWeek = useParams().week;
+
   const settings = {
     dots: true,
     infinite: false,
@@ -39,29 +39,16 @@ const programWeekNav = () => {
     ]
   };
 
-  return (    
+  return (
     <div className='w-full mb-2'>
         <Slider {...settings} className=''>
-          <span 
-            className='text-black text-2xl font-bold m-5 hover:cursor-pointer' 
-            onClick={() => navigate(`/programs/${programName}`)}
-            >
-              About
-            </span>
 
-          { (!userLoggedIn || !userOwnsProgram ) && <span 
-            className='text-black text-2xl font-bold m-5 hover:cursor-pointer' 
-            onClick={() => navigate(`/programs/${programName}`)}
-            >
-              Purchase
-            </span>}
-
-          { (userLoggedIn && userOwnsProgram) && Array.from({ length: numWeeks }, (_, i) => (
-            <span 
+          {Array.from({ length: numDays }, (_, i) => (
+            <span
               className='text-black text-2xl font-bold m-5 hover:cursor-pointer'
-              onClick={() => navigate(`./week${i+1}` )}
+              onClick={() => navigate(`/programs/${programName}/${programWeek}/day${i+1} `)}
               >
-                Week {i+1}
+                Day {i+1}
             </span>
           ))}
         </Slider>
@@ -69,4 +56,4 @@ const programWeekNav = () => {
   )
 }
 
-export default programWeekNav
+export default ProgramWeekDaysNav

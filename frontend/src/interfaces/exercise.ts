@@ -1,9 +1,10 @@
-const Exercise = {
-    id: String,
-    name: String,
-    description: String,
-    type: String,
-    duration: Number,
-};
-
-export default Exercise;
+export default interface Exercise {
+    id: string,
+    name: string,
+    description: string,
+    type: string,
+    duration: number,
+    videoName: string,
+    videoUrl: string,
+    url: string
+}

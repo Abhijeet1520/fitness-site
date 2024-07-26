@@ -1,15 +1,16 @@
 import React, { useState, FormEvent, ChangeEvent } from 'react';
 import { Navigate, Link, useNavigate } from 'react-router-dom';
-import { doSignInWithEmailAndPassword, doSignInWithGoogle } from '../../../firebase/auth';
+import { doSignInWithEmailAndPassword, doSignInWithGoogle, doSignOut } from '../../../firebase/auth';
 import { useAuth } from '../../../contexts/authContext';
 import { Input } from 'react-daisyui';
 import { FcGoogle } from "react-icons/fc";
+import Unverified from './unverified';
 
 
 const Login: React.FC = () => {
     // const { userLoggedIn } = useAuth();
     const navigate = useNavigate();
-    const { userLoggedIn } = useAuth();
+    const { userLoggedIn, currentUser, verified } = useAuth();
 
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
@@ -21,12 +22,24 @@ const Login: React.FC = () => {
         if (!isSigningIn) {
             setIsSigningIn(true);
             try {
+                
                 await doSignInWithEmailAndPassword(email, password);
+                if(!currentUser){
+                    setErrorMessage('Email or password is incorrect. Please try signing up or reset your password.');
+                    setTimeout(() => {
+                        setErrorMessage('');
+                    }, 2000);
+                }
+                // if(verified) {
+                //     navigate('/');
+                // // } else {
+                // //     navigate('/unverified');
+                // //     doSignOut();
+                // }
                 // doSendEmailVerification()
-                navigate('/');
             } catch (error) {
                 setIsSigningIn(false);
-                setErrorMessage('Error signing in. Please try again.');
+                setErrorMessage('Email or password is incorrect. Please try signing up or reset your password.');
                 console.error(error);
             }
         }
@@ -46,12 +59,11 @@ const Login: React.FC = () => {
     };
 
     return (
-
         <div className='flex flex-col h-full px-[10%] font-serif'>
             <div className='border-b-2 px-[2%]'><h1 className='text-left text-black text-5xl font-bold m-5 pt-10'>Sign In</h1></div>
             <div className="flex flex-col items-center justify-center h-full">
-                {userLoggedIn && (<Navigate to={'/home'} replace={true}/>)}
-                
+                {(userLoggedIn && !verified) && (<Navigate to={'/unverified'} replace={true}/>)}
+                {(userLoggedIn && verified) && (<Navigate to={'/'} replace={true}/>)}
                 
                 <form onSubmit={onSubmit} className='flex flex-col gap-5 items-center w-full max-w-md mx-auto text-black'>
 
@@ -81,9 +93,15 @@ const Login: React.FC = () => {
                     </button>
 
                 </form>
+                
+                <p className="text-red-500">{errorMessage}</p>
 
                 <p className="text-sm m-5">
                     Don't have an account? <Link to={'/register'} className="underline text-black">Sign up</Link>
+                </p>
+
+                <p className="text-sm m-5">
+                    Forgot your password?  <Link to={'/resetpassword'} className="underline text-black">Reset Password &rarr;</Link>
                 </p>
             </div>
         </div>

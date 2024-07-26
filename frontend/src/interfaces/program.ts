@@ -1,9 +1,8 @@
-interface Program{
-    title: String,
-    description: String,
-    cost: Number,
-    originalCost: Number,
-    image: HTMLImageElement
+export default interface Program{
+    id: string,
+    name: string,
+    description: string,
+    price: number,
+    created_at: number,
+    images: HTMLImageElement
 }
-
-export default Program;

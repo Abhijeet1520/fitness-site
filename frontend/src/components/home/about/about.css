@@ -1,6 +1,6 @@
 
 .card{
-  margin: 20px;
+  /* margin: 20px; */
   /* margin-top: -40px; */
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -34,13 +34,14 @@
     left: 0;
     width: 200vw;
     height: 100%;
-    object-fit: cover;
+    object-fit:cover;
+    object-position: 50% 20%;
     z-index: 2;
     border: 1px solid green;
   }
   .overlay {
     position: absolute;
-    top: 0;
+    /* top: 0; */
     left: 0;
     width: 100%;
     height: 100%;

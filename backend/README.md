@@ -1,41 +1,117 @@
-<h1 align=center>E-Commerce Website with Django + React & Redux</h1>
-<h2 align=center>Otaku House - Anime Merchandise and Cosplay Shop</h2>
+# Fitness Site
 
-## ✨ [Live Link - Otaku House](https://otakuhouse.herokuapp.com/)
+## Overview
 
-### How to Run 🏃‍♀️
+Fitness Site is a web application built using Django for the backend and React for the frontend. This README provides instructions on how to set up and run the development environment for both parts of the project.
 
-```shell
-1 Clone This Repo by `git clone https://github.com/kritebh/ecommerce-django-react.git`
-2 python -m venv env
-3 .\env\Scripts\activate
-4 pip install -r requirements.txt 
-5 python manage.py runserver
+## Prerequisites
 
+Before you begin, ensure you have the following installed on your machine:
+
+- Python (3.8 or higher)
+- Node.js (14.x or higher) and npm
+- Git
+
+### Setting Up the Backend (Django)
+
+#### Create and Activate a Virtual Environment
+
+```bash
+python -m venv venv
+source venv/bin/activate
+# On Windows, use `venv\Scripts\activate`
 ```
 
-### 📷 Project Screenshots
+#### Install Backend Dependencies
 
-![ss](./ss/ss1.png)
-![ss](./ss/ss2.png)
-![ss](./ss/ss3.png)
-![ss](./ss/ss4.png)
-![ss](./ss/ss5.png)
-![ss](./ss/ss6.png)
+With the virtual environment activated, install the required dependencies:
 
-### 🚀 Project Features
+```bash
+pip install -r requirements.txt
+```
 
-A completely customized eCommerce / shopping cart application using Django, REACT and REDUX with the following functionality:
+#### Configure Environment Variables
 
-- Full featured shopping cart
-- Product reviews and Ratings
-- Top products carousel
-- Product pagination
-- Product search feature
-- User profile with orders
-- Admin product management
-- Admin user management
-- Admin Order details page
-- Mark orders as a delivered option
-- Checkout process (shipping, payment method, etc)
-- PayPal / credit card integration
+Copy the `.env.development` file in the root directory of the project and rename it to `.env` and add the necessary environment variables:
+
+```env
+REACT_APP_FIREBASE_API_KEY=VAL
+REACT_APP_FIREBASE_AUTH_DOMAIN=VAL
+REACT_APP_FIREBASE_PROJECT_ID=VAL
+REACT_APP_FIREBASE_STORAGE_BUCKET=VAL
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=VAL
+REACT_APP_FIREBASE_APP_ID=VAL
+REACT_APP_FIREBASE_MEASUREMENT_ID=VAL
+REACT_APP_STRIPE_SECRET_KEY=VAL
+REACT_APP_STRIPE_PUBLIC_KEY=VAL
+SECRET_KEY=VAL
+STRIPE_SECRET_KEY=VAL
+STRIPE_PUBLISHABLE_KEY=VAL
+```
+
+#### Apply Migrations and Create a Superuser
+
+Create the base databsae:
+
+```bash
+python manage.py migrate --run-syncdb
+```
+
+Apply the database migrations:
+
+```bash
+python manage.py migrate
+```
+
+Create a superuser for accessing the Django admin interface:
+
+```bash
+python manage.py createsuperuser
+```
+
+#### Run the Backend Server
+
+Start the Django development server:
+
+```bash
+python manage.py runserver
+```
+
+The backend server should now be running at `http://127.0.0.1:8000/`.
+
+### Setting Up the Frontend (React)
+
+#### Install Frontend Dependencies
+
+```bash
+npm install
+```
+
+#### Configure Environment Variables
+
+Copy the `.env.development` file in the root directory of the project and rename it to `.env` and add the necessary environment variables:
+
+```env
+REACT_APP_FIREBASE_API_KEY=VAL
+REACT_APP_FIREBASE_AUTH_DOMAIN=VAL
+REACT_APP_FIREBASE_PROJECT_ID=VAL
+REACT_APP_FIREBASE_STORAGE_BUCKET=VAL
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=VAL
+REACT_APP_FIREBASE_APP_ID=VAL
+REACT_APP_FIREBASE_MEASUREMENT_ID=VAL
+REACT_APP_STRIPE_SECRET_KEY=VAL
+REACT_APP_STRIPE_PUBLIC_KEY=VAL
+SECRET_KEY=VAL
+STRIPE_SECRET_KEY=VAL
+STRIPE_PUBLISHABLE_KEY=VAL
+```
+
+#### Run the Frontend Server
+
+Start the React development server:
+
+```bash
+npm run dev
+```
+
+The frontend server should now be running at `http://localhost:3000/`.
