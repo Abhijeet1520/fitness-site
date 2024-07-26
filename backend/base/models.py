@@ -15,20 +15,25 @@ class Course(models.Model):
 
 class Week(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    week_number = models.IntegerField(null=True, blank=True, default=1)
+    week_number = models.IntegerField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Week {self.week_number} - {self.course.title}"
+        return f"Week {self.week_number} - {self.course.name}"
 
     
 class Day(models.Model):
+    day_number= models.IntegerField(null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     week = models.ForeignKey(Week, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"Day {self.day_number} - Week {self.week.week_number} - Course {self.week.course.name}"
 
 class Exercise(models.Model):
     week = models.ForeignKey(Week, on_delete=models.CASCADE)
     day = models.ForeignKey(Day, on_delete=models.CASCADE)
+    exercise_number= models.IntegerField(null=True, blank=True)
     title = models.CharField(max_length=200, null=True, blank=True)
     type = models.CharField(max_length=200, null=True, blank=True) # Warmup | Exercise | Stretching
     sets = models.IntegerField(null=True,blank=True,default=0)
