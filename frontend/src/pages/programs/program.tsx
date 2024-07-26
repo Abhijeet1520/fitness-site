@@ -1,12 +1,7 @@
-import React, { useState, FormEvent, ChangeEvent, useEffect } from 'react';
-import { Navigate, Link, useNavigate, useParams, Routes, Route, Outlet, useLocation } from 'react-router-dom';
-import { doSignInWithEmailAndPassword, doSignInWithGoogle } from '../../firebase/auth';
-import { useAuth } from '../../contexts/authContext';
-import { Input } from 'react-daisyui';
-import { FcGoogle } from "react-icons/fc";
-import { HiOutlineDotsVertical } from "react-icons/hi";
+import React, { useEffect, useState } from 'react';
+import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import ProgramWeekNav from '../../components/programWeeksNav/index';
-import ProgramWeek from './programWeek';
+import { useAuth } from '../../contexts/authContext';
 interface Program {
     name: string;
     includedImage: string;
@@ -80,11 +75,11 @@ const Program: React.FC = () => {
 <div className='p-0 m-0'>
         <div className='flex flex-col h-full px-[10%] font-serif'>
             <div className='border-b-2 px-[2%]'><h1 className='text-left text-black text-5xl font-bold m-5 pt-10'>{program.name} Program</h1></div>
-            
+
             <ProgramWeekNav />
             <Outlet/>
 
-            {location.pathname === `/programs/${programName!}` && 
+            {location.pathname === `/programs/${programName!}` &&
             <>
             <div className="flex flex-col p-5 m-5 bg-[#FAFAF5] border border-[#E6E6E6] rounded-2xl">
                 <div className='w-full'>
@@ -99,7 +94,7 @@ const Program: React.FC = () => {
             </div>
 
             {/*onClick={() => doSomething()}*/}
-            { ( !userLoggedIn || !userOwnsProgram ) && <button type="submit" 
+            { ( !userLoggedIn || !userOwnsProgram ) && <button type="submit"
                 className={`m-auto place-self-center p-2 px-4 text-white font-semibold rounded-full bg-[#525252] active:bg-[#6D6D6D] hover:bg-[#525252] hover:shadow-xl active:bg-[#3b3b3b]'}`}
             >
                 Buy Now
@@ -118,7 +113,7 @@ const Program: React.FC = () => {
             </div>
 
             {/*onClick={() => doSomething()}*/}
-            { ( !userLoggedIn || !userOwnsProgram ) &&<button type="submit" 
+            { ( !userLoggedIn || !userOwnsProgram ) &&<button type="submit"
                 className={`m-auto place-self-center p-2 px-4 text-white font-semibold rounded-full bg-[#525252] active:bg-[#6D6D6D] hover:bg-[#525252] hover:shadow-xl active:bg-[#3b3b3b]'}`}
             >
                 Buy Now
@@ -137,7 +132,7 @@ const Program: React.FC = () => {
             </div>
 
             {/*onClick={() => doSomething()}*/}
-            { ( !userLoggedIn || !userOwnsProgram ) &&<button type="submit" 
+            { ( !userLoggedIn || !userOwnsProgram ) &&<button type="submit"
                 className={`m-auto place-self-center p-2 px-4 mb-4 text-white font-semibold rounded-full bg-[#525252] active:bg-[#6D6D6D] hover:bg-[#525252] hover:shadow-xl active:bg-[#3b3b3b]'}`}
             >
                 Buy Now
@@ -156,7 +151,7 @@ const Program: React.FC = () => {
             </div>
 
             {/*onClick={() => doSomething()}*/}
-            { ( !userLoggedIn || !userOwnsProgram ) &&<button type="submit" 
+            { ( !userLoggedIn || !userOwnsProgram ) &&<button type="submit"
                 className={`m-auto place-self-center p-2 px-4 mb-4 text-white font-semibold rounded-full bg-[#525252] active:bg-[#6D6D6D] hover:bg-[#525252] hover:shadow-xl active:bg-[#3b3b3b]'}`}
             >
                 Buy Now
