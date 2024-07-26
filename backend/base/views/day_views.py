@@ -17,6 +17,11 @@ class DayListAPIView(generics.ListAPIView):
         week_id = self.kwargs['week_id']
         return Day.objects.filter(week_id=week_id)
 
+class DayListALLAPIView(generics.ListAPIView):
+    queryset = Day.objects.all()
+    serializer_class = DaySerializer
+    permission_classes = [permissions.IsAuthenticated, custom_permissions.IsUserSubscribedToThisCourse_Week]
+
 
 class DayRetrieveAPIView(generics.RetrieveAPIView):
     queryset = Day.objects.all()
