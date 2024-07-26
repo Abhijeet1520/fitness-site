@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 import { fetchExercises } from '@services/apiService';
 
 export interface UpdatedExercise extends Exercise {
-  complete_urls: string;
+  complete_url: any;
 }
 
 const ExercisePage = () => {

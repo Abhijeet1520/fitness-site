@@ -3,20 +3,10 @@ import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import ProgramDayCard from '../../components/programDaysCard/index';
 import { useAuth } from '../../contexts/authContext';
 import { Day } from '@services/interfaces';
+import { fetchDays } from '@services/apiService';
 
-interface Program {
-    dayNum: number;
-    name: string;
-    includedImage: string;
-    forMeImage: string;
-    resultsExpectImage: string;
-    included: string;
-    forMe: string;
-    resultsExpect: string;
-}
 
 const ProgramWeek: React.FC = () => {
-    // const { userLoggedIn } = useAuth();
     const navigate = useNavigate();
     const { userLoggedIn } = useAuth();
     const location = useLocation();
@@ -24,15 +14,25 @@ const ProgramWeek: React.FC = () => {
     const [days, setDays] = useState<Day[]>([]);
 
     useEffect(() => {
-    }, []);
+        const loadDays = async () => {
+            if (weekID) {
+                try {
+                    const fetchedDays = await fetchDays(weekID);
+                    setDays(fetchedDays);
+                } catch (error) {
+                    console.error('Error fetching days:', error);
+                }
+            }
+        };
+
+        loadDays();
+    }, [weekID]);
 
     // if (!program) return null;
 
     return (
         <>
             <div className='flex flex-col h-full px-[10%] mb-4 font-serif'>
-
-
                 {/* {location.pathname.startsWith(`/programs/${programName!}`) && location.pathname.slice(-5).startsWith('week') && */}
                 <>
                     {days.map((day, index) => (
