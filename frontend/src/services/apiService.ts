@@ -1,16 +1,14 @@
 import axios from 'axios';
 import {
+  AuthResponse,
   Course,
-  Week,
   Day,
   Exercise,
-  Payment,
-  Subscription,
   User,
-  AuthResponse,
+  Week
 } from './interfaces';
 
-import { ACCESS_TOKEN } from "./constants.ts"
+import { ACCESS_TOKEN } from "./constants.ts";
 
 export const API_BASE_URL = import.meta.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api';
 
@@ -153,27 +151,27 @@ export const handleStripeWebhook = async (payload: any): Promise<void> => {
 
 // Users
 export const registerUser = async (userData: Partial<User>): Promise<User> => {
-  const response = await api.post('/users/register/', userData);
+  const response = await api.post('/user/register/', userData);
   return response.data;
 };
 
 export const createAdminUser = async (userData: Partial<User>): Promise<User> => {
-  const response = await api.post('/users/create_admin_user/', userData);
+  const response = await api.post('/user/create_admin_user/', userData);
   return response.data;
 };
 
 export const fetchCurrentUserDetail = async (): Promise<User> => {
-  const response = await api.get('/users/current_user_detail/');
+  const response = await api.get('/user/current_user_detail/');
   return response.data;
 };
 
 export const updateUser = async (userId: string, userData: Partial<User>): Promise<User> => {
-  const response = await api.put(`/users/update/${userId}/`, userData);
+  const response = await api.put(`/user/update/${userId}/`, userData);
   return response.data;
 };
 
 export const deleteUser = async (userId: string): Promise<void> => {
-  await api.delete(`/users/delete/${userId}/`);
+  await api.delete(`/user/delete/${userId}/`);
 };
 
 export const login = async (credentials: { username: string; password: string }): Promise<AuthResponse> => {
