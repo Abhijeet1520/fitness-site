@@ -1,10 +1,8 @@
-import React, { useState, FormEvent, ChangeEvent } from 'react';
-import { Navigate, Link, useNavigate } from 'react-router-dom';
-import { doSignInWithEmailAndPassword, doSignInWithGoogle, doSignOut } from '../../../firebase/auth';
-import { useAuth } from '../../../contexts/authContext';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { Input } from 'react-daisyui';
-import { FcGoogle } from "react-icons/fc";
-import Unverified from './unverified';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../contexts/authContext';
+import { doSignInWithEmailAndPassword, doSignInWithGoogle } from '../../../firebase/auth';
 
 
 const Login: React.FC = () => {
@@ -22,7 +20,7 @@ const Login: React.FC = () => {
         if (!isSigningIn) {
             setIsSigningIn(true);
             try {
-                
+
                 await doSignInWithEmailAndPassword(email, password);
                 if(!currentUser){
                     setErrorMessage('Email or password is incorrect. Please try signing up or reset your password.');
@@ -64,7 +62,7 @@ const Login: React.FC = () => {
             <div className="flex flex-col items-center justify-center h-full">
                 {(userLoggedIn && !verified) && (<Navigate to={'/unverified'} replace={true}/>)}
                 {(userLoggedIn && verified) && (<Navigate to={'/'} replace={true}/>)}
-                
+
                 <form onSubmit={onSubmit} className='flex flex-col gap-5 items-center w-full max-w-md mx-auto text-black'>
 
                     <div className='flex justify-between w-full'>
@@ -73,7 +71,7 @@ const Login: React.FC = () => {
                             type="email"
                             value={email}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => { setEmail(e.target.value) }}
-                            className='bg-[#FAFAF5] border border-[#E6E6E6] ml-5 rounded-full w-[60%]' 
+                            className='bg-[#FAFAF5] border border-[#E6E6E6] ml-5 rounded-full w-[60%]'
                         />
                     </div>
                     <div className='flex justify-between w-full'>
@@ -93,7 +91,7 @@ const Login: React.FC = () => {
                     </button>
 
                 </form>
-                
+
                 <p className="text-red-500">{errorMessage}</p>
 
                 <p className="text-sm m-5">

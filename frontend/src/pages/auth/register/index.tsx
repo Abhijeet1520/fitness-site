@@ -1,10 +1,9 @@
-import React, { useState, FormEvent, ChangeEvent } from 'react';
-import { Navigate, Link, useNavigate } from 'react-router-dom';
+import { UserCredential, sendEmailVerification, updateProfile } from 'firebase/auth';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
+import { Input } from 'react-daisyui';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../contexts/authContext';
 import { doCreateUserWithEmailAndPassword } from '../../../firebase/auth';
-import { Input } from 'react-daisyui';
-import { auth, db } from '../../../firebase/firebase';
-import { UserCredential, sendEmailVerification, updateProfile } from 'firebase/auth';
 
 // import firebase from 'firebase/compat/app';
 
@@ -48,8 +47,8 @@ const Register: React.FC = () => {
         <div className='border-b-2 px-[2%]'><h1 className='text-left text-black text-5xl font-bold m-5 pt-10'>Sign Up</h1></div>
         <div className="flex flex-col items-center justify-center h-full">
             {userLoggedIn && (<Navigate to={'/'} replace={true}/>)}
-            
-            
+
+
             <form onSubmit={onSubmit} className='flex flex-col gap-5 items-center w-full max-w-md mx-auto text-black'>
 
                 <div className='flex justify-between w-full'>
@@ -68,7 +67,7 @@ const Register: React.FC = () => {
                         type="email"
                         value={email}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => { setEmail(e.target.value) }}
-                        className='bg-[#FAFAF5] border border-[#E6E6E6] ml-5 rounded-full w-[60%]' 
+                        className='bg-[#FAFAF5] border border-[#E6E6E6] ml-5 rounded-full w-[60%]'
                     />
                 </div>
                 <div className='flex justify-between w-full'>

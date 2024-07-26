@@ -1,11 +1,11 @@
+import { getAuth, sendPasswordResetEmail, updateProfile } from "firebase/auth";
 import React, { useEffect, useState } from "react";
-import { useAuth } from "../../contexts/authContext";
-import {doSignOut, doDeleteUser} from "../../firebase/auth";
-import { Link, useNavigate } from "react-router-dom";
-import Login from "../auth/login";
 import { IoLogOutOutline } from "react-icons/io5";
 import { MdOutlineDeleteOutline } from "react-icons/md";
-import { getAuth, sendPasswordResetEmail, updateProfile } from "firebase/auth";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/authContext";
+import { doDeleteUser, doSignOut } from "../../firebase/auth";
+import Login from "../auth/login";
 
 const Profile: React.FC = () => {
     const navigate = useNavigate();

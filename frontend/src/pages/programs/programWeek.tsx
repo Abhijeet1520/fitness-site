@@ -1,12 +1,7 @@
-import React, { useState, FormEvent, ChangeEvent, useEffect } from 'react';
-import { Navigate, Link, useNavigate, useParams, Outlet, useLocation } from 'react-router-dom';
-import { doSignInWithEmailAndPassword, doSignInWithGoogle } from '../../firebase/auth';
-import { useAuth } from '../../contexts/authContext';
-import { Input } from 'react-daisyui';
-import { FcGoogle } from "react-icons/fc";
-import { HiOutlineDotsVertical } from "react-icons/hi";
+import React, { useEffect, useState } from 'react';
+import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import ProgramDayCard from '../../components/programDaysCard/index';
-import ProgramWeekNav from '../../components/programWeeksNav/index';
+import { useAuth } from '../../contexts/authContext';
 
 interface Program {
     dayNum: number;
@@ -176,12 +171,12 @@ const ProgramWeek: React.FC = () => {
     return (
         <>
             <div className='flex flex-col h-full px-[10%] mb-4 font-serif'>
-                
+
 
                 {location.pathname.startsWith(`/programs/${programName!}`) && location.pathname.slice(-5).startsWith('week') &&
                 <>
                 {weeks[0].days.map((day, index) => (
-                    <> 
+                    <>
                         <h2 className='text-left text-black text-l sm:text-xl font-bold m-5 mb-0'>Day 1</h2>
                         <ProgramDayCard dayNum={index+1} title={day.title} description={day.description} exercises={day.exercises} sets={day.sets} warmUp={day.warmUp} workout={day.workout} stretching={day.stretching} />
                     </>

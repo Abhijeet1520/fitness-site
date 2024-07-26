@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useAuth } from "../../../contexts/authContext";
-import { useNavigate } from "react-router-dom";
-import { doDeleteUser, doSendEmailVerification, doSignOut } from "../../../firebase/auth";
 import { IoLogOutOutline } from "react-icons/io5";
 import { MdOutlineDeleteOutline } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../contexts/authContext";
+import { doDeleteUser, doSendEmailVerification, doSignOut } from "../../../firebase/auth";
 
 
 const Unverified: React.FC = () => {
@@ -53,7 +53,7 @@ const Unverified: React.FC = () => {
                     {userLoggedIn && <button onClick={() => {doDeleteUser().then(() => {navigate('/register');});}} className="btn text-black bg-red-500 hover:bg-red-500 text-sm w-50 my-5">
                 Delete Account <MdOutlineDeleteOutline />
             </button>}
-                    
+
             </p>
         </div>
     );

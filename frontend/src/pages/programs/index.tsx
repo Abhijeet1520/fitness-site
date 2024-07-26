@@ -1,11 +1,11 @@
 // src/pages/programs/index.tsx
 
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { fetchCourses } from '../../services/apiService';
 import { HiOutlineDotsVertical } from "react-icons/hi";
-import Program from '../../interfaces/program';
+import { useNavigate } from 'react-router-dom';
 import alt3 from '../../assets/alt3.jpeg';
+import Program from '../../interfaces/program';
+import { fetchCourses } from '../../services/apiService';
 
 const Programs: React.FC = () => {
     const navigate = useNavigate();

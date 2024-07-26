@@ -1,9 +1,9 @@
 import React, { ChangeEvent, useState } from "react";
-import { doPasswordReset } from "../../../firebase/auth";
 import { Input } from "react-daisyui";
+import { doPasswordReset } from "../../../firebase/auth";
 
 const ResetPassword: React.FC = () => {
-    
+
     const [email, setEmail] = useState<string>('');
     const [reset, setReset] = useState(false); // To handle loading state
 

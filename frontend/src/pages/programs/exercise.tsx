@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import ExerciseCard from "../../components/exercises/exerciseCard";
 import axios from 'axios';
-import Exercise from "../../interfaces/exercise";
+import { useEffect, useState } from "react";
+import ExerciseCard from "../../components/exercises/exerciseCard";
 import ProgramWeekDaysNav from '../../components/programWeekDaysNav/index';
+import Exercise from "../../interfaces/exercise";
 
 const ExercisePage = () => {
   const [exercises, setExercises] = useState<Exercise[]>([
@@ -74,7 +74,7 @@ const ExercisePage = () => {
         {exercises.map((exercise,index) => (
           <ExerciseCard key={index} exercise={exercise} />
         ))}
-        
+
     </div>
   </>
 );
