@@ -1,16 +1,13 @@
 import axios from 'axios';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "./constants";
 import {
+  AuthResponse,
   Course,
-  Week,
   Day,
   Exercise,
-  Payment,
-  Subscription,
   User,
-  AuthResponse,
+  Week,
 } from './interfaces';
-
-import { ACCESS_TOKEN } from "./constants.ts"
 
 export const API_BASE_URL = import.meta.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api';
 
@@ -22,7 +19,7 @@ const api = axios.create({
 });
 
 api.interceptors.request.use(
-  (config) => {
+  async (config) => {
     const token = localStorage.getItem(ACCESS_TOKEN);
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
@@ -34,154 +31,175 @@ api.interceptors.request.use(
   }
 );
 
-export default api
+api.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
+    if (error.response.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+      const refreshToken = localStorage.getItem(REFRESH_TOKEN);
+      if (refreshToken) {
+        try {
+          const response = await axios.post(`${API_BASE_URL}/token/refresh/`, { refresh: refreshToken });
+          localStorage.setItem(ACCESS_TOKEN, response.data.access);
+          originalRequest.headers['Authorization'] = `Bearer ${response.data.access}`;
+          return api(originalRequest);
+        } catch (err) {
+          localStorage.removeItem(ACCESS_TOKEN);
+          localStorage.removeItem(REFRESH_TOKEN);
+          return Promise.reject(err);
+        }
+      }
+    }
+    return Promise.reject(error);
+  }
+);
+
+export default api;
 
 // Courses
 export const fetchCourses = async (): Promise<Course[]> => {
-  const response = await api.get('/course/list');
+  const response = await api.get('/course/list/');
   return response.data;
 };
 
 export const fetchCourseDetail = async (courseId: string): Promise<Course> => {
-  const response = await api.get(`/courses/detail/${courseId}/`);
+  const response = await api.get(`/course/detail/${courseId}/`);
   return response.data;
 };
 
 export const createCourse = async (courseData: Partial<Course>): Promise<Course> => {
-  const response = await api.post('/courses/create/', courseData);
+  const response = await api.post('/course/create/', courseData);
   return response.data;
 };
 
 export const updateCourse = async (courseId: string, courseData: Partial<Course>): Promise<Course> => {
-  const response = await api.put(`/courses/update/${courseId}/`, courseData);
+  const response = await api.put(`/course/update/${courseId}/`, courseData);
   return response.data;
 };
 
 export const deleteCourse = async (courseId: string): Promise<void> => {
-  await api.delete(`/courses/delete/${courseId}/`);
+  await api.delete(`/course/delete/${courseId}/`);
 };
 
 export const fetchUserSubscribedCourses = async (): Promise<Course[]> => {
-  const response = await api.get('/courses/subscribed/');
+  const response = await api.get('/course/subscribed/');
   return response.data;
 };
 
 // Weeks
 export const fetchWeeks = async (courseId: string): Promise<Week[]> => {
-  const response = await api.get(`/courses/${courseId}/weeks/`);
+  const response = await api.get(`/course/${courseId}/weeks/`);
   return response.data;
 };
 
 export const fetchWeekDetail = async (weekId: string): Promise<Week> => {
-  const response = await api.get(`/weeks/${weekId}/`);
+  const response = await api.get(`/week/${weekId}/`);
   return response.data;
 };
 
 export const createWeek = async (weekData: Partial<Week>): Promise<Week> => {
-  const response = await api.post('/weeks/create/', weekData);
+  const response = await api.post('/week/create/', weekData);
   return response.data;
 };
 
 export const updateWeek = async (weekId: string, weekData: Partial<Week>): Promise<Week> => {
-  const response = await api.put(`/weeks/${weekId}/update/`, weekData);
+  const response = await api.put(`/week/${weekId}/update/`, weekData);
   return response.data;
 };
 
 export const deleteWeek = async (weekId: string): Promise<void> => {
-  await api.delete(`/weeks/${weekId}/delete/`);
+  await api.delete(`/week/${weekId}/delete/`);
 };
 
 // Days
 export const fetchDays = async (weekId: string): Promise<Day[]> => {
-  const response = await api.get(`/weeks/${weekId}/days/`);
+  const response = await api.get(`/week/${weekId}/days/`);
   return response.data;
 };
 
 export const fetchDayDetail = async (dayId: string): Promise<Day> => {
-  const response = await api.get(`/days/${dayId}/`);
+  const response = await api.get(`/day/${dayId}/`);
   return response.data;
 };
 
 export const createDay = async (dayData: Partial<Day>): Promise<Day> => {
-  const response = await api.post('/days/create/', dayData);
+  const response = await api.post('/day/create/', dayData);
   return response.data;
 };
 
 export const updateDay = async (dayId: string, dayData: Partial<Day>): Promise<Day> => {
-  const response = await api.put(`/days/${dayId}/update/`, dayData);
+  const response = await api.put(`/day/${dayId}/update/`, dayData);
   return response.data;
 };
 
 export const deleteDay = async (dayId: string): Promise<void> => {
-  await api.delete(`/days/${dayId}/delete/`);
+  await api.delete(`/day/${dayId}/delete/`);
 };
 
 // Exercises
 export const fetchExercises = async (dayId: string): Promise<Exercise[]> => {
-  const response = await api.get(`/days/${dayId}/exercises/`);
+  const response = await api.get(`/day/${dayId}/exercises/`);
   return response.data;
 };
 
 export const fetchExerciseDetail = async (exerciseId: string): Promise<Exercise> => {
-  const response = await api.get(`/exercises/${exerciseId}/`);
+  const response = await api.get(`/exercise/${exerciseId}/`);
   return response.data;
 };
 
 export const createExercise = async (exerciseData: Partial<Exercise>): Promise<Exercise> => {
-  const response = await api.post('/exercises/create/', exerciseData);
+  const response = await api.post('/exercise/create/', exerciseData);
   return response.data;
 };
 
 export const updateExercise = async (exerciseId: string, exerciseData: Partial<Exercise>): Promise<Exercise> => {
-  const response = await api.put(`/exercises/${exerciseId}/update/`, exerciseData);
+  const response = await api.put(`/exercise/${exerciseId}/update/`, exerciseData);
   return response.data;
 };
 
 export const deleteExercise = async (exerciseId: string): Promise<void> => {
-  await api.delete(`/exercises/${exerciseId}/delete/`);
+  await api.delete(`/exercise/${exerciseId}/delete/`);
 };
 
 // Payments
 export const createPaymentIntent = async (courseId: string): Promise<{ clientSecret: string }> => {
-  const response = await api.post('/payments/create-payment-intent/', { courseId });
+  const response = await api.post('/payment/create-payment-intent/', { courseId });
   return response.data;
 };
 
 export const handleStripeWebhook = async (payload: any): Promise<void> => {
-  await api.post('/payments/stripe-webhook/', payload);
+  await api.post('/payment/stripe-webhook/', payload);
 };
 
 // Users
 export const registerUser = async (userData: Partial<User>): Promise<User> => {
-  const response = await api.post('/users/register/', userData);
-  return response.data;
-};
-
-export const createAdminUser = async (userData: Partial<User>): Promise<User> => {
-  const response = await api.post('/users/create_admin_user/', userData);
+  const response = await api.post('/user/register/', userData);
   return response.data;
 };
 
 export const fetchCurrentUserDetail = async (): Promise<User> => {
-  const response = await api.get('/users/current_user_detail/');
+  const response = await api.get('/user/current_user_detail/');
   return response.data;
 };
 
 export const updateUser = async (userId: string, userData: Partial<User>): Promise<User> => {
-  const response = await api.put(`/users/update/${userId}/`, userData);
+  const response = await api.put(`/user/update/${userId}/`, userData);
   return response.data;
 };
 
 export const deleteUser = async (userId: string): Promise<void> => {
-  await api.delete(`/users/delete/${userId}/`);
+  await api.delete(`/user/delete/${userId}/`);
 };
 
 export const login = async (credentials: { username: string; password: string }): Promise<AuthResponse> => {
   const response = await api.post('/token/', credentials);
-  localStorage.setItem('token', response.data.access);
+  localStorage.setItem(ACCESS_TOKEN, response.data.access);
+  localStorage.setItem(REFRESH_TOKEN, response.data.refresh);
   return response.data;
 };
 
 export const logout = (): void => {
-  localStorage.removeItem('token');
+  localStorage.removeItem(ACCESS_TOKEN);
+  localStorage.removeItem(REFRESH_TOKEN);
 };
