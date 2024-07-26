@@ -4,12 +4,12 @@ import React, { useEffect, useState } from 'react';
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { useNavigate } from 'react-router-dom';
 import alt3 from '../../assets/alt3.jpeg';
-import Program from '../../interfaces/program';
 import { fetchCourses } from '../../services/apiService';
+import { Course } from '@services/interfaces';
 
 const Programs: React.FC = () => {
     const navigate = useNavigate();
-    const [programs, setPrograms] = useState<Program[]>([]);
+    const [programs, setPrograms] = useState<Course[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -55,7 +55,7 @@ const Programs: React.FC = () => {
                     <div
                         key={program.id}
                         className="flex flex-col border-2 focus:shadow-lg hover:cursor-pointer hover:shadow-2xl rounded-xl w-56"
-                        onClick={() => navigate(program.url)}
+                        onClick={() => navigate(`./${program.id}`)}
                     >
                         <img src={alt3} alt={program.name} className="w-full h-40 object-cover mb-4 rounded-t-xl" />
                         <div className='text-left mb-2 px-4'>

@@ -2,17 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import ProgramWeekNav from '../../components/programWeeksNav/index';
 import { useAuth } from '../../contexts/authContext';
-interface Program {
-    name: string;
-    includedImage: string;
-    forMeImage: string;
-    resultsExpectImage: string;
-    followingProgramImage: string;
-    included: string;
-    forMe: string;
-    resultsExpect: string;
-    followingProgram: string;
-}
+import { fetchCourseDetail } from '@services/apiService';
+import { Course } from '@services/interfaces';
+
 
 const Program: React.FC = () => {
     // const { userLoggedIn } = useAuth();
@@ -21,10 +13,11 @@ const Program: React.FC = () => {
     const { userLoggedIn } = useAuth();
     const userOwnsProgram = false;
 
-    const programName = useParams().name;
-    const [program, setProgram] = useState<Program | null>(null);
+    const programID = useParams().name;
+    const [program, setProgram] = useState<Course | null>(null);
+    
 
-    // set temp programs
+    //TODO: This section is hardcoded
     const programs = [
         {
             name: 'Booty',
@@ -62,12 +55,25 @@ const Program: React.FC = () => {
     ]
 
     useEffect(() => {
-        const currProgram = programs.find(program => program.name.toLowerCase() === programName);
-        if (!currProgram) {
-            return navigate('/programs');
-        }
-        setProgram(currProgram);
-    }, []);
+        const getProgramDetails = async () => {
+          try {
+            const program = await fetchCourseDetail(programID+'');
+            if (!program) {
+              // Navigate to '/programs' if the program is not found
+              navigate('/programs');
+            } else {
+              // Set the program details
+              setProgram(program);
+            }
+          } catch (error) {
+            // Handle errors, e.g., network errors
+            console.error('Error fetching program details:', error);
+            navigate('/programs');
+          }
+        };
+    
+        getProgramDetails();
+      }, [programID, navigate]);
 
     if (!program) return null;
 
@@ -76,19 +82,19 @@ const Program: React.FC = () => {
         <div className='flex flex-col h-full px-[10%] font-serif'>
             <div className='border-b-2 px-[2%]'><h1 className='text-left text-black text-5xl font-bold m-5 pt-10'>{program.name} Program</h1></div>
 
-            <ProgramWeekNav />
+            <ProgramWeekNav programID={programID}/>
             <Outlet/>
 
-            {location.pathname === `/programs/${programName!}` &&
+            {location.pathname === `/programs/${programID!}` &&
             <>
             <div className="flex flex-col p-5 m-5 bg-[#FAFAF5] border border-[#E6E6E6] rounded-2xl">
                 <div className='w-full'>
                     <h2 className='text-left text-black text-xl sm:text-3xl font-bold m-5'>What's included?</h2>
                 </div>
                 <div className='flex flex-wrap justify-between m-5'>
-                    <p className='text-left text-black text-lg font-normal xl:w-[50%] w-full'>{program.included}</p>
+                    <p className='text-left text-black text-lg font-normal xl:w-[50%] w-full'>{programs[0].included}</p>
                     <div className='xl:w-fit w-full md:flex md:justify-center'>
-                        <img src={program.includedImage} alt='included' className='rounded-lg'/>
+                        <img src={programs[0].includedImage} alt='included' className='rounded-lg'/>
                     </div>
                 </div>
             </div>
@@ -106,9 +112,9 @@ const Program: React.FC = () => {
                 </div>
                 <div className='flex flex-wrap justify-between m-5'>
                     <div className='xl:w-fit w-full md:flex md:justify-center'>
-                        <img src={program.forMeImage} alt='forMe' className='rounded-lg'/>
+                        <img src={programs[0].forMeImage} alt='forMe' className='rounded-lg'/>
                     </div>
-                    <p className='text-left text-black text-lg font-normal xl:w-[50%] w-full'>{program.forMe}</p>
+                    <p className='text-left text-black text-lg font-normal xl:w-[50%] w-full'>{programs[0].forMe}</p>
                 </div>
             </div>
 
@@ -124,9 +130,9 @@ const Program: React.FC = () => {
                     <h2 className='text-left text-black text-xl sm:text-3xl font-bold m-5'>What Results To Expect</h2>
                 </div>
                 <div className='flex flex-wrap justify-between m-5'>
-                    <p className='text-left text-black text-lg font-normal xl:w-[50%] w-full'>{program.resultsExpect}</p>
+                    <p className='text-left text-black text-lg font-normal xl:w-[50%] w-full'>{programs[0].resultsExpect}</p>
                     <div className='xl:w-fit w-full md:flex md:justify-center'>
-                        <img src={program.resultsExpectImage} alt='expectedResults' className='rounded-lg'/>
+                        <img src={programs[0].resultsExpectImage} alt='expectedResults' className='rounded-lg'/>
                     </div>
                 </div>
             </div>
@@ -144,9 +150,9 @@ const Program: React.FC = () => {
                 </div>
                 <div className='flex flex-wrap justify-between m-5'>
                     <div className='xl:w-fit w-full md:flex md:justify-center'>
-                        <img src={program.followingProgramImage} alt='followProgram' className='rounded-lg'/>
+                        <img src={programs[0].followingProgramImage} alt='followProgram' className='rounded-lg'/>
                     </div>
-                    <p className='text-left text-black text-lg font-normal xl:w-[50%] w-full'>{program.followingProgram}</p>
+                    <p className='text-left text-black text-lg font-normal xl:w-[50%] w-full'>{programs[0].followingProgram}</p>
                 </div>
             </div>
 

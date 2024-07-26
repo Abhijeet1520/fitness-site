@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import ProgramDayCard from '../../components/programDaysCard/index';
 import { useAuth } from '../../contexts/authContext';
+import { Day } from '@services/interfaces';
 
 interface Program {
     dayNum: number;
@@ -19,149 +20,8 @@ const ProgramWeek: React.FC = () => {
     const navigate = useNavigate();
     const { userLoggedIn } = useAuth();
     const location = useLocation();
-
-    const programName = useParams().name;
-    const [program, setProgram] = useState<Program | null>(null);
-
-    // set temp weeks/days
-    const weeks = [
-        {
-            name: 'Week 1',
-            days: [
-                {
-                    title: 'Day 1',
-                    description: 'small description of days workout',
-                    exercises: 5,
-                    sets: 3,
-                    warmUp: 10,
-                    workout: 30,
-                    stretching: 10,
-                },
-                {
-                    title: 'Day 2',
-                    description: 'small description of days workout',
-                    exercises: 5,
-                    sets: 3,
-                    warmUp: 10,
-                    workout: 30,
-                    stretching: 10,
-                },
-                {
-                    title: 'Day 3',
-                    description: 'small description of days workout',
-                    exercises: 5,
-                    sets: 3,
-                    warmUp: 10,
-                    workout: 30,
-                    stretching: 10,
-                },
-                {
-                    title: 'Day 4',
-                    description: 'small description of days workout',
-                    exercises: 5,
-                    sets: 3,
-                    warmUp: 10,
-                    workout: 30,
-                    stretching: 10,
-                },
-                {
-                    title: 'Day 5',
-                    description: 'small description of days workout',
-                    exercises: 5,
-                    sets: 3,
-                    warmUp: 10,
-                    workout: 30,
-                    stretching: 10,
-                },
-                {
-                    title: 'Day 6',
-                    description: 'small description of days workout',
-                    exercises: 5,
-                    sets: 3,
-                    warmUp: 10,
-                    workout: 30,
-                    stretching: 10,
-                },
-                {
-                    title: 'Day 7',
-                    description: 'small description of days workout',
-                    exercises: 5,
-                    sets: 3,
-                    warmUp: 10,
-                    workout: 30,
-                    stretching: 10,
-                },
-            ]
-        },
-        {
-            name: 'Week 2',
-            days: [
-                {
-                    title: 'Day 1',
-                    description: 'small description of days workout',
-                    exercises: 5,
-                    sets: 3,
-                    warmUp: 10,
-                    workout: 30,
-                    stretching: 10,
-                },
-                {
-                    title: 'Day 2',
-                    description: 'small description of days workout',
-                    exercises: 5,
-                    sets: 3,
-                    warmUp: 10,
-                    workout: 30,
-                    stretching: 10,
-                },
-                {
-                    title: 'Day 3',
-                    description: 'small description of days workout',
-                    exercises: 5,
-                    sets: 3,
-                    warmUp: 10,
-                    workout: 30,
-                    stretching: 10,
-                },
-                {
-                    title: 'Day 4',
-                    description: 'small description of days workout',
-                    exercises: 5,
-                    sets: 3,
-                    warmUp: 10,
-                    workout: 30,
-                    stretching: 10,
-                },
-                {
-                    title: 'Day 5',
-                    description: 'small description of days workout',
-                    exercises: 5,
-                    sets: 3,
-                    warmUp: 10,
-                    workout: 30,
-                    stretching: 10,
-                },
-                {
-                    title: 'Day 6',
-                    description: 'small description of days workout',
-                    exercises: 5,
-                    sets: 3,
-                    warmUp: 10,
-                    workout: 30,
-                    stretching: 10,
-                },
-                {
-                    title: 'Day 7',
-                    description: 'small description of days workout',
-                    exercises: 5,
-                    sets: 3,
-                    warmUp: 10,
-                    workout: 30,
-                    stretching: 10,
-                }
-            ]
-        }
-    ];
+    const weekID = useParams().week;
+    const [days, setDays] = useState<Day[]>([]);
 
     useEffect(() => {
     }, []);
@@ -173,16 +33,16 @@ const ProgramWeek: React.FC = () => {
             <div className='flex flex-col h-full px-[10%] mb-4 font-serif'>
 
 
-                {location.pathname.startsWith(`/programs/${programName!}`) && location.pathname.slice(-5).startsWith('week') &&
+                {/* {location.pathname.startsWith(`/programs/${programName!}`) && location.pathname.slice(-5).startsWith('week') && */}
                 <>
-                {weeks[0].days.map((day, index) => (
-                    <>
-                        <h2 className='text-left text-black text-l sm:text-xl font-bold m-5 mb-0'>Day 1</h2>
-                        <ProgramDayCard dayNum={index+1} title={day.title} description={day.description} exercises={day.exercises} sets={day.sets} warmUp={day.warmUp} workout={day.workout} stretching={day.stretching} />
-                    </>
-                ))}
+                    {days.map((day, index) => (
+                        <>
+                            <h2 className='text-left text-black text-l sm:text-xl font-bold m-5 mb-0'>Day 1</h2>
+                            <ProgramDayCard dayID ={day.id} dayNum={day.day_number} description={day.description}/>
+                        </>
+                    ))}
                 </>
-                }
+                {/* } */}
             </div>
             <Outlet/>
         </>

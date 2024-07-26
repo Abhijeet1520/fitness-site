@@ -40,7 +40,7 @@ class Exercise(models.Model):
     reps = models.IntegerField(null=True,blank=True,default=0)
     duration = models.DurationField(null=True, blank=True)
     description = models.TextField(null=True, blank=True)
-    video_url = models.URLField(max_length=200, null=True, blank=True)
+    video_url = models.TextField(max_length=200, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

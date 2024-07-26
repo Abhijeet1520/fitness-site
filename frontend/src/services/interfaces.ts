@@ -16,6 +16,7 @@ export interface Course {
 
   export interface Day {
     id: number;
+    day_number: number;
     description: string;
     week: number;
   }

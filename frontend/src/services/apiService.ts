@@ -43,112 +43,112 @@ export const fetchCourses = async (): Promise<Course[]> => {
 };
 
 export const fetchCourseDetail = async (courseId: string): Promise<Course> => {
-  const response = await api.get(`/courses/detail/${courseId}/`);
+  const response = await api.get(`/course/detail/${courseId}/`);
   return response.data;
 };
 
 export const createCourse = async (courseData: Partial<Course>): Promise<Course> => {
-  const response = await api.post('/courses/create/', courseData);
+  const response = await api.post('/course/create/', courseData);
   return response.data;
 };
 
 export const updateCourse = async (courseId: string, courseData: Partial<Course>): Promise<Course> => {
-  const response = await api.put(`/courses/update/${courseId}/`, courseData);
+  const response = await api.put(`/course/update/${courseId}/`, courseData);
   return response.data;
 };
 
 export const deleteCourse = async (courseId: string): Promise<void> => {
-  await api.delete(`/courses/delete/${courseId}/`);
+  await api.delete(`/course/delete/${courseId}/`);
 };
 
 export const fetchUserSubscribedCourses = async (): Promise<Course[]> => {
-  const response = await api.get('/courses/subscribed/');
+  const response = await api.get('/course/subscribed/');
   return response.data;
 };
 
 // Weeks
 export const fetchWeeks = async (courseId: string): Promise<Week[]> => {
-  const response = await api.get(`/courses/${courseId}/weeks/`);
+  const response = await api.get(`/week/${courseId}/weeks/`);
   return response.data;
 };
 
 export const fetchWeekDetail = async (weekId: string): Promise<Week> => {
-  const response = await api.get(`/weeks/${weekId}/`);
+  const response = await api.get(`/week/${weekId}/`);
   return response.data;
 };
 
 export const createWeek = async (weekData: Partial<Week>): Promise<Week> => {
-  const response = await api.post('/weeks/create/', weekData);
+  const response = await api.post('/week/create/', weekData);
   return response.data;
 };
 
 export const updateWeek = async (weekId: string, weekData: Partial<Week>): Promise<Week> => {
-  const response = await api.put(`/weeks/${weekId}/update/`, weekData);
+  const response = await api.put(`/week/${weekId}/update/`, weekData);
   return response.data;
 };
 
 export const deleteWeek = async (weekId: string): Promise<void> => {
-  await api.delete(`/weeks/${weekId}/delete/`);
+  await api.delete(`/week/${weekId}/delete/`);
 };
 
 // Days
 export const fetchDays = async (weekId: string): Promise<Day[]> => {
-  const response = await api.get(`/weeks/${weekId}/days/`);
+  const response = await api.get(`/day/${weekId}/days/`);
   return response.data;
 };
 
 export const fetchDayDetail = async (dayId: string): Promise<Day> => {
-  const response = await api.get(`/days/${dayId}/`);
+  const response = await api.get(`/day/${dayId}/`);
   return response.data;
 };
 
 export const createDay = async (dayData: Partial<Day>): Promise<Day> => {
-  const response = await api.post('/days/create/', dayData);
+  const response = await api.post('/day/create/', dayData);
   return response.data;
 };
 
 export const updateDay = async (dayId: string, dayData: Partial<Day>): Promise<Day> => {
-  const response = await api.put(`/days/${dayId}/update/`, dayData);
+  const response = await api.put(`/day/${dayId}/update/`, dayData);
   return response.data;
 };
 
 export const deleteDay = async (dayId: string): Promise<void> => {
-  await api.delete(`/days/${dayId}/delete/`);
+  await api.delete(`/day/${dayId}/delete/`);
 };
 
 // Exercises
 export const fetchExercises = async (dayId: string): Promise<Exercise[]> => {
-  const response = await api.get(`/days/${dayId}/exercises/`);
+  const response = await api.get(`/exercise/${dayId}/exercises/`);
   return response.data;
 };
 
 export const fetchExerciseDetail = async (exerciseId: string): Promise<Exercise> => {
-  const response = await api.get(`/exercises/${exerciseId}/`);
+  const response = await api.get(`/exercise/${exerciseId}/`);
   return response.data;
 };
 
 export const createExercise = async (exerciseData: Partial<Exercise>): Promise<Exercise> => {
-  const response = await api.post('/exercises/create/', exerciseData);
+  const response = await api.post('/exercise/create/', exerciseData);
   return response.data;
 };
 
 export const updateExercise = async (exerciseId: string, exerciseData: Partial<Exercise>): Promise<Exercise> => {
-  const response = await api.put(`/exercises/${exerciseId}/update/`, exerciseData);
+  const response = await api.put(`/exercise/${exerciseId}/update/`, exerciseData);
   return response.data;
 };
 
 export const deleteExercise = async (exerciseId: string): Promise<void> => {
-  await api.delete(`/exercises/${exerciseId}/delete/`);
+  await api.delete(`/exercise/${exerciseId}/delete/`);
 };
 
 // Payments
 export const createPaymentIntent = async (courseId: string): Promise<{ clientSecret: string }> => {
-  const response = await api.post('/payments/create-payment-intent/', { courseId });
+  const response = await api.post('/payment/create-payment-intent/', { courseId });
   return response.data;
 };
 
 export const handleStripeWebhook = async (payload: any): Promise<void> => {
-  await api.post('/payments/stripe-webhook/', payload);
+  await api.post('/payment/stripe-webhook/', payload);
 };
 
 // Users
