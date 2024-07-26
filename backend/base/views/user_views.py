@@ -4,25 +4,30 @@ from django.contrib.auth.models import User
 from base.serializers import UserSerializer
 from rest_framework.response import Response
 
-#Create a normal User
+# Create a normal User
 class UserCreateView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes=[AllowAny]
+    permission_classes = [AllowAny]
 
+    def perform_create(self, serializer):
+        # Ensure that first_name and last_name are saved during user creation
+        serializer.save(first_name=self.request.data.get('first_name', ''),
+                        last_name=self.request.data.get('last_name', ''))
 
-#Create a admin user, only an admin can create another admin user
+# Create an admin user, only an admin can create another admin user
 class AdminUserCreateView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    # authentication_classes = 
+    # authentication_classes =
     permission_classes = [IsAdminUser]
 
     def perform_create(self, serializer):
-        user = serializer.save(is_staff=True)
+        user = serializer.save(is_staff=True, first_name=self.request.data.get('first_name', ''),
+                               last_name=self.request.data.get('last_name', ''))
         user.save()
 
-#Can only access data that belongs to itself not other users
+# Can only access data that belongs to itself not other users
 class UserDetailView(generics.RetrieveAPIView):
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
@@ -30,11 +35,8 @@ class UserDetailView(generics.RetrieveAPIView):
     def get_object(self):
         # Return the user instance of the currently authenticated user
         return self.request.user
-    
 
-
-#Update Current User, You need to pass both username and password to update the user,
-#You can update both username and password you give as well.
+# Update Current User
 class UserUpdateView(generics.UpdateAPIView):
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
@@ -55,12 +57,11 @@ class UserUpdateView(generics.UpdateAPIView):
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
         return Response(serializer.data)
-    
 
-
+# Delete User
 class UserDeleteView(generics.DestroyAPIView):
     serializer_class = UserSerializer
-    permission_classes=[IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def get_object(self):
         if self.request.user.is_staff or self.request.user.is_superuser:
@@ -69,4 +70,3 @@ class UserDeleteView(generics.DestroyAPIView):
         else:
             # Regular users can only delete their own account
             return self.request.user
-    
