@@ -1,11 +1,9 @@
-import React, { useContext, useState, useEffect } from "react";
-import { auth } from "../../firebase/firebase";
-import { onAuthStateChanged, User } from "firebase/auth";
+import { User } from "@interfaces/user"; // Ensure the path and interface are correct
+import { fetchCurrentUserDetail } from "@services/apiService"; // Ensure the path is correct
+import React, { useContext, useEffect, useState } from "react";
 
 interface AuthContextType {
   userLoggedIn: boolean;
-  isEmailUser: boolean;
-  isGoogleUser: boolean;
   currentUser: User | null;
   verified: boolean;
   setCurrentUser: React.Dispatch<React.SetStateAction<User | null>>;
@@ -13,8 +11,6 @@ interface AuthContextType {
 
 const AuthContext = React.createContext<AuthContextType>({
   userLoggedIn: false,
-  isEmailUser: false,
-  isGoogleUser: false,
   currentUser: null,
   verified: false,
   setCurrentUser: () => {}
@@ -27,42 +23,32 @@ export function useAuth() {
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [userLoggedIn, setUserLoggedIn] = useState(false);
-  const [isEmailUser, setIsEmailUser] = useState(false);
-  const [isGoogleUser, setIsGoogleUser] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [verified, setVerified] = useState(true);
+  const [verified, setVerified] = useState(false);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, initializeUser);
-    return unsubscribe;
+    const initializeUser = async () => {
+      try {
+        const user = await fetchCurrentUserDetail();
+        setCurrentUser(user);
+        setUserLoggedIn(true);
+        setVerified(user.is_verified); // Assuming `is_verified` is the field indicating email verification
+      } catch (error) {
+        setCurrentUser(null);
+        setUserLoggedIn(false);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    initializeUser();
   }, []);
-
-  async function initializeUser(user: User | null) {
-    if (user) {
-      setCurrentUser({ ...user });
-
-      const isEmail = user.providerData.some(
-        (provider) => provider.providerId === "password"
-      );
-      setIsEmailUser(isEmail);
-
-      user.emailVerified ? setVerified(true) : setVerified(false);
-      setUserLoggedIn(true);
-    } else {
-      setCurrentUser(null);
-      setUserLoggedIn(false);
-    }
-
-    setLoading(false);
-  }
 
   const value: AuthContextType = {
     userLoggedIn,
-    isEmailUser,
-    isGoogleUser,
     currentUser,
     setCurrentUser,
-    verified
+    verified,
   };
 
   return (

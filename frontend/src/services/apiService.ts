@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "./constants";
 import {
   AuthResponse,
   Course,
@@ -7,8 +8,6 @@ import {
   User,
   Week
 } from './interfaces';
-
-import { ACCESS_TOKEN } from "./constants.ts";
 
 export const API_BASE_URL = import.meta.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api';
 
@@ -20,7 +19,7 @@ const api = axios.create({
 });
 
 api.interceptors.request.use(
-  (config) => {
+  async (config) => {
     const token = localStorage.getItem(ACCESS_TOKEN);
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
@@ -32,11 +31,35 @@ api.interceptors.request.use(
   }
 );
 
-export default api
+api.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
+    if (error.response.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+      const refreshToken = localStorage.getItem(REFRESH_TOKEN);
+      if (refreshToken) {
+        try {
+          const response = await axios.post(`${API_BASE_URL}/token/refresh/`, { refresh: refreshToken });
+          localStorage.setItem(ACCESS_TOKEN, response.data.access);
+          originalRequest.headers['Authorization'] = `Bearer ${response.data.access}`;
+          return api(originalRequest);
+        } catch (err) {
+          localStorage.removeItem(ACCESS_TOKEN);
+          localStorage.removeItem(REFRESH_TOKEN);
+          return Promise.reject(err);
+        }
+      }
+    }
+    return Promise.reject(error);
+  }
+);
+
+export default api;
 
 // Courses
 export const fetchCourses = async (): Promise<Course[]> => {
-  const response = await api.get('/course/list');
+  const response = await api.get('/course/list/');
   return response.data;
 };
 
@@ -155,11 +178,6 @@ export const registerUser = async (userData: Partial<User>): Promise<User> => {
   return response.data;
 };
 
-export const createAdminUser = async (userData: Partial<User>): Promise<User> => {
-  const response = await api.post('/user/create_admin_user/', userData);
-  return response.data;
-};
-
 export const fetchCurrentUserDetail = async (): Promise<User> => {
   const response = await api.get('/user/current_user_detail/');
   return response.data;
@@ -176,10 +194,12 @@ export const deleteUser = async (userId: string): Promise<void> => {
 
 export const login = async (credentials: { username: string; password: string }): Promise<AuthResponse> => {
   const response = await api.post('/token/', credentials);
-  localStorage.setItem('token', response.data.access);
+  localStorage.setItem(ACCESS_TOKEN, response.data.access);
+  localStorage.setItem(REFRESH_TOKEN, response.data.refresh);
   return response.data;
 };
 
 export const logout = (): void => {
-  localStorage.removeItem('token');
+  localStorage.removeItem(ACCESS_TOKEN);
+  localStorage.removeItem(REFRESH_TOKEN);
 };

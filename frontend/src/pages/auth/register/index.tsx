@@ -1,11 +1,15 @@
-import { UserCredential, sendEmailVerification, updateProfile } from 'firebase/auth';
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { Input } from 'react-daisyui';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../contexts/authContext';
-import { doCreateUserWithEmailAndPassword } from '../../../firebase/auth';
+import { registerUser } from '../../../services/apiService'; // Ensure the path is correct
 
-// import firebase from 'firebase/compat/app';
+interface registerUserInterface {
+    username: string;
+    email: string;
+    first_name: string;
+    password: string;
+}
 
 const Register: React.FC = () => {
     const navigate = useNavigate();
@@ -29,38 +33,44 @@ const Register: React.FC = () => {
                     setIsRegistering(false);
                     return;
                 }
-                const userCred: UserCredential = await doCreateUserWithEmailAndPassword(email, password);
-                updateProfile(userCred.user, {
-                    displayName: name
+
+                const userData: registerUserInterface = {
+                    username: email,
+                    first_name: name,
+                    email: email,
+                    password: password
+                };
+
+                await registerUser(userData).catch((error) => {
+                    throw error;
                 });
-                await sendEmailVerification(userCred.user);
                 navigate('/login');
-            } catch (error) {
+            } catch (error : { message: string; }) {
                 setIsRegistering(false);
-                setErrorMessage('Error signing up. Please try again.');
+                const errorMessage : string = error?.message;
+                setErrorMessage(`Error signing up. Please try again. Error: ${errorMessage}`);
             }
         }
     };
 
     return (
         <div className='flex flex-col h-full px-[10%] font-serif'>
-        <div className='border-b-2 px-[2%]'><h1 className='text-left text-black text-5xl font-bold m-5 pt-10'>Sign Up</h1></div>
+        <div className='border-b-2 px-[2%]'>
+            <h1 className='text-left text-black text-5xl font-bold m-5 pt-10'>Sign Up</h1>
+        </div>
         <div className="flex flex-col items-center justify-center h-full">
-            {userLoggedIn && (<Navigate to={'/'} replace={true}/>)}
-
+            {userLoggedIn && (<Navigate to={'/'} replace={true} />)}
 
             <form onSubmit={onSubmit} className='flex flex-col gap-5 items-center w-full max-w-md mx-auto text-black'>
-
                 <div className='flex justify-between w-full'>
                     <label className="text-left text-lg font-bold">Name</label>
                     <Input
-                        type="name"
+                        type="text"
                         value={name}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => { setName(e.target.value) }}
                         className='bg-[#FAFAF5] border border-[#E6E6E6] ml-5 rounded-full w-[60%]'
                     />
                 </div>
-
                 <div className='flex justify-between w-full'>
                     <label className="text-left text-lg font-bold">Email</label>
                     <Input
