@@ -60,7 +60,7 @@ class CreatePaymentIntentView(APIView):
 # Make sure to return 200K quickly before updating database(STRIPE timeout requirement)
 @method_decorator(csrf_exempt, name='dispatch')
 class StripeWebhookView(generics.GenericAPIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
     
     def post(self, request, *args, **kwargs):
         payload = request.body

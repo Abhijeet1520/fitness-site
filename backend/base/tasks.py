@@ -9,7 +9,7 @@ def update_payment_and_create_subscription(payment_intent_id):
     payment_intent = stripe.PaymentIntent.retrieve(payment_intent_id)
 
     payment = Payment.objects.get(payment_intent_id=payment_intent.id)
-    payment.status = 'payment_intent.status'
+    payment.status = payment_intent.status
     payment.save()
 
     # Create Subscription

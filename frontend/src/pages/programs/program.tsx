@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import ProgramWeekNav from "../../components/programWeeksNav/index";
 import { useAuth } from "../../contexts/authContext";
-import { fetchCourseDetail } from "@services/apiService";
+import { fetchCourseDetail, fetchUserSubscribedCourses } from "@services/apiService";
 import { Course } from "@services/interfaces";
 
 const Program: React.FC = () => {
@@ -10,12 +10,14 @@ const Program: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { userLoggedIn } = useAuth();
-  const userOwnsProgram = false; //TODO: Fix this get the current users's subscribed list and check if the user owns the program or not.
 
   const programID = useParams().name;
   const [program, setProgram] = useState<Course | null>(null);
 
-  //TODO: This section is hardcoded
+  const [isSubscribed, setIsSubscribed] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
   const programs = [
     {
       name: "Booty",
@@ -85,7 +87,36 @@ const Program: React.FC = () => {
     getProgramDetails();
   }, [programID, navigate]);
 
+  useEffect(() => {
+    const checkIfUserOwnsTheProgramIfUserIsLoggedIn = async () => {
+      try {
+        const courses = await fetchUserSubscribedCourses(); // Fetch the subscribed courses
+        const programOwned = courses.some(course => course.id.toString() === programID); // Check if the user owns the program
+        setIsSubscribed(programOwned);
+      } catch (err) {
+        setError("Error fetching user subscription details");
+        console.error("Error fetching user subscription detail", err);
+      } finally {
+        setLoading(false); // Ensure loading state is turned off
+      }
+    };
+
+    if (userLoggedIn) { // Ensure the user is logged in before making the API call
+      checkIfUserOwnsTheProgramIfUserIsLoggedIn();
+    } else {
+      setLoading(false);
+    }
+  }, [programID, userLoggedIn]);
+
   if (!program) return null;
+
+  if (loading) {
+    return <p>Loading...</p>; // Show a loading state while fetching data
+  }
+
+  if (error) {
+    return <p>{error}</p>; // Show an error message if there was an issue
+  }
 
   return (
     <div className="p-0 m-0">
@@ -96,8 +127,12 @@ const Program: React.FC = () => {
           </h1>
         </div>
 
-        <ProgramWeekNav programID={programID} />
-        <Outlet />
+        {!(!userLoggedIn || !isSubscribed) && (
+          <>
+            <ProgramWeekNav programID={programID} />
+            <Outlet />
+          </>
+        )}
 
         {location.pathname === `/programs/${programID!}` && (
           <>
@@ -122,7 +157,7 @@ const Program: React.FC = () => {
             </div>
 
             {/*onClick={() => doSomething()}*/}
-            {(!userLoggedIn || !userOwnsProgram) && (
+            {(!userLoggedIn || !isSubscribed) && (
               <button
                 type="submit"
                 className={`m-auto place-self-center p-2 px-4 text-white font-semibold rounded-full bg-[#525252] active:bg-[#6D6D6D] hover:bg-[#525252] hover:shadow-xl active:bg-[#3b3b3b]'}`}
@@ -153,7 +188,7 @@ const Program: React.FC = () => {
             </div>
 
             {/*onClick={() => doSomething()}*/}
-            {(!userLoggedIn || !userOwnsProgram) && (
+            {(!userLoggedIn || !isSubscribed) && (
               <button
                 type="submit"
                 className={`m-auto place-self-center p-2 px-4 text-white font-semibold rounded-full bg-[#525252] active:bg-[#6D6D6D] hover:bg-[#525252] hover:shadow-xl active:bg-[#3b3b3b]'}`}
@@ -184,7 +219,7 @@ const Program: React.FC = () => {
             </div>
 
             {/*onClick={() => doSomething()}*/}
-            {(!userLoggedIn || !userOwnsProgram) && (
+            {(!userLoggedIn || !isSubscribed) && (
               <button
                 type="submit"
                 className={`m-auto place-self-center p-2 px-4 mb-4 text-white font-semibold rounded-full bg-[#525252] active:bg-[#6D6D6D] hover:bg-[#525252] hover:shadow-xl active:bg-[#3b3b3b]'}`}
@@ -215,7 +250,7 @@ const Program: React.FC = () => {
             </div>
 
             {/*onClick={() => doSomething()}*/}
-            {(!userLoggedIn || !userOwnsProgram) && (
+            {(!userLoggedIn || !isSubscribed) && (
               <button
                 type="submit"
                 className={`m-auto place-self-center p-2 px-4 mb-4 text-white font-semibold rounded-full bg-[#525252] active:bg-[#6D6D6D] hover:bg-[#525252] hover:shadow-xl active:bg-[#3b3b3b]'}`}
