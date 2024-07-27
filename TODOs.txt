@@ -15,3 +15,5 @@ FINAL TODO:
 8. HTTPS backend
 9. Frontend deployment.
 10. DO testimonials
+11. SETUP LOGIN REDIRECT FOR  non-auth users
+12. Setup backup RDS

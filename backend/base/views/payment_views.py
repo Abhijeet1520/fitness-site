@@ -102,9 +102,12 @@ class StripeWebhookView(generics.GenericAPIView):
 
         # Handle the event
         if event.type == 'payment_intent.succeeded':
+            print("EVENT IS NOT NULL")
             payment_intent_id = event['data']['object']['id']
             print('Payment for {} succeeded'.format(payment_intent_id))
+            print("SCHEDULED CELERY TASK")
             update_payment_and_create_subscription.delay(payment_intent_id)
+
 
 
         return Response(status=status.HTTP_200_OK)
