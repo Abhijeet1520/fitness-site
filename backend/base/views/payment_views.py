@@ -72,22 +72,35 @@ class StripeWebhookView(generics.GenericAPIView):
         except json.decoder.JSONDecodeError as e:
             print('Webhook error while parsing basic request.' + str(e))
             return Response(status=400)
+        # print("THIS IS THE ENDPOINT_SECRET")
+        # print(endpoint_secret)
+        # print("ENDPOINT SECRET KEY ENDS HERE")
         if endpoint_secret:
             try:
+                # print("ENTERED THE EVENT CONSTRUCT")
+                # print(event)
                 sig_header = request.META.get('HTTP_STRIPE_SIGNATURE')
+                # print("GOT THE SIGNATURE HEADER")
                 event = stripe.Webhook.construct_event(
                     payload, sig_header, endpoint_secret
                 )
+                # print("EXITED THE EVENT CONSTRUCT")
+                # print(event)
+
             except ValueError as e:
+                print("ERROR")
+                print(e)
                 # Invalid payload
                 return Response(status=status.HTTP_400_BAD_REQUEST)
             except stripe.error.SignatureVerificationError as e:
                 # Invalid signature
+                print("ERROR SIGNATURE VERIFICATION")
+                print(e)
                 return Response(status=status.HTTP_400_BAD_REQUEST)
 
         # Handle the event
         if event.type == 'payment_intent.succeeded':
-            payment_intent_id = event.data.object['id']
+            payment_intent_id = event['data']['object']['id']
             print('Payment for {} succeeded'.format(payment_intent_id))
             update_payment_and_create_subscription.delay(payment_intent_id)
 
