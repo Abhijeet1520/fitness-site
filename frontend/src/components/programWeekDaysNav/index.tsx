@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
 import Slider from 'react-slick';
 import { useAuth } from '../../contexts/authContext';
@@ -6,14 +6,16 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import '../programWeeksNav/custom-slick.css';
 import { useNavigate, useParams } from 'react-router-dom';
+import { Day } from '@services/interfaces';
+import { fetchDays } from '@services/apiService';
 
 const ProgramWeekDaysNav = () => {
 
-  const [numDays, setNumDays] = useState<number>(7);
+  const [days, setDays] = useState<Day[]>([]);
   const { userLoggedIn } = useAuth();
   const navigate = useNavigate();
-  const programName = useParams().name;
-  const programWeek = useParams().week;
+  const programID = useParams().name;
+  const weekID = useParams().week;
 
   const settings = {
     dots: true,
@@ -39,18 +41,32 @@ const ProgramWeekDaysNav = () => {
     ]
   };
 
+  useEffect(() => {
+    const loadDays = async () => {
+        if (weekID) {
+            try {
+                const fetchedDays = await fetchDays(weekID);
+                setDays(fetchedDays);
+            } catch (error) {
+                console.error('Error fetching days:', error);
+            }
+        }
+    };
+
+    loadDays();
+}, [weekID]);
+
   return (
     <div className='w-full mb-2'>
         <Slider {...settings} className=''>
-
-          {Array.from({ length: numDays }, (_, i) => (
-            <span
-              className='text-black text-2xl font-bold m-5 hover:cursor-pointer'
-              onClick={() => navigate(`/programs/${programName}/${programWeek}/day${i+1} `)}
-              >
-                Day {i+1}
-            </span>
-          ))}
+          {days.map((day, index) => (
+                    <span key={index}
+                    className='text-black text-2xl font-bold m-5 hover:cursor-pointer'
+                    onClick={() => navigate(`/programs/${programID}/${weekID}/${day.id} `)}
+                    >
+                      Day {day.day_number}
+                  </span>
+                ))}
         </Slider>
     </div>
   )

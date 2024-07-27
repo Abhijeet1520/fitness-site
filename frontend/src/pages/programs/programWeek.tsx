@@ -31,7 +31,8 @@ const ProgramWeek: React.FC = () => {
     // if (!program) return null;
 
     return (
-        <>
+        <>  
+            <Outlet/>
             <div className='flex flex-col h-full px-[10%] mb-4 font-serif'>
                 {/* {location.pathname.startsWith(`/programs/${programName!}`) && location.pathname.slice(-5).startsWith('week') && */}
                 <>
@@ -44,7 +45,6 @@ const ProgramWeek: React.FC = () => {
                 </>
                 {/* } */}
             </div>
-            <Outlet/>
         </>
     );
 };

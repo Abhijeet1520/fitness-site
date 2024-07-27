@@ -1,12 +1,12 @@
 import React from "react";
 import ReactPlayer from 'react-player';
-import Exercise from "../../interfaces/exercise";
+import {Exercise} from "../../interfaces/exercise";
 
 const ExerciseCard = ({ exercise }: { exercise: Exercise }) => {
   return (
-    <div className={exercise.type.toString() === "cooldown" ? "card bg-blue-300 p-10 my-10" : exercise.type.toString() === "warmup" ? "card bg-orange-300 p-10 my-10" : "card bg-zinc-300 p-10 my-10"}>
-      <h2 className="text-xl font-bold text-left">{exercise.name.toString()}</h2>
-      <p><strong>Duration:</strong> {exercise.duration.toString()} minutes</p>
+    <div className={exercise.type === "cooldown" ? "card bg-blue-300 p-10 my-10" : exercise.type === "warmup" ? "card bg-orange-300 p-10 my-10" : "card bg-zinc-300 p-10 my-10"}>
+      <h2 className="text-xl font-bold text-left">{exercise.name}</h2>
+      <p><strong>Duration:</strong> {exercise.duration} minutes</p>
       {exercise.videoUrl && (
         <ReactPlayer
           url={exercise.videoUrl}
@@ -23,7 +23,7 @@ const ExerciseCard = ({ exercise }: { exercise: Exercise }) => {
           }}
         />
       )}
-      <p><strong>Description: </strong>{exercise.description.toString()}</p>
+      <p><strong>Description: </strong>{exercise.description}</p>
     </div>
   );
 };
