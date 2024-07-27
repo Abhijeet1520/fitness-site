@@ -29,21 +29,22 @@ const ProgramWeek: React.FC = () => {
     }, [weekID]);
 
     // if (!program) return null;
+    const regex = new RegExp(`^/programs/[^/]+(?:/[^/]+)?$`);
 
     return (
         <>  
             <Outlet/>
             <div className='flex flex-col h-full px-[10%] mb-4 font-serif'>
-                {/* {location.pathname.startsWith(`/programs/${programName!}`) && location.pathname.slice(-5).startsWith('week') && */}
+                {regex.test(location.pathname) &&
                 <>
-                    {days.map((day, index) => (
+                    {days.map((day) => (
                         <>
                             <h2 className='text-left text-black text-l sm:text-xl font-bold m-5 mb-0'>Day 1</h2>
                             <ProgramDayCard dayID ={day.id} dayNum={day.day_number} description={day.description}/>
                         </>
                     ))}
                 </>
-                {/* } */}
+                }
             </div>
         </>
     );

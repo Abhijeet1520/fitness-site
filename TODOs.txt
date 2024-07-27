@@ -1,6 +1,3 @@
-BACKEND:
-1. Create webhook endpoint on stripe and add the endpoint_key to .env
-
 DOCKER TODOS:
 6. Remember to create celery workers in DOCKER.[Deploy it as a daemon]
 7. Remember to setup redis.
@@ -10,4 +7,12 @@ DOCKER TODOS:
 
 FINAL TODO:
 1. Remove Security for localstorage tokens
-2. SetUP Stripe Business Account
+2. SetUP Stripe Business (Tmrw)
+3. Do something about csrf protection see if it works without it?
+4. Fix: remove buy now button from about section of the program if the user owns the course alread!.
+5. We need to fix Profile Page
+6. We need to fix the day cards thing.
+7. Setup Payment integration.
+8. HTTPS backend
+9. Frontend deployment.
+10. DO testimonials

@@ -10,7 +10,7 @@ const Program: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { userLoggedIn } = useAuth();
-  const userOwnsProgram = false;
+  const userOwnsProgram = false; //TODO: Fix this get the current users's subscribed list and check if the user owns the program or not.
 
   const programID = useParams().name;
   const [program, setProgram] = useState<Course | null>(null);
@@ -126,6 +126,7 @@ const Program: React.FC = () => {
               <button
                 type="submit"
                 className={`m-auto place-self-center p-2 px-4 text-white font-semibold rounded-full bg-[#525252] active:bg-[#6D6D6D] hover:bg-[#525252] hover:shadow-xl active:bg-[#3b3b3b]'}`}
+                onClick={()=> navigate(`/checkout/${programID}`)}
               >
                 Buy Now
               </button>
@@ -156,6 +157,7 @@ const Program: React.FC = () => {
               <button
                 type="submit"
                 className={`m-auto place-self-center p-2 px-4 text-white font-semibold rounded-full bg-[#525252] active:bg-[#6D6D6D] hover:bg-[#525252] hover:shadow-xl active:bg-[#3b3b3b]'}`}
+                onClick={()=> navigate(`/checkout/${programID}`)}
               >
                 Buy Now
               </button>
@@ -186,6 +188,7 @@ const Program: React.FC = () => {
               <button
                 type="submit"
                 className={`m-auto place-self-center p-2 px-4 mb-4 text-white font-semibold rounded-full bg-[#525252] active:bg-[#6D6D6D] hover:bg-[#525252] hover:shadow-xl active:bg-[#3b3b3b]'}`}
+                onClick={()=> navigate(`/checkout/${programID}`)}
               >
                 Buy Now
               </button>
@@ -216,6 +219,7 @@ const Program: React.FC = () => {
               <button
                 type="submit"
                 className={`m-auto place-self-center p-2 px-4 mb-4 text-white font-semibold rounded-full bg-[#525252] active:bg-[#6D6D6D] hover:bg-[#525252] hover:shadow-xl active:bg-[#3b3b3b]'}`}
+                onClick={()=> navigate(`/checkout/${programID}`)}
               >
                 Buy Now
               </button>

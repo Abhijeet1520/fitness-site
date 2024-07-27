@@ -11,14 +11,15 @@ from base.serializers import PaymentSerializer
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from base.tasks import update_payment_and_create_subscription, temp_task
+from rest_framework.views import APIView
 
 
 # This is my secrete stripe key
-stripe.api_key = settings.STRIPE_SECRET_KEY
+# stripe.api_key = settings.STRIPE_SECRET_KEY
+stripe.api_key = 'sk_test_51PaeGKRoRlCW2Nqt8PdddrkxoxYhfV3I33IRzTvpNXmD6MFEe8MHUjyIDROdWKfuJuvsY49usXgH5vIkX9ChUGrc00Nsttapmj'
 
 # we need to exempt it from csrf as this comes from stripe
-@method_decorator(csrf_exempt, name='dispatch')
-class CreatePaymentIntentView(generics.GenericAPIView):
+class CreatePaymentIntentView(APIView):
     def post(self, request, *args, **kwargs):
         try:
             data = request.data
@@ -32,7 +33,7 @@ class CreatePaymentIntentView(generics.GenericAPIView):
 
             # Create a PaymentIntent with the calculated amount
             intent = stripe.PaymentIntent.create(
-                amount=amount * 100,  # Stripe expects amount in cents
+                amount=round(amount * 100),  # Stripe expects amount in cents
                 currency='aud',
                 automatic_payment_methods={'enabled': True},
             )
@@ -57,6 +58,7 @@ class CreatePaymentIntentView(generics.GenericAPIView):
 # Strip Payment Success Webhook
 # endpoint secret key
 # Make sure to return 200K quickly before updating database(STRIPE timeout requirement)
+@method_decorator(csrf_exempt, name='dispatch')
 class StripeWebhookView(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
     

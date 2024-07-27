@@ -65,7 +65,7 @@ export default function CheckoutForm() {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: "http://localhost:5173/checkout",
+        return_url: "http://localhost:5173/completion",
         receipt_email: email,
       },
     });

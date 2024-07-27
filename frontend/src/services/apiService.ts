@@ -168,10 +168,6 @@ export const createPaymentIntent = async (courseId: string): Promise<{ clientSec
   return response.data;
 };
 
-export const handleStripeWebhook = async (payload: any): Promise<void> => {
-  await api.post('/payment/stripe-webhook/', payload);
-};
-
 // Users
 export const registerUser = async (userData: Partial<User>): Promise<User> => {
   const response = await api.post('/user/register/', userData);

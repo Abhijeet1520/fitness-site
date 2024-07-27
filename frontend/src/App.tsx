@@ -46,7 +46,7 @@ const App: React.FC = () => {
               <Route path="/resetpassword" element={<ResetPassword/>} />
               <Route path="/unverified" element={<Unverified/>} />
               <Route
-                path="/checkout"
+                path="/checkout/:courseID"
                 element={
                   <StripeProvider>
                     <div className="flex justify-center">
