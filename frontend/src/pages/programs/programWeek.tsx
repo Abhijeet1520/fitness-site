@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
-import ProgramDayCard from '../../components/programDaysCard/index';
-import { useAuth } from '../../contexts/authContext';
-import { Day } from '@services/interfaces';
 import { fetchDays } from '@services/apiService';
+import { Day } from '@services/interfaces';
+import React, { useEffect, useState } from 'react';
+import { Outlet, useLocation, useParams } from 'react-router-dom';
+import ProgramDayCard from '../../components/programDaysCard/index';
 
 
 const ProgramWeek: React.FC = () => {
-    const navigate = useNavigate();
-    const { userLoggedIn } = useAuth();
     const location = useLocation();
     const weekID = useParams().week;
     const [days, setDays] = useState<Day[]>([]);
@@ -32,14 +29,14 @@ const ProgramWeek: React.FC = () => {
     const regex = new RegExp(`^/programs/[^/]+(?:/[^/]+)?$`);
 
     return (
-        <>  
+        <>
             <Outlet/>
             <div className='flex flex-col h-full px-[10%] mb-4 font-serif'>
                 {regex.test(location.pathname) &&
                 <>
                     {days.map((day) => (
                         <>
-                            <h2 className='text-left text-black text-l sm:text-xl font-bold m-5 mb-0'>Day 1</h2>
+                            {/* <h2 className='text-left text-black text-l sm:text-xl font-bold m-5 mb-0'>Day {day.day_number}</h2> */}
                             <ProgramDayCard dayID ={day.id} dayNum={day.day_number} description={day.description}/>
                         </>
                     ))}
