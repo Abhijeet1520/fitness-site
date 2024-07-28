@@ -179,12 +179,12 @@ export const fetchCurrentUserDetail = async (): Promise<User> => {
   return response.data;
 };
 
-export const updateUser = async (userId: string, userData: Partial<User>): Promise<User> => {
-  const response = await api.put(`/user/update/${userId}/`, userData);
+export const updateUser = async (userId: number, userData: {password: string}): Promise<User> => {
+  const response = await api.put(`/user/update/${userId}`, userData);
   return response.data;
 };
 
-export const deleteUser = async (userId: string): Promise<void> => {
+export const deleteUser = async (userId: number): Promise<void> => {
   await api.delete(`/user/delete/${userId}/`);
 };
 
@@ -198,4 +198,8 @@ export const login = async (credentials: { username: string; password: string })
 export const logout = (): void => {
   localStorage.removeItem(ACCESS_TOKEN);
   localStorage.removeItem(REFRESH_TOKEN);
+};
+
+export const resetPassword = async (email: string) => {
+  // Your reset password logic here
 };

@@ -9,11 +9,8 @@ FINAL TODO:
 1. Remove Security for localstorage tokens
 2. SetUP Stripe Business (Tmrw)
 3. Do something about csrf protection see if it works without it?
-4. Fix: remove buy now button from about section of the program if the user owns the course alread!.
 5. We need to fix Profile Page
-7. Setup Payment integration(Everything seems to be working just check if the backend creates the subscription, also why two payment intents are created, update backend on ec2 .env)
 8. HTTPS backend
 9. Frontend deployment.
-10. DO testimonials
 11. SETUP LOGIN REDIRECT FOR  non-auth users
 12. Setup backup RDS

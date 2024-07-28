@@ -158,13 +158,18 @@ const Program: React.FC = () => {
 
             {/*onClick={() => doSomething()}*/}
             {(!userLoggedIn || !isSubscribed) && (
-              <button
-                type="submit"
-                className={`m-auto place-self-center p-2 px-4 text-white font-semibold rounded-full bg-[#525252] active:bg-[#6D6D6D] hover:bg-[#525252] hover:shadow-xl active:bg-[#3b3b3b]'}`}
-                onClick={()=> navigate(`/checkout/${programID}`)}
-              >
-                Buy Now
-              </button>
+              <div className="priceButtonContainer flex flex-col items-center sm:flex-row sm:justify-between sm:items-center gap-2 p-4 sm:p-6 w-full max-w-lg mx-auto">
+              <span className="priceValue text-lg sm:text-xl font-bold">
+                Price: ${program.price} AUD
+              </span>
+                <button
+                  type="submit"
+                  className={`m-auto place-self-center p-2 px-4 text-white font-semibold rounded-full bg-[#525252] active:bg-[#6D6D6D] hover:bg-[#525252] hover:shadow-xl active:bg-[#3b3b3b]'}`}
+                  onClick={()=> navigate(`/checkout/${programID}`)}
+                >
+                  Buy Now
+                </button>
+              </div>
             )}
 
             <div className="flex flex-col p-5 m-5 bg-[#FAFAF5] border border-[#E6E6E6] rounded-2xl">
@@ -189,13 +194,18 @@ const Program: React.FC = () => {
 
             {/*onClick={() => doSomething()}*/}
             {(!userLoggedIn || !isSubscribed) && (
-              <button
-                type="submit"
-                className={`m-auto place-self-center p-2 px-4 text-white font-semibold rounded-full bg-[#525252] active:bg-[#6D6D6D] hover:bg-[#525252] hover:shadow-xl active:bg-[#3b3b3b]'}`}
-                onClick={()=> navigate(`/checkout/${programID}`)}
-              >
-                Buy Now
-              </button>
+              <div className="priceButtonContainer flex flex-col items-center sm:flex-row sm:justify-between sm:items-center gap-2 p-4 sm:p-6 w-full max-w-lg mx-auto">
+              <span className="priceValue text-lg sm:text-xl font-bold">
+                Price: ${program.price} AUD
+              </span>
+                <button
+                  type="submit"
+                  className={`m-auto place-self-center p-2 px-4 text-white font-semibold rounded-full bg-[#525252] active:bg-[#6D6D6D] hover:bg-[#525252] hover:shadow-xl active:bg-[#3b3b3b]'}`}
+                  onClick={()=> navigate(`/checkout/${programID}`)}
+                >
+                  Buy Now
+                </button>
+              </div>
             )}
 
             <div className="flex flex-col p-5 m-5 bg-[#FAFAF5] border border-[#E6E6E6] rounded-2xl">
@@ -220,6 +230,10 @@ const Program: React.FC = () => {
 
             {/*onClick={() => doSomething()}*/}
             {(!userLoggedIn || !isSubscribed) && (
+              <div className="priceButtonContainer flex flex-col items-center sm:flex-row sm:justify-between sm:items-center gap-2 p-4 sm:p-6 w-full max-w-lg mx-auto">
+              <span className="priceValue text-lg sm:text-xl font-bold">
+                Price: ${program.price} AUD
+              </span>
               <button
                 type="submit"
                 className={`m-auto place-self-center p-2 px-4 mb-4 text-white font-semibold rounded-full bg-[#525252] active:bg-[#6D6D6D] hover:bg-[#525252] hover:shadow-xl active:bg-[#3b3b3b]'}`}
@@ -227,6 +241,7 @@ const Program: React.FC = () => {
               >
                 Buy Now
               </button>
+              </div>
             )}
 
             <div className="flex flex-col p-5 m-5 bg-[#FAFAF5] border border-[#E6E6E6] rounded-2xl">
@@ -251,6 +266,10 @@ const Program: React.FC = () => {
 
             {/*onClick={() => doSomething()}*/}
             {(!userLoggedIn || !isSubscribed) && (
+              <div className="priceButtonContainer flex flex-col items-center sm:flex-row sm:justify-between sm:items-center gap-2 p-4 sm:p-6 w-full max-w-lg mx-auto">
+              <span className="priceValue text-lg sm:text-xl font-bold">
+                Price: ${program.price} AUD
+              </span>
               <button
                 type="submit"
                 className={`m-auto place-self-center p-2 px-4 mb-4 text-white font-semibold rounded-full bg-[#525252] active:bg-[#6D6D6D] hover:bg-[#525252] hover:shadow-xl active:bg-[#3b3b3b]'}`}
@@ -258,6 +277,7 @@ const Program: React.FC = () => {
               >
                 Buy Now
               </button>
+              </div>
             )}
           </>
         )}

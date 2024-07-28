@@ -26,6 +26,7 @@ const Login: React.FC = () => {
                 await login(credentials);
                 const currentUser = await fetchCurrentUserDetail();
                 setCurrentUser(currentUser); // Assuming response contains user data
+                setTimeout(()=>{},500);
                 navigate('/');
             } catch (error) {
                 setErrorMessage('Email or password is incorrect. Please try again.');

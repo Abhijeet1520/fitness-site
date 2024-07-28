@@ -1,88 +1,108 @@
-import { getAuth, sendPasswordResetEmail, updateProfile } from "firebase/auth";
-import React, { useEffect, useState } from "react";
-import { IoLogOutOutline } from "react-icons/io5";
-import { MdOutlineDeleteOutline } from "react-icons/md";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../contexts/authContext";
-import { doDeleteUser, doSignOut } from "../../firebase/auth";
-import Login from "../auth/login";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { fetchCurrentUserDetail, updateUser, deleteUser, logout } from '../../services/apiService';
+import { IoLogOutOutline } from 'react-icons/io5';
+import { MdOutlineDeleteOutline } from 'react-icons/md';
+import { User } from '@services/interfaces';
+import { useAuth } from '../../contexts/authContext';
 
 const Profile: React.FC = () => {
-    const navigate = useNavigate();
-    const {  userLoggedIn, currentUser, setCurrentUser, verified } = useAuth();
-    const [loading, setLoading] = useState(true); // To handle loading state
-    const [edit, setEdit] = useState(false); // To handle loading state
-    // const [verified, setVerified] = useState(true); // To handle loading state
+  const navigate = useNavigate();
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [updatedUserData, setUpdatedUserData] = useState<Partial<User>>({});
+  const { setUserLoggedIn } = useAuth();
+  const [resettingPassword, setResettingPassword] = useState(false);
+  const [newPassword, setNewPassword] = useState('');
 
-    useEffect(() => {
-        const fetchUserProfile = async () => {
-            const auth = getAuth();
-            const user = auth.currentUser;
-            if (user) {
-                // Fetch and update the user profile if needed
-                await updateProfile(user, {});
-                // if(user.emailVerified === false) {
-                //     setVerified(false);
-                // }
-                setCurrentUser(user); // Update the user in context
-            }
-            setLoading(false);
-        };
-        fetchUserProfile();
-    }, [setCurrentUser]);
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const user = await fetchCurrentUserDetail();
+        setCurrentUser(user);
+      } catch (error) {
+        console.error('Error fetching user profile:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchUserProfile();
+  }, []);
 
-    const resetPassword = async (email: string ) => {
-        await sendPasswordResetEmail(getAuth(), email);
+  const handleLogout = () => {
+    logout();
+    setUserLoggedIn(false);
+    navigate('/');
+  };
+
+  const handleDeleteAccount = async () => {
+    if (currentUser) {
+      await deleteUser(currentUser.id);
+      setUserLoggedIn(false);
+      navigate('/register');
     }
+  };
 
-    if (loading) {
-        return <p className="mt-10">Loading...</p>;
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewPassword(e.target.value);
+  };
+
+  const handleSetPassword = async () => {
+    if (currentUser && newPassword) {
+      try {
+        setResettingPassword(false);
+        setNewPassword('');
+        await updateUser( currentUser.id, { password: newPassword });
+      } catch (error) {
+        console.error('Error updating password:', error);
+      }
     }
+  };
 
-    if(!verified) {
-        return (
-            <>
-        <p className="mt-10">Please verify your email</p>
-        <button onClick={() => {doSignOut().then(() => {navigate('/');});}} className="btn text-white text-sm w-50 my-5">
-                Logout <IoLogOutOutline />
-            </button>
-        </>
-        );
-    }
-    return (
-        <>
-        {userLoggedIn ? (
-            <>
-        <div className="card flex justify-center items-center bg-stone-100 m-10">
-            <h1 className="my-5 text-black">Profile</h1>
-            <div className="avatar">
-                <div className="ring-primary ring-offset-base-100 w-24 rounded-full ring ring-offset-2">
-                    <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                </div>
-            </div>
+  if (loading) {
+    return <p className="mt-10">Loading...</p>;
+  }
 
-            <div className=" self-center">
-            <h2 className="text-black text-lg my-3 text-left"><strong>Email: </strong>{currentUser?.email}</h2>
-            <h2 className="text-black text-lg my-3 text-left"><strong>Username: </strong>{currentUser?.displayName}</h2>
-           </div>
-           <p className="text-sm m-5">
-                    Reset password  <Link to={'/resetpassword'} className="underline text-black">Reset Password &rarr;</Link>
-                </p>
-           <button onClick={() => {doSignOut().then(() => {navigate('/');});}} className="btn text-white text-sm w-50 my-5">
-                Logout <IoLogOutOutline />
-            </button>
-            <hr />
-            <button onClick={() => {doDeleteUser().then(() => {navigate('/register');});}} className="btn text-black bg-red-500 hover:bg-red-500 text-sm w-50 my-5">
-                Delete Account <MdOutlineDeleteOutline />
-            </button>
+  if (!currentUser) {
+    return <p className="mt-10">User not found</p>;
+  }
+
+  return (
+    <div className="container mx-auto p-4 flex justify-center items-center min-h-screen">
+      <div className="card flex flex-col justify-center items-center bg-stone-100 p-6 rounded-lg shadow-md w-full md:w-2/3 lg:w-1/2 mx-auto">
+        <h1 className="text-2xl font-bold mb-4">Profile</h1>
+        <div className="self-center w-full">
+          <h2 className="text-lg font-medium mb-3">
+            <strong>Username: </strong>
+            {currentUser.username}
+          </h2>
         </div>
-        </>
-        ) : (
-            <>
-            <Login />
-            </>
+        {resettingPassword && (
+          <input
+            type="password"
+            value={newPassword}
+            onChange={handlePasswordChange}
+            className="w-full p-2 border rounded mb-3"
+            placeholder="Enter new password"
+          />
         )}
-        </>
-    );
+        <button
+          onClick={resettingPassword ? handleSetPassword : () => setResettingPassword(true)}
+          className={`btn text-white text-sm w-full my-5 ${resettingPassword ? 'bg-blue-500' : 'bg-green-500'} border-none`}
+        >
+          {resettingPassword ? 'Save Password' : 'Reset Password'}
+        </button>
+        <button onClick={handleLogout} className="btn bg-black text-white text-sm w-full my-5">
+          Logout <IoLogOutOutline />
+        </button>
+        <hr className="w-full my-4" />
+        <button onClick={handleDeleteAccount} className="btn bg-red-500 hover:bg-red-600 text-white text-sm w-full my-5">
+          Delete Account <MdOutlineDeleteOutline />
+        </button>
+      </div>
+    </div>
+  );
 };
+
 export default Profile;

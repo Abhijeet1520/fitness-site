@@ -33,7 +33,7 @@ class CreatePaymentIntentView(APIView):
 
             # Create a PaymentIntent with the calculated amount
             intent = stripe.PaymentIntent.create(
-                amount=round(amount * 100),  # Stripe expects amount in cents
+                amount=round(amount * 100)//1,  # Stripe expects amount in cents
                 currency='aud',
                 automatic_payment_methods={'enabled': True},
             )

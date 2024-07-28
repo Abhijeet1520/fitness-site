@@ -8,12 +8,12 @@ const Testimonials: React.FC = () => {
     const testimonials: Testimonial[] = [
         {
             person: "Jane Doe",
-            description: "I have been using the Booty Program for 4 weeks now and I can already see the difference!",
+            description: "This booty workout program transformed my fitness routine and boosted my confidence!",
             image: "/assets/first_person.jpeg"
         },
         {
             person: "Jane Doe",
-            description: "I have been using the Upper Body Program for 4 weeks now and I can already see the difference!",
+            description: "Amazing results! The structured plan and guidance made all the difference in my progress.",
             image: "/assets/second_person.jpeg"
         }
     ];

@@ -1,8 +1,8 @@
 export default interface Program{
-    id: string,
+    id: number,
     name: string,
     description: string,
     price: number,
-    created_at: number,
-    images: HTMLImageElement
+    created_at: string,
+    images: string
 }

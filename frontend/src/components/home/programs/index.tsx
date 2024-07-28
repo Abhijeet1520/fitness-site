@@ -3,28 +3,32 @@ import Program from "../../../interfaces/program";
 import ProgramCard from "./programCard";
 import "./programs.css";
 import axios from "axios";
+import { fetchCourses } from "@services/apiService";
+import { Course } from "@services/interfaces";
+import { useNavigate } from "react-router-dom";
 
 const Programs: React.FC< {id: string}> = ({id}) => {
 
   const [data, setData] = React.useState<Program[]>([]);
-
+  const navigate = useNavigate();
   // Sample Data
 
   useEffect(() => {
-    // fetch data
     const fetchData = async () => {
-      const response = await axios.get('http://localhost:8000/api/course/list/');
-      console.log(response.data);
-      const responseData = response.data.map((program: Program) => ({
-        id: program.id,
-        name: program.name,
-        description: program.description,
-        price: program.price,
-        created_at: program.created_at,
-        images: program.images
-        }));
-
-      setData(responseData);
+      try {
+        const responseData = await fetchCourses();
+        const formattedData = responseData.map((program: Course): Program => ({
+          id: program.id,
+          name: program.name,
+          description: program.description,
+          price: program.price,
+          created_at: program.created_at,
+          images: program.images,
+      }));
+        setData(formattedData);
+      } catch (error) {
+        console.error("Error fetching courses:", error);
+      }
     };
 
     fetchData();
@@ -63,7 +67,9 @@ const Programs: React.FC< {id: string}> = ({id}) => {
         <div>
           <div className="responsive-three-column-grid">
             {data.map((program, index) => (
-              <ProgramCard id={program.id} description={program.description} name={program.name} price={program.price}  images={program.images} created_at={program.created_at} key={index} {...{ program }} />
+              <div onClick={()=> navigate(`/programs/${program.id}`)}>
+                <ProgramCard id={program.id} description={program.description} name={program.name} price={program.price}  images={program.images} created_at={program.created_at} key={index} {...{ program }} />
+              </div>
             ))}
             </div>
         </div>

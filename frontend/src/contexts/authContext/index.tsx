@@ -7,18 +7,21 @@ interface AuthContextType {
   currentUser: User | null;
   verified: boolean;
   setCurrentUser: React.Dispatch<React.SetStateAction<User | null>>;
+  setUserLoggedIn: (loggedIn: boolean) => void;
 }
 
 const AuthContext = React.createContext<AuthContextType>({
   userLoggedIn: false,
   currentUser: null,
   verified: false,
-  setCurrentUser: () => {}
+  setCurrentUser: () => {},
+  setUserLoggedIn: () => {},
 });
 
 export function useAuth() {
   return useContext(AuthContext);
 }
+
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
@@ -32,7 +35,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const user = await fetchCurrentUserDetail();
         setCurrentUser(user);
         setUserLoggedIn(true);
-        setVerified(user.is_verified); // Assuming `is_verified` is the field indicating email verification
+        setVerified(true); // Assuming `is_verified` is the field indicating email verification
       } catch (error) {
         setCurrentUser(null);
         setUserLoggedIn(false);
@@ -49,6 +52,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     currentUser,
     setCurrentUser,
     verified,
+    setUserLoggedIn
   };
 
   return (

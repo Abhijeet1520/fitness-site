@@ -17,9 +17,9 @@ const TestimonialCard: React.FC<Testimonial> = (testimonial: Testimonial) => {
           <img src={FRONT_END_BASE_URL + testimonial.image} alt="Shoes" className="rounded-xl" />
         </figure>
         <div className="card-body items-center text-center">
-          <h2 className="program-title items-center text-center">
+          {/* <h2 className="program-title items-center text-center">
             {testimonial.person}
-          </h2>
+          </h2> */}
           <hr style={{ width: "50%" }} />
           <p>{testimonial.description}</p>
         </div>
