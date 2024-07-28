@@ -11,7 +11,7 @@ class Course(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.name +" | "  + str(self.price)
-    
+
 
 class Week(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
@@ -21,12 +21,12 @@ class Week(models.Model):
     def __str__(self):
         return f"Week {self.week_number} - {self.course.name}"
 
-    
+
 class Day(models.Model):
     day_number= models.IntegerField(null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     week = models.ForeignKey(Week, on_delete=models.CASCADE)
-    
+
     def __str__(self):
         return f"Day {self.day_number} - Week {self.week.week_number} - Course {self.week.course.name}"
 
@@ -44,7 +44,7 @@ class Exercise(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.title
+        return f"{self.title} - Week {self.week.week_number} - Day {self.day.day_number} - Course {self.week.course.name}"
 
 # So each payment is related to a single order model.
 class Payment(models.Model):
@@ -55,7 +55,7 @@ class Payment(models.Model):
     currency = models.CharField(max_length=10, null=True)
     status = models.CharField(max_length=50, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    
+
     def __str__(self):
         return f"Payment for Course {self.course.name}"
 
