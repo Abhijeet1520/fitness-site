@@ -47,7 +47,7 @@ const ExercisePage = () => {
   return (
     <>
       <ProgramWeekDaysNav/>
-    <div className="my-10 mx-[10%]">
+    <div className="my-10 md:ml-0 ml-[-5%]">
         {exercises.map((exercise,index) => (
           <ExerciseCard key={index} exercise={exercise} />
         ))}
