@@ -179,7 +179,7 @@ export const fetchCurrentUserDetail = async (): Promise<User> => {
   return response.data;
 };
 
-export const updateUser = async (userId: number, userData: {password: string}): Promise<User> => {
+export const updateUser = async (userId: number, userData: {username: string, password: string}): Promise<User> => {
   const response = await api.put(`/user/update/${userId}`, userData);
   return response.data;
 };
