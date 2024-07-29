@@ -45,7 +45,7 @@ const Register: React.FC = () => {
                     throw error;
                 });
                 navigate('/login');
-            } catch (error : { message: string; }) {
+            } catch (error: any) {
                 setIsRegistering(false);
                 const errorMessage : string = error?.message;
                 setErrorMessage(`Error signing up. Please try again. Error: ${errorMessage}`);

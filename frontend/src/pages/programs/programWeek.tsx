@@ -37,7 +37,7 @@ const ProgramWeek: React.FC = () => {
                     {days.map((day) => (
                         <>
                             {/* <h2 className='text-left text-black text-l sm:text-xl font-bold m-5 mb-0'>Day {day.day_number}</h2> */}
-                            <ProgramDayCard dayID ={day.id} dayNum={day.day_number} description={day.description}/>
+                            <ProgramDayCard day={day}/>
                         </>
                     ))}
                 </>

@@ -12,6 +12,11 @@ class CourseSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'images', 'description', 'price','created_at']
 
 
+class CourseDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CourseDetail
+        fields = ['id', 'course', 'image_url', 'question', 'detail', 'detail_num']
+        
 class UserSerializer(serializers.ModelSerializer):
     courses_subscribed = serializers.SerializerMethodField(read_only=True)
     
@@ -53,10 +58,16 @@ class WeekSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+
 class DaySerializer(serializers.ModelSerializer):
+    num_exercises = serializers.SerializerMethodField()
+
     class Meta:
         model = Day
-        fields = '__all__'
+        fields = ['id', 'week', 'day_number', 'day_name', 'description', 'num_exercises', 'image_url']
+    
+    def get_num_exercises(self, obj):
+        return Exercise.objects.filter(day_id=obj.id).count()
 
 
 class ExerciseSerializer(serializers.ModelSerializer):

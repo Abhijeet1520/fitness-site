@@ -8,4 +8,5 @@ urlpatterns = [
     path('week/', include('base.base_urls.week_urls')),
     path('day/', include('base.base_urls.day_urls')),
     path('exercise/', include('base.base_urls.exercise_urls')),
+    path('coursedetail/', include('base.base_urls.course_detail_urls')),
 ]

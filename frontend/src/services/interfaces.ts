@@ -17,8 +17,11 @@ export interface Course {
   export interface Day {
     id: number;
     day_number: number;
+    day_name: string;
     description: string;
     week: number;
+    num_exercises: number;
+    image_url: string;
   }
 
   export interface Exercise {
