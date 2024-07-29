@@ -16,6 +16,7 @@ const ProgramWeekDaysNav = () => {
   const navigate = useNavigate();
   const programID = useParams().name;
   const weekID = useParams().week;
+  const dayId = useParams().day;
 
   const settings = {
     dots: true,
@@ -61,11 +62,11 @@ const ProgramWeekDaysNav = () => {
         <Slider {...settings} className=''>
           {days.map((day, index) => (
                     <span key={index}
-                    className='text-black text-2xl font-bold m-5 hover:cursor-pointer'
-                    onClick={() => navigate(`/programs/${programID}/${weekID}/${day.id} `)}
+                        className={`${dayId === day.id.toString() ? 'text-black' : 'text-gray-500'} text-lg md:text-xl lg:text-2xl font-bold m-5 hover:cursor-pointer`}
+                        onClick={() => navigate(`/programs/${programID}/${weekID}/${day.id} `)}
                     >
-                      Day {day.day_number}
-                  </span>
+                        Day {day.day_number}
+                    </span>
                 ))}
         </Slider>
     </div>

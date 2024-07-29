@@ -39,12 +39,12 @@ const Programs: React.FC = () => {
     return (
         <div className='flex flex-col h-full px-[10%] font-serif'>
             <div className='border-b-2 px-[2%]'>
-                <h1 className='text-left text-black text-5xl font-bold m-5 pt-10'>Programs</h1>
+                <h1 className='text-left text-black text-xl md:text-2xl lg:text-3xl font-bold m-5 pt-10'>Programs</h1>
             </div>
 
             <div className="dropdown dropdown-bottom dropdown-end ml-auto">
-                <div tabIndex={0} role="button" className="btn m-1 text-white">Filters <HiOutlineDotsVertical /></div>
-                <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                <div tabIndex={0} role="button" className="btn m-1 bg-slate-900 hover:bg-slate-900 text-white">Filters <HiOutlineDotsVertical /></div>
+                <ul tabIndex={0} className="dropdown-content menu bg-slate-900 text-white rounded-box z-[1] w-52 p-2 shadow">
                     <li><a>My Programs</a></li>
                     <li><a>All Programs</a></li>
                 </ul>
@@ -59,8 +59,8 @@ const Programs: React.FC = () => {
                     >
                         <img src={alt3} alt={program.name} className="w-full h-40 object-cover mb-4 rounded-t-xl" />
                         <div className='text-left mb-2 px-4'>
-                            <h3 className="text-xl font-bold">{program.name}</h3>
-                            <p className='text-gray-600'>{program.description}</p>
+                            <h3 className="text-base md:text-lg font-bold">{program.name}</h3>
+                            <p className='text-sm md:text-base text-gray-600'>{program.description}</p>
                         </div>
                     </div>
                 ))}

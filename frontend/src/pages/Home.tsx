@@ -11,7 +11,6 @@ const Home: React.FC = () => {
 
     return (
         <div>
-        <Header />
         <About id="about" />
         <Programs id="programs" />
         <hr />

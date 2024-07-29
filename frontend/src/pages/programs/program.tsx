@@ -122,7 +122,7 @@ const Program: React.FC = () => {
     <div className="p-0 m-0">
       <div className="flex flex-col h-full px-[10%] font-serif">
         <div className="border-b-2 px-[2%]">
-          <h1 className="text-left text-black text-5xl font-bold m-5 pt-10">
+          <h1 className="text-left text-black text-xl md:text-2xl lg:text-3xl font-bold m-5 pt-10">
             {program.name} Program
           </h1>
         </div>
