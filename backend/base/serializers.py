@@ -58,10 +58,16 @@ class WeekSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+
 class DaySerializer(serializers.ModelSerializer):
+    num_exercises = serializers.SerializerMethodField()
+
     class Meta:
         model = Day
-        fields = '__all__'
+        fields = ['id', 'week', 'day_number', 'day_name', 'description', 'num_exercises']
+    
+    def get_num_exercises(self, obj):
+        return Exercise.objects.filter(day_id=obj.id).count()
 
 
 class ExerciseSerializer(serializers.ModelSerializer):

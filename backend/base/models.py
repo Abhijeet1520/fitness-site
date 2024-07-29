@@ -33,6 +33,7 @@ class Week(models.Model):
 
 class Day(models.Model):
     day_number= models.IntegerField(null=True, blank=True)
+    day_name = models.TextField(null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     week = models.ForeignKey(Week, on_delete=models.CASCADE)
 
