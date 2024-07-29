@@ -11,4 +11,5 @@ export  interface Exercise {
     description?: string;         // Optional field
     video_url?: string;           // Optional field
     created_at: string;           // ISO 8601 date string, representing creation timestamp
+    complete_url?: string;
   }
