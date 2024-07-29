@@ -12,6 +12,15 @@ class Course(models.Model):
     def __str__(self):
         return self.name +" | "  + str(self.price)
 
+class CourseDetail(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    image_url = models.TextField(null=True, blank=True)  # Assuming the URL is a valid URL
+    question = models.TextField(null=True, blank=True)
+    detail = models.TextField(null=True, blank=True)
+    detail_num = models.IntegerField(null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.course.name} - Detail {self.detail_num}"
 
 class Week(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)

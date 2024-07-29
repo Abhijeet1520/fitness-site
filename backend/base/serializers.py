@@ -12,6 +12,11 @@ class CourseSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'images', 'description', 'price','created_at']
 
 
+class CourseDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CourseDetail
+        fields = ['id', 'course', 'image_url', 'question', 'detail', 'detail_num']
+        
 class UserSerializer(serializers.ModelSerializer):
     courses_subscribed = serializers.SerializerMethodField(read_only=True)
     
