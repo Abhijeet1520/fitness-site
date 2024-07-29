@@ -5,7 +5,7 @@ import { useAuth } from '../../contexts/authContext';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import './custom-slick.css';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { fetchWeeks } from '@services/apiService';
 import { Week } from '@services/interfaces';
 
@@ -21,6 +21,15 @@ const programWeekNav: React.FC<ProgramWeekNavProps> = ({ programID }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const { userLoggedIn } = useAuth();
+
+  const programId = useParams().name;
+  const weekId = useParams().week;
+  
+  const location = useLocation();
+  const pathSegments = location.pathname.split('/');
+  const lastPathSegment = pathSegments[pathSegments.length - 1];
+  const inAboutPage = lastPathSegment === (programId ? programId.toString() : '');
+
   const navigate = useNavigate();
   const userOwnsProgram = true;
   
@@ -76,23 +85,23 @@ const programWeekNav: React.FC<ProgramWeekNavProps> = ({ programID }) => {
     <div className='w-full mb-2'>
         <Slider {...settings} className=''>
           <span 
-            className='text-black text-2xl font-bold m-5 hover:cursor-pointer' 
+            className={`${(programId === programID) && inAboutPage ? 'text-black' : 'text-gray-500'} text-2xl font-bold m-5 hover:cursor-pointer`} 
             onClick={() => navigate(`/programs/${programID}`)}
             >
               About
             </span>
 
-          { (!userLoggedIn || !userOwnsProgram ) && <span 
+          {/* { (!userLoggedIn || !userOwnsProgram ) && <span 
             className='text-black text-2xl font-bold m-5 hover:cursor-pointer' 
             onClick={() => navigate(`/programs/${programID}`)}
             >
               Purchase
-            </span>}
+            </span>} */}
 
           {userLoggedIn && userOwnsProgram && weeks.map((week, index) => (
           <span 
             key={week.id} // Assuming each week has a unique `id`
-            className='text-black text-2xl font-bold m-5 hover:cursor-pointer'
+            className={`${weekId === week.id.toString() ? 'text-black' : 'text-gray-500'} text-2xl font-bold m-5 hover:cursor-pointer`}
             //TODO: See if we need to use indedx or week.id here instead?
             onClick={() => navigate(`./${week.id}`)}
           >
