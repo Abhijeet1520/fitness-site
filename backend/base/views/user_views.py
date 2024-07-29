@@ -12,8 +12,10 @@ class UserCreateView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         # Ensure that first_name and last_name are saved during user creation
-        serializer.save(first_name=self.request.data.get('first_name', ''),
-                        last_name=self.request.data.get('last_name', ''))
+        user = serializer.save(first_name=self.request.data.get('first_name', ''),
+                               last_name=self.request.data.get('last_name', ''))
+        user.set_password(self.request.data['password'])
+        user.save()
 
 # Create an admin user, only an admin can create another admin user
 class AdminUserCreateView(generics.CreateAPIView):
@@ -25,6 +27,7 @@ class AdminUserCreateView(generics.CreateAPIView):
     def perform_create(self, serializer):
         user = serializer.save(is_staff=True, first_name=self.request.data.get('first_name', ''),
                                last_name=self.request.data.get('last_name', ''))
+        user.set_password(self.request.data['password'])
         user.save()
 
 # Can only access data that belongs to itself not other users
