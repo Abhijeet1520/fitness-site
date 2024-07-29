@@ -4,6 +4,15 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  daisyui: {
+    themes: [
+      {
+        mytheme: {
+            "secondary": "#f97316",
+          },
+        },
+      ],
+    },
   theme: {
     extend: {
       boxShadow: {
@@ -11,6 +20,10 @@ export default {
       },
       borderRadius: {
         '7': '7px',
+      },
+      colors: {
+        // 'primary': '#FF6363',
+        'secondary': 'orange',
       },
     },
   },
