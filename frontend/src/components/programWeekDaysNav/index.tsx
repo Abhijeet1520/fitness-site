@@ -62,7 +62,7 @@ const ProgramWeekDaysNav = () => {
         <Slider {...settings} className=''>
           {days.map((day, index) => (
                     <span key={index}
-                        className={`${dayId === day.id.toString() ? 'text-black' : 'text-gray-500'} text-2xl font-bold m-5 hover:cursor-pointer`}
+                        className={`${dayId === day.id.toString() ? 'text-black' : 'text-gray-500'} text-lg md:text-xl lg:text-2xl font-bold m-5 hover:cursor-pointer`}
                         onClick={() => navigate(`/programs/${programID}/${weekID}/${day.id} `)}
                     >
                         Day {day.day_number}

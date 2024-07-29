@@ -85,7 +85,7 @@ const programWeekNav: React.FC<ProgramWeekNavProps> = ({ programID }) => {
     <div className='w-full mb-2'>
         <Slider {...settings} className=''>
           <span 
-            className={`${(programId === programID) && inAboutPage ? 'text-black' : 'text-gray-500'} text-2xl font-bold m-5 hover:cursor-pointer`} 
+            className={`${(programId === programID) && inAboutPage ? 'text-black' : 'text-gray-500'} text-lg md:text-xl lg:text-2xl font-bold m-5 hover:cursor-pointer`} 
             onClick={() => navigate(`/programs/${programID}`)}
             >
               About
@@ -101,7 +101,7 @@ const programWeekNav: React.FC<ProgramWeekNavProps> = ({ programID }) => {
           {userLoggedIn && userOwnsProgram && weeks.map((week, index) => (
           <span 
             key={week.id} // Assuming each week has a unique `id`
-            className={`${weekId === week.id.toString() ? 'text-black' : 'text-gray-500'} text-2xl font-bold m-5 hover:cursor-pointer`}
+            className={`${weekId === week.id.toString() ? 'text-black' : 'text-gray-500'} text-lg md:text-xl lg:text-2xl font-bold m-5 hover:cursor-pointer`}
             //TODO: See if we need to use indedx or week.id here instead?
             onClick={() => navigate(`./${week.id}`)}
           >
