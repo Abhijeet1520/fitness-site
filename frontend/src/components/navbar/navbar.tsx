@@ -53,11 +53,6 @@ const Header: React.FC = () => {
                                     Contact
                                 </a>
                             </li>
-                            <li> 
-                                <a style={{color: "white", fontFamily: "helvetica"}}>
-                                    More
-                                </a>
-                            </li>
                         </ul>
                 </div> 
                 <a href="/" className="pagename">Altemira Fitness</a>
@@ -69,7 +64,6 @@ const Header: React.FC = () => {
                     <li><a href={window.location.pathname.toString() === "/" ? "#about" : "/#about" } className="nav-el">About</a></li>
                     <li><a href="/programs" className="nav-el">Programs</a></li>
                     <li><a href={window.location.pathname.toString() === "/" ? "#contact" : "/#contact" } className="nav-el">Contact</a></li>
-                    <li><a className="nav-el">More</a></li>
                 </ul>
                 </div>
                 {userLoggedIn && <div className="loginbtn">
