@@ -14,7 +14,7 @@ const ExerciseCard = ({ exercise }: { exercise: Exercise }) => {
       <div className={`absolute left-0 top-0 h-full w-2 ${exercise.type === "cooldown" ? "bg-blue-300" : exercise.type === "warmup" ? "bg-orange-300" : "bg-zinc-300"}`}></div>
       <div className='flex'>
         <h2 className="flex-1 text-xl font-bold text-left ml-4">{exercise.title}</h2>
-          <div className={`badge ${exercise.type === "warmup" ? "badge-secondary" : "badge-neutral"} badge-outline text-xs md:text-lg`}>{exercise.type}</div>
+          {/* <div className={`badge ${exercise.type === "warmup" ? "badge-secondary" : "badge-neutral"} badge-outline text-xs md:text-lg`}>{exercise.type}</div> */}
       </div>
       {exercise.complete_url && (
         <ReactPlayer

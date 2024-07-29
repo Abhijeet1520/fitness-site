@@ -14,8 +14,31 @@ const ExercisePage = () => {
   const [exercises, setExercises] = useState<UpdatedExercise[]>([]);
   const dayID = useParams().day;
   const weekID = useParams().week;
+  const [counts, setCounts] = useState({
+    warmup: 0,
+    workout: 0,
+    cooldown: 0
+  });
 
+  const getExerciseTypeCounts = (exercises: Exercise[]) => {
+    const counts = {
+      warmup: 0,
+      workout: 0,
+      cooldown: 0
+    };
 
+    exercises.forEach(exercise => {
+      if (exercise.type === 'warmup') {
+        counts.warmup++;
+      } else if (exercise.type === 'main') {
+        counts.workout++;
+      } else if (exercise.type === 'cooldown') {
+        counts.cooldown++;
+      }
+    });
+
+    return counts;
+  }
 
   useEffect(() => {
     const loadExercises = async () => {
@@ -47,7 +70,16 @@ const ExercisePage = () => {
   return (
     <>
       <ProgramWeekDaysNav/>
-    <div className="my-10 md:ml-0 ml-[-5%]">
+      <div className='text-left font-sans bold mt-5 md:mt-0'>
+        Today's exercises: {exercises.length > 0 ? exercises.length : ''}
+        <br />
+        <div className={`badge badge-secondary badge-outline text-xs md:text-lg`}>{getExerciseTypeCounts(exercises).warmup > 0 ? getExerciseTypeCounts(exercises).warmup : ''}</div> x Warmup
+        {/* Warmup: {getExerciseTypeCounts(exercises).warmup > 0 ? getExerciseTypeCounts(exercises).warmup : ''} */}
+        <br />
+        <div className={`badge badge-neutral badge-outline text-xs md:text-lg`}>{getExerciseTypeCounts(exercises).warmup > 0 ? getExerciseTypeCounts(exercises).workout : ''}</div> x Main
+        {/* Main: {getExerciseTypeCounts(exercises).workout > 0 ? getExerciseTypeCounts(exercises).workout : ''} */}
+      </div>
+    <div className="my-[1rem] md:my-10 md:ml-0 ml-[-5%]">
         {exercises.map((exercise,index) => (
           <ExerciseCard key={index} exercise={exercise} />
         ))}
