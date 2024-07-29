@@ -10,7 +10,7 @@ const TestimonialCard: React.FC<Testimonial> = (testimonial: Testimonial) => {
         className="card bg-base-400 shadow-xl"
       >
         <figure className="px-10 pt-10">
-          <img src={FRONT_END_BASE_URL + testimonial.image} alt="Shoes" className="rounded-xl min-h-[590px]" />
+          <img src={FRONT_END_BASE_URL + testimonial.image} alt="Shoes" className="rounded-xl md:min-h-[590px]" />
         </figure>
         <div className="card-body items-center text-center">
           {/* <h2 className="program-title items-center text-center">
