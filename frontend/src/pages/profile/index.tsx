@@ -53,7 +53,7 @@ const Profile: React.FC = () => {
       try {
         setResettingPassword(false);
         setNewPassword('');
-        await updateUser( currentUser.id, { password: newPassword });
+        await updateUser( currentUser.id, { username: currentUser.username, password: newPassword });
       } catch (error) {
         console.error('Error updating password:', error);
       }
