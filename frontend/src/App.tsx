@@ -1,22 +1,25 @@
 import React from 'react';
-import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import Login from './pages/auth/login/index';
-import Register from './pages/auth/register/index';
-import Programs from './pages/programs/index';
-import Program from './pages/programs/program';
-import ProgramWeek from './pages/programs/programWeek';
 import { AuthProvider } from './contexts/authContext';
-import Profile from './pages/profile';
-import Navbar from './components/navbar/navbar';
-import Footer from './components/footer';
-import ResetPassword from './pages/auth/login/resetPassword';
-import Unverified from './pages/auth/login/unverified';
-import Exercise from './pages/programs/exercise';
+import "./App.css";
+
 import { Elements } from '@stripe/react-stripe-js';
 import StripeProvider from './stripe/payment';
 import { loadStripe } from '@stripe/stripe-js';
+
+import Home from '@pages/Home';
+import Login from '@pages/auth/login/index';
+import Register from '@pages/auth/register/index';
+import Programs from '@pages/programs/index';
+import Program from '@pages/programs/program';
+import ProgramWeek from '@pages/programs/programWeek';
+import Profile from '@pages/profile';
+import Navbar from '@components/navbar/navbar';
+import Footer from '@components/footer';
+import ResetPassword from '@pages/auth/login/resetPassword';
+import Unverified from '@pages/auth/login/unverified';
+import Exercise from '@pages/programs/exercise';
+import NotFound from '@pages/NotFound';
 import Completion from './stripe/completion';
 import CheckoutForm from './stripe/checkoutForm';
 
@@ -58,6 +61,7 @@ const App: React.FC = () => {
               <Route path="/completion" element={<Completion />} />
               <Route path="/resetpassword" element={<ResetPassword/>} />
               <Route path="/unverified" element={<Unverified/>} />
+              <Route path='*' element={<NotFound />} />
             </Routes>
           </div>
           <Footer />
