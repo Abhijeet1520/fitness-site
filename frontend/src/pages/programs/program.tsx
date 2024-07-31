@@ -111,11 +111,11 @@ const Program: React.FC = () => {
   if (!program) return null;
 
   if (loading) {
-    return <p>Loading...</p>; // Show a loading state while fetching data
+    return <p className="mt-10">Loading...</p>; // Show a loading state while fetching data
   }
 
   if (error) {
-    return <p>{error}</p>; // Show an error message if there was an issue
+    return <p className="mt-10">{error}</p>; // Show an error message if there was an issue
   }
 
   return (
