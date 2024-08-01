@@ -29,11 +29,11 @@ const Programs: React.FC = () => {
     }, []);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <div className='mt-10'>Loading...</div>;
     }
 
     if (error) {
-        return <div>{error}</div>;
+        return <div className='mt-10'>{error}</div>;
     }
 
     return (
