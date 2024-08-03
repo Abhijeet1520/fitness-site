@@ -5,16 +5,25 @@ export interface Course {
     description: string;
     price: number;
     created_at: string;
-  }
+}
 
-  export interface Week {
+export interface CourseDetail {
+    id: number;
+    course: number;
+    imageUrl: string;
+    question: string;
+    detail: string;
+    detailNum: number;
+}
+
+export interface Week {
     id: number;
     course: number;
     week_number: number;
     created_at: string;
-  }
+}
 
-  export interface Day {
+export interface Day {
     id: number;
     day_number: number;
     day_name: string;
@@ -22,9 +31,9 @@ export interface Course {
     week: number;
     num_exercises: number;
     image_url: string;
-  }
+}
 
-  export interface Exercise {
+export interface Exercise {
     id: number;
     title: string;
     type: string;
@@ -34,9 +43,9 @@ export interface Course {
     description: string;
     video_url: string;
     created_at: string;
-  }
+}
 
-  export interface Payment {
+export interface Payment {
     id: number;
     user: number;
     course: number;
@@ -45,22 +54,22 @@ export interface Course {
     currency: string;
     status: string;
     created_at: string;
-  }
+}
 
-  export interface Subscription {
+export interface Subscription {
     id: number;
     user: number;
     course: number;
     subscribed_at: string;
-  }
+}
 
-  export interface User {
+export interface User {
     id: number;
     username: string;
     email: string;
-  }
+}
 
-  export interface AuthResponse {
+export interface AuthResponse {
     access: string;
     refresh: string;
-  }
+}
