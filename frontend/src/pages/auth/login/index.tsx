@@ -12,7 +12,10 @@ const Login: React.FC = () => {
     const [password, setPassword] = useState<string>('');
     const [isLoggingIn, setIsLoggingIn] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string>('');
-
+    const navigateToHomeAndRefresh = () => {
+        navigate('/');
+        window.location.reload(); // This forces a full page reload
+    };
     const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!isLoggingIn) {
@@ -27,7 +30,7 @@ const Login: React.FC = () => {
                 const currentUser = await fetchCurrentUserDetail();
                 setCurrentUser(currentUser); // Assuming response contains user data
                 setTimeout(()=>{},500);
-                navigate('/');
+                navigateToHomeAndRefresh();
             } catch (error) {
                 setErrorMessage('Email or password is incorrect. Please try again.');
                 setIsLoggingIn(false);

@@ -16,7 +16,7 @@ from rest_framework.views import APIView
 
 # This is my secrete stripe key
 # stripe.api_key = settings.STRIPE_SECRET_KEY
-stripe.api_key = 'sk_test_51PaeGKRoRlCW2Nqt8PdddrkxoxYhfV3I33IRzTvpNXmD6MFEe8MHUjyIDROdWKfuJuvsY49usXgH5vIkX9ChUGrc00Nsttapmj'
+stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
 
 # we need to exempt it from csrf as this comes from stripe
 class CreatePaymentIntentView(APIView):
