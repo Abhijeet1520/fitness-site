@@ -10,7 +10,7 @@ export interface Course {
 export interface CourseDetail {
     id: number;
     course: number;
-    imageUrl: string;
+    image_url: string;
     question: string;
     detail: string;
     detailNum: number;

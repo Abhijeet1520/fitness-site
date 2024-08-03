@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import ProgramWeekNav from "../../components/programWeeksNav/index";
 import { useAuth } from "../../contexts/authContext";
-import { fetchCourseDetail, fetchUserSubscribedCourses } from "@services/apiService";
-import { Course } from "@services/interfaces";
+import { fetchCourseDetail, fetchCourseDetailById, fetchUserSubscribedCourses } from "@services/apiService";
+import { Course, CourseDetail } from "@services/interfaces";
 
 const Program: React.FC = () => {
   // const { userLoggedIn } = useAuth();
@@ -13,6 +13,7 @@ const Program: React.FC = () => {
 
   const programID = useParams().name;
   const [program, setProgram] = useState<Course | null>(null);
+  const [programDetails, setProgramDetails] = useState<CourseDetail[]>([]);
 
   const [isSubscribed, setIsSubscribed] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
@@ -34,37 +35,27 @@ const Program: React.FC = () => {
       followingProgram:
         "To get the most out of this program, follow the weekly workout schedule and complete each exercise with proper form. Engage with the instructional videos and utilize the provided guides for technique and motivation. Stay consistent with the workouts, follow the supplementary meal and recovery plans, and actively participate in the community for additional support and accountability.",
     },
-    {
-      name: "Abs",
-      includedImage: "https://picsum.photos/400",
-      forMeImage: "https://picsum.photos/400",
-      resultsExpectImage: "https://picsum.photos/400",
-      followingProgramImage: "https://picsum.photos/400",
-      included:
-        "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      forMe:
-        "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      resultsExpect:
-        "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      followingProgram:
-        "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    },
-    {
-      name: "Arms",
-      includedImage: "https://picsum.photos/400",
-      forMeImage: "https://picsum.photos/400",
-      resultsExpectImage: "https://picsum.photos/400",
-      followingProgramImage: "https://picsum.photos/400",
-      included:
-        "Arms lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      forMe:
-        "Arms lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      resultsExpect:
-        "Arms lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      followingProgram:
-        "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    },
   ];
+
+  useEffect(() => {
+    const getProgramDetails = async () => {
+      try {
+        const getProgramDetails = await fetchCourseDetailById( programID + "");
+        if(!getProgramDetails) {
+          // navigate(`/programs/${programID}`);
+        }
+        else{
+          setProgramDetails(getProgramDetails);
+        }
+      } catch (error) {
+        // Handle errors, e.g., network errors
+        console.error("Error fetching program details:", error);
+        navigate(`/programs/${programID}`);
+      }
+    };
+
+    getProgramDetails();
+  } , [programID, navigate]);
 
   useEffect(() => {
     const getProgramDetails = async () => {
@@ -139,16 +130,16 @@ const Program: React.FC = () => {
             <div className="flex flex-col p-5 m-5 bg-[#FAFAF5] border border-[#E6E6E6] rounded-2xl">
               <div className="w-full">
                 <h2 className="text-left text-black text-xl sm:text-3xl font-bold m-5">
-                  What's included?
+                  {programDetails[0].question}
                 </h2>
               </div>
               <div className="flex flex-wrap justify-between gap-10 m-5">
                 <p className="text-left text-black text-lg font-normal xl:w-[50%] w-full">
-                  {programs[0].included}
+                  {programDetails[0].detail}
                 </p>
                 <div className="xl:w-fit w-full md:flex md:justify-center">
                   <img
-                    src={programs[0].includedImage}
+                    src={programDetails[0].image_url}
                     alt="includedImage"
                     className="rounded-lg h-[350px] sm:h-[450px]"
                   />
@@ -175,19 +166,19 @@ const Program: React.FC = () => {
             <div className="flex flex-col p-5 m-5 bg-[#FAFAF5] border border-[#E6E6E6] rounded-2xl">
               <div className="w-full">
                 <h2 className="text-left text-black text-xl sm:text-3xl font-bold m-5">
-                  Is This The Program For Me?
+                {programDetails[1].question}
                 </h2>
               </div>
               <div className="flex flex-wrap justify-between gap-10 m-5">
                 <div className="xl:w-fit w-full md:flex md:justify-center">
                   <img
-                    src={programs[0].forMeImage}
+                  src={programDetails[1].image_url}
                     alt="forMe"
                     className="rounded-lg h-[350px] sm:h-[450px]"
                   />
                 </div>
                 <p className="text-left text-black text-lg font-normal xl:w-[50%] w-full">
-                  {programs[0].forMe}
+                  {programDetails[1].detail} 
                 </p>
               </div>
             </div>
@@ -211,16 +202,16 @@ const Program: React.FC = () => {
             <div className="flex flex-col p-5 m-5 bg-[#FAFAF5] border border-[#E6E6E6] rounded-2xl">
               <div className="w-full">
                 <h2 className="text-left text-black text-xl sm:text-3xl font-bold m-5">
-                  What Results To Expect
+                {programDetails[2].question}
                 </h2>
               </div>
               <div className="flex flex-wrap justify-between gap-10 m-5">
                 <p className="text-left text-black text-lg font-normal xl:w-[50%] w-full">
-                  {programs[0].resultsExpect}
+                {programDetails[2].detail}
                 </p>
                 <div className="xl:w-fit w-full md:flex md:justify-center">
                   <img
-                    src={programs[0].resultsExpectImage}
+                    src={programDetails[2].image_url}
                     alt="expectedResults"
                     className="rounded-lg h-[350px] sm:h-[450px]"
                   />
@@ -247,19 +238,21 @@ const Program: React.FC = () => {
             <div className="flex flex-col p-5 m-5 bg-[#FAFAF5] border border-[#E6E6E6] rounded-2xl">
               <div className="w-full">
                 <h2 className="text-left text-black text-xl sm:text-3xl font-bold m-5">
-                  How To Follow This Program?
+                {programDetails[0].question}
+
                 </h2>
               </div>
               <div className="flex flex-wrap justify-between gap-10 m-5">
                 <div className="xl:w-fit w-full md:flex md:justify-center">
                   <img
-                    src={programs[0].followingProgramImage}
+                    src={programDetails[3].image_url}
                     alt="followProgram"
                     className="rounded-lg h-[350px] sm:h-[450px]"
                   />
                 </div>
                 <p className="text-left text-black text-lg font-normal xl:w-[50%] w-full">
-                  {programs[0].followingProgram}
+                  {programDetails[3].detail}
+                  {programDetails[3].image_url}
                 </p>
               </div>
             </div>
