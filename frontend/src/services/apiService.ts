@@ -3,6 +3,7 @@ import { ACCESS_TOKEN, REFRESH_TOKEN } from "./constants";
 import {
   AuthResponse,
   Course,
+  CourseDetail,
   Day,
   Exercise,
   User,
@@ -84,6 +85,12 @@ export const deleteCourse = async (courseId: string): Promise<void> => {
 
 export const fetchUserSubscribedCourses = async (): Promise<Course[]> => {
   const response = await api.get('/course/subscribed/');
+  return response.data;
+};
+
+// Course Details
+export const fetchCourseDetailById = async (courseDetailId: string): Promise<CourseDetail> => {
+  const response = await api.get(`/coursedetail/${courseDetailId}/`);
   return response.data;
 };
 
