@@ -252,7 +252,6 @@ const Program: React.FC = () => {
                 </div>
                 <p className="text-left text-black text-lg font-normal xl:w-[50%] w-full">
                   {programDetails[3].detail}
-                  {programDetails[3].image_url}
                 </p>
               </div>
             </div>
