@@ -22,6 +22,7 @@ import Exercise from '@pages/programs/exercise';
 import NotFound from '@pages/NotFound';
 import Completion from './stripe/completion';
 import CheckoutForm from './stripe/checkoutForm';
+import ProtectedRoute from '@components/ProtectedRoute';
 
 const App: React.FC = () => {
 
@@ -37,7 +38,9 @@ const App: React.FC = () => {
               <Route index element={<Home/>} />
               <Route path="/login" element={<Login/>} />
               <Route path="/register" element={<Register/>} />
-              <Route path="/profile" element={<Profile/>} />
+                <Route path="/profile" element={ <ProtectedRoute>
+                  <Profile/>
+                  </ProtectedRoute>}/>
               <Route path="/programs">
                 <Route index element={<Programs/>} />
                 <Route path=':name' element={<Program/>} >
@@ -46,21 +49,20 @@ const App: React.FC = () => {
                   </Route>
                 </Route>
               </Route>
-              <Route path="/resetpassword" element={<ResetPassword/>} />
-              <Route path="/unverified" element={<Unverified/>} />
+              <Route path="/resetpassword" element={<ProtectedRoute><ResetPassword/></ProtectedRoute>} />
               <Route
                 path="/checkout/:courseID"
                 element={
-                  <StripeProvider>
-                    <div className="flex justify-center">
-                      <CheckoutForm />
-                    </div>
-                  </StripeProvider>
+                  <ProtectedRoute>
+                    <StripeProvider>
+                      <div className="flex justify-center">
+                        <CheckoutForm />
+                      </div>
+                    </StripeProvider>
+                  </ProtectedRoute>
                 }
               />
               <Route path="/completion" element={<Completion />} />
-              <Route path="/resetpassword" element={<ResetPassword/>} />
-              <Route path="/unverified" element={<Unverified/>} />
               <Route path='*' element={<NotFound />} />
             </Routes>
           </div>

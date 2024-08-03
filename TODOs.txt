@@ -7,9 +7,7 @@ DOCKER TODOS:
 
 FINAL TODO:
 1. Remove Security for localstorage tokens
-2. SetUP Stripe Business (Tmrw)
 3. Do something about csrf protection see if it works without it?
-5. We need to fix Profile Page
 8. HTTPS backend
 9. Frontend deployment.
 11. SETUP LOGIN REDIRECT FOR  non-auth users

@@ -33,6 +33,24 @@ class UserSerializer(serializers.ModelSerializer):
         courses = [subscription.course for subscription in subscriptions]
 
         return CourseSerializer(courses, many=True).data
+    
+    def create(self, validated_data):
+        # Override the create method to handle password hashing
+        password = validated_data.pop('password', None)
+        user = super().create(validated_data)
+        if password:
+            user.set_password(password)
+            user.save()
+        return user
+
+    def update(self, instance, validated_data):
+        # Override the update method to handle password hashing
+        password = validated_data.pop('password', None)
+        user = super().update(instance, validated_data)
+        if password:
+            user.set_password(password)
+            user.save()
+        return user
 
     
 

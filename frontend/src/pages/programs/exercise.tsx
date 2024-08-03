@@ -1,7 +1,7 @@
 import { fetchExercises } from '@services/apiService';
 import axios from 'axios';
 import { useEffect, useState } from "react";
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import ExerciseCard from "../../components/exercises/exerciseCard";
 import ProgramWeekDaysNav from '../../components/programWeekDaysNav/index';
 import { Exercise } from "../../interfaces/exercise";

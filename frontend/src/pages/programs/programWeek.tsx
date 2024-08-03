@@ -1,7 +1,7 @@
 import { fetchDays } from '@services/apiService';
 import { Day } from '@services/interfaces';
 import React, { useEffect, useState } from 'react';
-import { Outlet, useLocation, useParams } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import ProgramDayCard from '../../components/programDaysCard/index';
 
 
@@ -9,6 +9,7 @@ const ProgramWeek: React.FC = () => {
     const location = useLocation();
     const weekID = useParams().week;
     const [days, setDays] = useState<Day[]>([]);
+
 
     useEffect(() => {
         const loadDays = async () => {
