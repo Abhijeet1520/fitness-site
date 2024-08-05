@@ -111,7 +111,7 @@ const Program: React.FC = () => {
 
   return (
     <div className="p-0 m-0">
-      <div className="flex flex-col h-full px-[10%] font-serif">
+      <div className="flex flex-col h-full px-[5%] md:px-[10%] font-serif">
         <div className="border-b-2 px-[2%]">
           <h1 className="text-left text-black text-xl md:text-2xl lg:text-3xl font-bold m-5 pt-10">
             {program.name} Program
@@ -137,7 +137,7 @@ const Program: React.FC = () => {
                 <p className="text-left text-black text-lg font-normal xl:w-[50%] w-full">
                   {programDetails[0].detail}
                 </p>
-                <div className="xl:w-fit w-full md:flex md:justify-center">
+                <div className="xl:w-fit w-full md:flex md:justify-center object-cover">
                   <img
                     src={programDetails[0].image_url}
                     alt="includedImage"
@@ -170,7 +170,7 @@ const Program: React.FC = () => {
                 </h2>
               </div>
               <div className="flex flex-wrap justify-between gap-10 m-5">
-                <div className="xl:w-fit w-full md:flex md:justify-center">
+                <div className="xl:w-fit w-full md:flex md:justify-center object-cover">
                   <img
                   src={programDetails[1].image_url}
                     alt="forMe"
@@ -209,7 +209,7 @@ const Program: React.FC = () => {
                 <p className="text-left text-black text-lg font-normal xl:w-[50%] w-full">
                 {programDetails[2].detail}
                 </p>
-                <div className="xl:w-fit w-full md:flex md:justify-center">
+                <div className="xl:w-fit w-full md:flex md:justify-center object-cover">
                   <img
                     src={programDetails[2].image_url}
                     alt="expectedResults"
@@ -247,7 +247,7 @@ const Program: React.FC = () => {
                   <img
                     src={programDetails[3].image_url}
                     alt="followProgram"
-                    className="rounded-lg h-[350px] sm:h-[450px]"
+                    className="rounded-lg h-[350px] sm:h-[450px] object-cover"
                   />
                 </div>
                 <p className="text-left text-black text-lg font-normal xl:w-[50%] w-full">
