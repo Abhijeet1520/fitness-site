@@ -238,7 +238,7 @@ const Program: React.FC = () => {
             <div className="flex flex-col p-5 m-5 bg-[#FAFAF5] border border-[#E6E6E6] rounded-2xl">
               <div className="w-full">
                 <h2 className="text-left text-black text-xl sm:text-3xl font-bold m-5">
-                {programDetails[0].question}
+                {programDetails[3].question}
 
                 </h2>
               </div>
