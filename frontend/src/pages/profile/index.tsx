@@ -96,10 +96,10 @@ const Profile: React.FC = () => {
         <button onClick={handleLogout} className="btn bg-black text-white text-sm w-full my-5">
           Logout <IoLogOutOutline />
         </button>
-        <hr className="w-full my-4" />
+        {/* <hr className="w-full my-4" />
         <button onClick={handleDeleteAccount} className="btn bg-red-500 hover:bg-red-600 text-white text-sm w-full my-5">
           Delete Account <MdOutlineDeleteOutline />
-        </button>
+        </button> */}
       </div>
     </div>
   );
