@@ -20,9 +20,8 @@ server {
     root /home/ubuntu/fitness-site/backend;
 
     location / {
-        try_files $uri $uri/ /index.html;
         include proxy_params;
-        proxy_pass http://unix:/home/ubuntu/fitness-site/backend/fitness-site.sock;
+        proxy_pass http://unix:/home/ubuntu/fitness-site/backend/app.sock;
     }
 
     location /static/ {
