@@ -2,6 +2,7 @@ import { fetchCourseDetail, fetchCourseDetailById, fetchUserSubscribedCourses } 
 import { Course, CourseDetail } from "@services/interfaces";
 import React, { useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
+import dsc_7673 from "../../assets/dsc_7673.jpg";
 import ProgramWeekNav from "../../components/programWeeksNav/index";
 import { useAuth } from "../../contexts/authContext";
 
@@ -93,12 +94,37 @@ const Program: React.FC = () => {
 
   return (
     <div className="p-0 m-0">
-      <div className="flex flex-col h-full px-[5%] md:px-[10%] font-serif">
-        <div className="border-b-2 px-[2%]">
-          <h1 className="text-left text-black text-xl md:text-2xl lg:text-3xl font-bold m-5 pt-10">
-            {program.name} Program
-          </h1>
-        </div>
+      <div className="flex flex-col min-h-[100dvh]">
+        <section className="w-full py-12 md:pt-24 lg:pt-32 border-b">
+          <div className="container space-y-10 xl:space-y-16 px-4 md:px-6">
+            <div className="grid gap-4 md:grid-cols-2 md:gap-16">
+              <div>
+                <h1 className="lg:leading-tighter text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl xl:text-[3.4rem] 2xl:text-[3.75rem]">
+                {program.name} Training
+                </h1>
+                <p className="mt-4 max-w-[700px] text-muted-foreground md:text-xl">
+                  Learn the fundamentals of lower body strength training, including exercises for the glutes, hamstrings, and quadriceps, and build a stronger, more balanced physique.
+                </p>
+                <div className="mt-6 space-x-4">
+                  <a
+                    href="#"
+                    className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                  >
+                    Enroll Now
+                  </a>
+                </div>
+              </div>
+              <img
+                src={dsc_7673}
+                width="550"
+                height="550"
+                alt="Lower Body Strength Training"
+                className="mx-auto aspect-video overflow-hidden rounded-xl object-cover sm:w-full"
+              />
+            </div>
+          </div>
+        </section>
+
 
         {!(!userLoggedIn || !isSubscribed) && (
           <>
