@@ -105,15 +105,19 @@ const Program: React.FC = () => {
                 <p className="mt-4 max-w-[700px] text-muted-foreground md:text-xl">
                   Learn the fundamentals of lower body strength training, including exercises for the glutes, hamstrings, and quadriceps, and build a stronger, more balanced physique.
                 </p>
-                <div className="mt-6 flex items-center justify-center space-x-4">
-                  <button
-                    onClick={() => navigate(`/checkout/${programID}`)}
-                    className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                  >
-                    Enroll Now
-                  </button>
-                  <p className="text-2xl font-bold">${program.price} AUD</p>
-                </div>
+                {!isSubscribed ? (
+                  <div className="mt-6 flex items-center justify-center space-x-4">
+                    <button
+                      onClick={() => navigate(`/checkout/${programID}`)}
+                      className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                    >
+                      Enroll Now
+                    </button>
+                    <p className="text-2xl font-bold">${program.price} AUD</p>
+                  </div>
+                ) : (
+                  <></>
+                )}
               </div>
               <img
                 src={dsc_7673}
